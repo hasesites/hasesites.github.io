@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F6F2EA">
+<title>Лёгкость</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-180.png">
+<style>
+:root{--bg:#F6F2EA;--card:#FFFFFF;--ink:#2B2A27;--mut:#8A857B;--line:#ECE6DA;--acc:#5B8A72;--acc2:#E7F0EA;--warm:#D9895B;--warm2:#FBEEE5;--blue:#5E8FB8;--blue2:#E8F0F7;--r:20px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{padding:env(safe-area-inset-top) 0 calc(84px + env(safe-area-inset-bottom))}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input,select{font:inherit;color:inherit}
+.wrap{max-width:520px;margin:0 auto;padding:16px}
+h1{font-size:26px;margin:6px 0 2px;font-weight:700;letter-spacing:-.3px}
+h2{font-size:19px;margin:22px 4px 10px;font-weight:650}
+.sub{color:var(--mut);font-size:15px}
+.card{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:12px;box-shadow:0 1px 2px rgba(60,50,30,.05)}
+.row{display:flex;align-items:center;gap:12px}
+.sp{flex:1}
+.big{font-size:34px;font-weight:700;letter-spacing:-.5px}
+.btn{background:var(--acc);color:#fff;border-radius:16px;padding:15px 18px;font-weight:650;width:100%;font-size:18px}
+.btn.ghost{background:var(--acc2);color:var(--acc)}
+.btn.sm{width:auto;padding:10px 14px;font-size:16px;border-radius:13px}
+.pill{display:inline-block;background:var(--acc2);color:var(--acc);border-radius:99px;padding:4px 11px;font-size:14px;font-weight:600}
+.bar{height:12px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--acc);border-radius:99px;transition:width .5s}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:5}
+.tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;font-size:13px;color:var(--mut);border-radius:14px}
+.tabs button.on{color:var(--acc);background:var(--acc2)}
+.tabs svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ring{position:relative;width:150px;height:150px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ring .c b{font-size:30px;line-height:1}
+.ring .c span{font-size:13px;color:var(--mut)}
+.stat{font-size:15px;color:var(--mut)}.stat b{color:var(--ink);font-size:19px;display:block}
+.glasses{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.glass{width:34px;height:42px;border:2px solid var(--blue);border-radius:4px 4px 10px 10px;position:relative;overflow:hidden}
+.glass.on::after{content:"";position:absolute;left:0;right:0;bottom:0;height:75%;background:var(--blue)}
+.list .it{display:flex;align-items:center;gap:10px;padding:12px 2px;border-bottom:1px solid var(--line)}
+.list .it:last-child{border-bottom:0}
+.it .nm{flex:1}.it .nm small{display:block;color:var(--mut);font-size:14px}
+.it .kc{font-weight:650;white-space:nowrap}
+.x{width:34px;height:34px;border-radius:10px;color:var(--mut);font-size:22px;line-height:1}
+.seg{display:flex;background:var(--line);border-radius:14px;padding:4px;gap:4px}
+.seg button{flex:1;padding:10px 4px;border-radius:11px;font-size:15px;font-weight:600;color:var(--mut)}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.field{margin:12px 0}.field label{display:block;font-size:15px;color:var(--mut);margin:0 0 6px 4px}
+.inp{width:100%;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px;font-size:18px;outline:none}
+.inp:focus{border-color:var(--acc)}
+.search{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;width:100%;font-size:17px;outline:none;margin-bottom:8px}
+.sheet{position:fixed;inset:0;background:rgba(30,25,15,.35);z-index:20;display:flex;align-items:flex-end;justify-content:center;animation:fd .2s}
+.sheet .pn{background:var(--bg);width:100%;max-width:520px;max-height:90vh;overflow:auto;border-radius:24px 24px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));animation:up .25s cubic-bezier(.2,.9,.3,1)}
+.sheet .hd{display:flex;align-items:center;margin-bottom:8px}.sheet .hd h3{flex:1;margin:0;font-size:20px}
+@keyframes up{from{transform:translateY(40px);opacity:.5}}@keyframes fd{from{opacity:0}}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:#fff;border:1.5px solid var(--line);border-radius:99px;padding:9px 14px;font-size:15px}
+.chip.on{border-color:var(--acc);background:var(--acc2);color:var(--acc);font-weight:600}
+.tip{background:var(--warm2);border-radius:var(--r);padding:16px 18px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start}
+.tip .ic{font-size:22px;line-height:1.2}
+.warn{background:var(--warm2);color:#8a4b24;border-radius:14px;padding:12px 14px;font-size:15px;margin:10px 0}
+.ok{background:var(--acc2);color:#2f5d46;border-radius:14px;padding:12px 14px;font-size:15px;margin:10px 0}
+.ex{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.ex:last-child{border-bottom:0}
+.chk{width:30px;height:30px;border-radius:50%;border:2px solid var(--acc);flex:none;display:flex;align-items:center;justify-content:center;color:#fff}
+.chk.on{background:var(--acc)}
+.chk svg{width:16px;height:16px;stroke:#fff;stroke-width:3;fill:none}
+.ms{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.ms:last-child{border-bottom:0}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--line);flex:none}.dot.on{background:var(--acc)}
+.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-size:16px;opacity:0;transition:.3s;z-index:30;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.stepper{display:flex;align-items:center;gap:10px}
+.stepper button{width:48px;height:48px;border-radius:14px;background:var(--acc2);color:var(--acc);font-size:26px;font-weight:600}
+.stepper input{flex:1;text-align:center;font-size:30px;font-weight:700;border:0;background:transparent;width:100%;outline:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mini{background:var(--card);border-radius:var(--r);padding:16px}
+.mini .t{font-size:14px;color:var(--mut)}.mini .v{font-size:24px;font-weight:700;margin-top:2px}
+.link{color:var(--acc);font-weight:600}
+.empty{color:var(--mut);text-align:center;padding:18px 0;font-size:15px}
+.hello{padding:30px 6px 10px}
+.hello .logo{width:72px;height:72px;border-radius:20px;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav class="tabs" id="tabs" style="display:none">
+  <button data-t="today"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Сегодня</button>
+  <button data-t="food"><svg viewBox="0 0 24 24"><path d="M7 3v8a2 2 0 0 0 2 2v8M5 3v5M9 3v5M17 3c-2 0-3 3-3 6s1 4 3 4v8"/></svg>Еда</button>
+  <button data-t="move"><svg viewBox="0 0 24 24"><circle cx="13" cy="4" r="2"/><path d="M8 21l3-7 3 3v5M7 12l3-4 4 1 3 3M10 8l-1 5"/></svg>Движение</button>
+  <button data-t="plan"><svg viewBox="0 0 24 24"><path d="M3 20h18M5 16l4-5 4 3 6-8"/></svg>Прогресс</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+// ================= ДАННЫЕ =================
+const FOODS=[
+ // [название, ккал, порция, приём по умолчанию]
+ ['Овсянка на воде',180,'тарелка 250 г','b'],['Овсянка на молоке',260,'тарелка 250 г','b'],['Каша рисовая на молоке',250,'тарелка','b'],['Гречка',165,'150 г','l'],['Гречка с молоком',230,'тарелка','b'],
+ ['Рис отварной',175,'150 г','l'],['Макароны',210,'150 г','l'],['Картофельное пюре',210,'200 г','l'],['Картошка отварная',160,'2 шт','l'],['Картошка жареная',320,'200 г','l'],
+ ['Яйцо варёное',75,'1 шт','b'],['Омлет из 2 яиц',200,'порция','b'],['Яичница из 2 яиц',220,'порция','b'],['Творог 5%',180,'150 г','b'],['Творог 0–2%',120,'150 г','b'],
+ ['Сырники',280,'2 шт','b'],['Блины',260,'2 шт','b'],['Йогурт натуральный',120,'стакан','s'],['Кефир 1%',80,'стакан','s'],['Молоко 2,5%',130,'стакан','s'],
+ ['Сыр',110,'2 ломтика','b'],['Хлеб белый',80,'кусок','l'],['Хлеб чёрный',70,'кусок','l'],['Бутерброд с сыром',200,'1 шт','b'],['Бутерброд с колбасой',220,'1 шт','b'],
+ ['Колбаса варёная',130,'2 ломтика','b'],['Куриная грудка',165,'150 г','l'],['Курица жареная',250,'ножка','d'],['Котлета',220,'1 шт','l'],['Рыба запечённая',180,'150 г','d'],
+ ['Говядина тушёная',300,'150 г','l'],['Пельмени',350,'10 шт','d'],['Плов',450,'тарелка','l'],['Борщ',150,'тарелка','l'],
+ ['Суп куриный',120,'тарелка','l'],['Суп с фрикадельками',160,'тарелка','l'],['Салат овощной с маслом',120,'порция','l'],['Салат овощной без масла',40,'порция','l'],['Оливье',300,'150 г','d'],
+ ['Огурец или помидор',20,'1 шт','s'],['Яблоко',80,'1 шт','s'],['Банан',105,'1 шт','s'],['Апельсин',70,'1 шт','s'],['Мандарин',35,'1 шт','s'],
+ ['Груша',90,'1 шт','s'],['Виноград',70,'горсть','s'],['Орехи',190,'горсть 30 г','s'],['Сухофрукты',100,'горсть','s'],['Печенье',120,'2 шт','s'],
+ ['Конфета',60,'1 шт','s'],['Шоколад',80,'3 дольки','s'],['Торт',350,'кусок','s'],['Пирожок жареный',250,'1 шт','s'],['Пицца',270,'кусок','d'],
+ ['Мёд',30,'1 ч. л.','s'],['Сахар',20,'1 ч. л.','s'],['Чай или кофе без сахара',5,'чашка','s'],['Кофе с молоком',60,'чашка','s'],['Капучино',120,'чашка','s'],
+ ['Сок',110,'стакан','s'],['Газировка',100,'стакан','s'],['Вино',125,'бокал','d'],['Майонез',90,'1 ст. л.','l'],['Сметана 15%',40,'1 ст. л.','l'],
+ ['Масло сливочное',35,'1 ч. л.','b'],['Масло растительное',90,'1 ст. л.','l'],
+ ['Кофе 3 в 1',70,'пакетик','b'],['Кофе с сахаром',45,'чашка, 2 ч. л.','b'],['Кофе с молоком и сахаром',90,'чашка','b'],
+ ['Мясо запечённое',280,'150 г','d'],['Рис с курицей',420,'тарелка','d'],['Картошка с мясом',480,'тарелка','d'],['Суп с мясом',180,'тарелка','d'],
+ ['Шашлык куриный',250,'150 г','d'],['Шашлык из баранины',420,'150 г','d'],['Гуляш',300,'порция','d'],['Бутерброд с мясом',250,'1 шт','s'],['Голубцы',220,'2 шт','l'],['Тушёные овощи',110,'200 г','d'],['Фасоль или чечевица',180,'150 г','l']
+];
+const EXS=[ // [название, MET]
+ ['Быстрая ходьба',4.3],['Пресс (скручивания)',3.8],['Планка',3.8],['Приседания',5],['Выпады',4],['Ягодичный мостик',3.5],
+ ['Зарядка',3.5],['Танцы',5],['Велосипед',6],['Плавание',6],['Растяжка, йога',2.5],['Подъём по лестнице',8],
+ ['Растяжка после смены',2.5],['Уборка дома',3.3],['Работа в огороде',4],['Аквааэробика',5.3]
+];
+const ROUTINES=[ // выходной день: мягко к коленям, без прыжков и выпадов
+ {n:'Ноги и пресс',x:[['Приседания на стул','встать-сесть, 2 по 10, неглубоко'],['Ягодичный мостик','2 по 15'],['Скручивания на пресс','2 по 12, лёжа'],['Планка на коленях','2 раза по 20 секунд'],['Растяжка','2 минуты']]},
+ {n:'Всё тело',x:[['Отведение ноги в сторону','стоя у стены, по 12 на ногу'],['Отжимания от стены','2 по 12'],['«Велосипед» лёжа','2 по 15'],['Боковая планка на коленях','по 15 секунд на сторону'],['Растяжка','2 минуты']]},
+ {n:'Мягкий день',x:[['Ходьба на месте','3 минуты'],['Наклоны в стороны','2 по 10'],['Подъём ног лёжа','2 по 10'],['Кошка-корова','10 раз'],['Глубокое дыхание','1 минута']]},
+ {n:'Пресс и спина',x:[['Скручивания','2 по 12'],['«Лодочка» на животе','2 по 8'],['Планка на коленях','3 раза по 20 секунд'],['Подъём таза','2 по 15'],['Растяжка спины','2 минуты']]},
+];
+const MORNING={n:'Утренняя тренировка',min:15,met:4.5,x:[['Марш на месте с руками','2 минуты, бодро'],['Приседания на стул','12 раз'],['Отжимания от стены','12 раз'],['Ягодичный мостик','15 раз'],['«Велосипед» лёжа','20 раз'],['Шаги в сторону с руками вверх','1 минута'],['Планка на коленях','30 секунд']],note:'Это один круг, около 5 минут. Сделай 3 круга — 15 минут. Без прыжков, коленям не тяжело.'};
+const AFTER_SHIFT={n:'Разгрузка после смены',min:5,x:[['Ноги на стену','лёжа, 2 минуты — снимает отёк и тяжесть'],['Кошка-корова','10 раз, медленно'],['Колени к груди','лёжа, 30 секунд'],['Растяжка задней поверхности ноги','лёжа, по 30 секунд'],['Вращение стопами','по 15 в каждую сторону']]};
+
+const TIPS=[
+ 'Иди до работы или обратно пешком хотя бы часть пути. 20 минут быстрым шагом — около 90 ккал.',
+ 'Утро до смены — лучшее время для 15-минутной тренировки. Потом весь день бодрее.',
+ 'Курица и мясо — это белок, их можно. Шашлык из курицы почти вдвое легче бараньего.',
+ 'Возьми на смену перекус: банан, кефир, варёное яйцо. Так вечером не накинешься на еду.',
+ 'Поздний ужин — это нормально при длинной смене. Главное: мясо или рыба плюс овощи, без хлеба и картошки.',
+ 'Кофе лучше без сахара или с половиной ложки. Три кофе 3 в 1 в день — это уже 210 ккал.',
+ 'После смены полежи 2 минуты с ногами на стене. Отёк и тяжесть уходят.',
+ 'Белок в каждом приёме пищи: яйцо, творог, курица, рыба. С ним дольше не хочется есть.',
+ 'Перед едой выпей стакан воды. Часто «голод» — это жажда.',
+ 'Половина тарелки — овощи. Так порция большая, а калорий мало.',
+ 'Ужин за 3 часа до сна. Не обязательно до шести, главное не на ночь.',
+ 'Сладкое лучше днём и маленькой порцией, чем запрещать и срываться.',
+ 'Ешь медленно. Сытость приходит примерно через 20 минут.',
+ 'Сон 7–8 часов. После недосыпа тянет на сладкое.',
+ 'Вес скачет от воды и соли. Смотри на тренд за неделю, а не на один день.',
+ 'Майонез и масло — незаметные калории. Лучше сметана или йогурт.',
+ 'Прогулка 30 минут в день — это уже около 150 ккал.',
+ 'Не пропускай завтрак, если потом вечером переедаешь.',
+ 'Сладкие напитки и соки — лишние калории. Лучше вода, чай, морс без сахара.',
+ 'Взвешивайся утром, после туалета, до еды. Так цифры честнее.',
+ 'Хлеб можно, но 1–2 куска в день, лучше чёрный.',
+ 'Хорошие перекусы: яблоко, кефир, творог, горсть орехов.',
+ 'Если сорвалась — ничего страшного. Просто следующий приём пищи как обычно.',
+ 'Тарелка поменьше — порция кажется больше.',
+ 'Шаги считаются в телефоне: Google Fit или «Здоровье». Впиши число вечером.',
+ 'Запиши еду сразу после приёма, потом легко забыть.',
+ 'Минус полкило в неделю — это нормальный темп. Быстрее — уходят мышцы, а не жир.'
+];
+const MEALS={b:'Завтрак',l:'Обед',d:'Ужин',s:'Перекус'};
+const PORT=[['Поменьше',0.6],['Обычная',1],['Побольше',1.5]];
+
+// ================= СОСТОЯНИЕ =================
+const KEY='legkost_v1';
+let S=load();
+function load(){ try{ const s=JSON.parse(localStorage.getItem(KEY)); if(s&&s.profile) return Object.assign({days:{},weights:{},myFoods:[],myEx:[]},s) }catch(e){} return {profile:null,days:{},weights:{},myFoods:[],myEx:[]} }
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)) }catch(e){} }
+const pad=n=>String(n).padStart(2,'0');
+const dkey=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const today=()=>dkey(new Date());
+const parseD=k=>{const[a,b,c]=k.split('-').map(Number);return new Date(a,b-1,c)};
+const MON=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const fmtD=d=>d.getDate()+' '+MON[d.getMonth()];
+const fmtKg=v=>(Math.round(v*10)/10).toString().replace('.',',');
+const num=v=>parseFloat(String(v).replace(',','.'));
+function day(k=today()){ return S.days[k]||(S.days[k]={food:[],ex:[],water:0,steps:0,rt:{}}) }
+const uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// ================= РАСЧЁТЫ =================
+function lastWeight(){ const ks=Object.keys(S.weights).sort(); return ks.length?S.weights[ks[ks.length-1]]:S.profile.start }
+function minHealthy(h){ return Math.ceil(18.5*(h/100)**2*2)/2 }
+// реальный темп: норма не ниже 1200 ккал, поэтому при малом движении темп медленнее выбранного
+const BOOST=[[0,'Нет','как есть'],[20,'20 минут','в день'],[40,'40 минут','в день']];
+function boostKcal(min,w){ return Math.round(4.5*3.5*w/200*min) } // быстрая ходьба / тренировка
+function effRate(w,h,age,act,rate,bmin=0){ const tdee=(10*w+6.25*h-5*age-161)*[1.2,1.375,1.55][act];
+  const kcal=Math.max(1200,Math.round((tdee-rate*1100)/10)*10), extra=boostKcal(bmin,w);
+  const food=Math.min(rate,(tdee-kcal)*7/7700); return {tdee,kcal,extra,rate:Math.max(0.15,Math.min(0.8,Math.floor((food+extra*7/7700)*20)/20))} }
+function calc(){
+  const p=S.profile, w=lastWeight();
+  const E=effRate(p.start,p.h,p.age,p.act,p.rate,p.boost||0), N=effRate(w,p.h,p.age,p.act,p.rate,p.boost||0), tdee=N.tdee, kcal=N.kcal;
+  const left=Math.max(0,w-p.target);
+  const weeksTotal=Math.max(1,Math.ceil((p.start-p.target)/E.rate));
+  const endDate=new Date(parseD(p.startDate).getTime()+weeksTotal*7*864e5);
+  return {w,kcal,tdee:Math.round(tdee),left,weeksTotal,endDate,lost:Math.max(0,p.start-w),rate:E.rate,boost:p.boost||0,extra:N.extra};
+}
+function planAt(date){ const p=S.profile; const r=effRate(p.start,p.h,p.age,p.act,p.rate,p.boost||0).rate; const wk=(date-parseD(p.startDate))/(7*864e5); return Math.max(p.target,p.start-wk*r) }
+const exKcal=(met,min)=>Math.round(met*3.5*lastWeight()/200*min);
+const stepKcal=st=>Math.round(st*0.0005*lastWeight());
+
+// ================= ИНТЕРФЕЙС =================
+let TAB='today';
+const $=s=>document.querySelector(s);
+function toast(t){ const e=$('#toast'); e.textContent=t; e.classList.add('on'); clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove('on'),2000) }
+function render(){
+  if(!S.profile){ $('#tabs').style.display='none'; return renderSetup() }
+  $('#tabs').style.display='flex';
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===TAB));
+  ({today:renderToday,food:renderFood,move:renderMove,plan:renderPlan})[TAB]();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{TAB=b.dataset.t;render()});
+
+// ---------- первый запуск / настройки ----------
+let SET={};
+function setupNote(){
+  const h=num(SET.h), mh=h>120?minHealthy(h):0, st=num(SET.start), tg=num(SET.target);
+  if(mh&&st&&st<mh) return `<div class="warn">При росте ${h} см вес ${fmtKg(st)} кг уже ниже нормы. Худеть дальше не стоит — лучше посоветоваться с врачом.</div>`;
+  if(mh&&tg&&tg<mh) return `<div class="warn">При росте ${h} см здоровый минимум — <b>${fmtKg(mh)} кг</b>. Ниже — это уже недовес, может выпадать волос и падать сила. <button class="link" id="fixT">Поставить ${fmtKg(mh)} кг</button></div>`;
+  const age=parseInt(SET.age);
+  if(mh&&tg&&st&&st>tg&&age>12){ const E=effRate(st,h,age,SET.act,SET.rate,SET.boost); const E0=effRate(st,h,age,SET.act,SET.rate,0); const wk=Math.ceil((st-tg)/E.rate); const end=new Date(Date.now()+wk*7*864e5);
+    const sp=SET.boost&&E.rate>E0.rate+0.001?`<br><br>Ускорение экономит ${Math.ceil((st-tg)/E0.rate)-wk} нед.: каждый день сжигать ещё около ${E.extra} ккал.`:'';
+    const slow=E.rate<SET.rate-0.001?`<br><br>Есть меньше 1200 ккал вредно, поэтому реальный темп — около ${fmtKg(E.rate)} кг в неделю. ${SET.boost<40?'Быстрее — с ускорением (ниже: «Ускорение»).':'Быстрее можно только с ещё большим движением.'}`:'';
+    return `<div class="ok">Цель нормальная для роста ${h} см. Минус ${fmtKg(st-tg)} кг за ${wk} нед., примерно к <b>${fmtD(end)} ${end.getFullYear()}</b>.${sp}${slow}</div>` }
+  return '';
+}
+function renderSetup(edit){
+  const p=S.profile||{};
+  SET={h:p.h||'',age:p.age||'',start:S.profile?lastWeight():'',target:p.target||50,act:p.act??0,rate:p.rate||0.5,boost:p.boost||0};
+  $('#app').innerHTML=`<div class="wrap">
+   ${edit?`<div class="row" style="margin:6px 0"><button class="link" id="back">‹ Назад</button></div><h1>Мои данные</h1>`:
+   `<div class="hello"><img class="logo" src="icons/icon-192.png" alt=""><h1>Привет! Это «Лёгкость»</h1><div class="sub">Спокойно и без голодовок дойдём до цели. Ответь на пару вопросов — я посчитаю план.</div></div>`}
+   <div class="card">
+    <div class="grid2">
+     <div class="field"><label>Рост, см</label><input class="inp" id="fh" inputmode="decimal" value="${SET.h}" placeholder="163"></div>
+     <div class="field"><label>Возраст</label><input class="inp" id="fa" inputmode="numeric" value="${SET.age}" placeholder="45"></div>
+     <div class="field"><label>Вес сейчас, кг</label><input class="inp" id="fs" inputmode="decimal" value="${SET.start?fmtKg(SET.start):''}" placeholder="57"></div>
+     <div class="field"><label>Цель, кг</label><input class="inp" id="ft" inputmode="decimal" value="${fmtKg(SET.target)}"></div>
+    </div>
+    <div class="field"><label>Сколько двигаешься в обычный день</label>
+     <div class="seg" id="fact">${[['Мало','сижу'],['Средне','хожу'],['Много','на ногах весь день']].map(([t,s],i)=>`<button class="${SET.act==i?'on':''}" data-i="${i}">${t}<br><small style="font-weight:400">${s}</small></button>`).join('')}</div></div>
+    <div class="field"><label>Темп</label>
+     <div class="seg" id="frate">${[[0.3,'Мягкий'],[0.5,'Обычный'],[0.7,'Быстрее']].map(([r,t])=>`<button class="${SET.rate==r?'on':''}" data-r="${r}">${t}<br><small style="font-weight:400">−${fmtKg(r)} кг/нед</small></button>`).join('')}</div></div>
+    <div class="field"><label>Ускорение: сколько готова двигаться сверху (зарядка утром или быстрая прогулка)</label>
+     <div class="seg" id="fboost">${BOOST.map(([m,t,s])=>`<button class="${SET.boost==m?'on':''}" data-b="${m}">${t}<br><small style="font-weight:400">${s}</small></button>`).join('')}</div></div>
+    <div class="field"><label>Зачем мне это (по желанию)</label><input class="inp" id="fw" value="${esc(p.why||'')}" placeholder="Для здоровья, влезть в любимое платье…"></div>
+    <div id="note"></div>
+    <button class="btn" id="go" style="margin-top:8px">${edit?'Сохранить':'Посчитать план'}</button>
+   </div>
+   ${edit?`<h2>Помощь</h2><div class="card row"><div class="sp"><b>Как пользоваться</b><div class="sub">Инструкция с картинками, 8 страниц</div></div><a class="btn ghost sm" href="instrukciya.pdf" target="_blank" style="text-decoration:none">Открыть</a></div>`:''}
+   ${edit?`<h2>Копия данных</h2><div class="card"><div class="sub" style="margin-bottom:12px">Сохрани файл, если меняешь телефон или чистишь браузер.</div><div class="row"><button class="btn ghost sm" id="exp">Сохранить копию</button><label class="btn ghost sm" style="text-align:center">Загрузить<input type="file" id="imp" accept=".json" hidden></label></div></div>`:''}
+  </div>`;
+  const keep=()=>{SET.h=$('#fh').value;SET.age=$('#fa').value;SET.start=$('#fs').value;SET.target=$('#ft').value};
+  const upd=()=>{ keep(); $('#note').innerHTML=setupNote(); const f=$('#fixT'); if(f) f.onclick=()=>{ $('#ft').value=fmtKg(minHealthy(num(SET.h))); upd() } };
+  ['#fh','#fa','#fs','#ft'].forEach(s=>$(s).oninput=upd);
+  document.querySelectorAll('#fact button').forEach(b=>b.onclick=()=>{SET.act=+b.dataset.i;document.querySelectorAll('#fact button').forEach(x=>x.classList.toggle('on',x===b));upd()});
+  document.querySelectorAll('#fboost button').forEach(b=>b.onclick=()=>{SET.boost=+b.dataset.b;document.querySelectorAll('#fboost button').forEach(x=>x.classList.toggle('on',x===b));upd()});
+  document.querySelectorAll('#frate button').forEach(b=>b.onclick=()=>{SET.rate=+b.dataset.r;document.querySelectorAll('#frate button').forEach(x=>x.classList.toggle('on',x===b));upd()});
+  upd();
+  $('#back')&&($('#back').onclick=()=>render());
+  $('#exp')&&($('#exp').onclick=exportData);
+  $('#imp')&&($('#imp').onchange=importData);
+  $('#go').onclick=()=>{
+    keep(); const h=num(SET.h),a=parseInt(SET.age),s=num(SET.start); let t=num(SET.target);
+    if(!(h>120&&h<220)) return toast('Впиши рост в сантиметрах');
+    if(!(a>12&&a<100)) return toast('Впиши возраст');
+    if(!(s>30&&s<250)) return toast('Впиши вес сейчас');
+    if(!(t>30)) return toast('Впиши цель');
+    const mh=minHealthy(h); if(t<mh){ t=mh; toast('Цель поставлена на здоровый минимум '+fmtKg(mh)+' кг') }
+    const old=S.profile;
+    S.profile={h,age:a,start:old?old.start:s,startDate:old?old.startDate:today(),target:t,act:SET.act,rate:SET.rate,boost:SET.boost,why:$('#fw').value.trim()};
+    if(!old) S.weights[today()]=s;
+    else if(s!==lastWeight()) S.weights[today()]=s;
+    if(old&&s>old.start){ S.profile.start=s; S.profile.startDate=today() }
+    save(); TAB='today'; render(); if(!old) setTimeout(()=>toast('План готов'),300);
+  };
+}
+function exportData(){ const b=new Blob([JSON.stringify(S)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='legkost_'+today()+'.json'; a.click() }
+function importData(e){ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const s=JSON.parse(r.result); if(!s.profile) throw 0; S=Object.assign({days:{},weights:{},myFoods:[],myEx:[]},s); save(); render(); toast('Данные загружены') }catch(x){ toast('Это не тот файл') } }; r.readAsText(f) }
+
+// ---------- СЕГОДНЯ ----------
+function sumDay(d){ const eat=d.food.reduce((a,f)=>a+f.kcal,0); const burn=d.ex.reduce((a,x)=>a+x.kcal,0)+stepKcal(d.steps); return {eat,burn} }
+function renderToday(){
+  const c=calc(), d=day(), {eat,burn}=sumDay(d), p=S.profile;
+  const left=c.kcal-eat, pr=Math.min(1,eat/c.kcal), R=62, L=2*Math.PI*R;
+  const done=p.start-p.target>0?Math.min(1,c.lost/(p.start-p.target)):1;
+  const now=new Date(), hr=now.getHours();
+  const greet=hr<5?'Доброй ночи':hr<12?'Доброе утро':hr<18?'Добрый день':'Добрый вечер';
+  const tip=TIPS[Math.floor(Date.now()/864e5)%TIPS.length];
+  const wToday=S.weights[today()];
+  const reached=c.w<=p.target;
+  $('#app').innerHTML=`<div class="wrap">
+   <div class="row"><div class="sp"><div class="sub">${fmtD(now)}</div><h1>${greet}</h1></div>
+    <button class="x" id="set" title="Мои данные" style="font-size:24px">⚙︎</button></div>
+   <div class="row" style="margin-top:10px;gap:8px;flex-wrap:wrap">
+    <button class="chip ${isShift(d)?'on':''}" id="shift">${isShift(d)?'Сегодня смена':'Сегодня выходной'} ⇄</button>
+    ${streak()>=2?`<span class="pill" style="padding:9px 14px">${streak()} дн. подряд</span>`:''}
+   </div>
+   ${p.why?`<div class="sub" style="margin:12px 4px 0">Зачем: <b style="color:var(--ink)">${esc(p.why)}</b></div>`:''}
+   ${nudge(d,c,eat,hr)}
+   <div class="card" style="margin-top:12px">
+    ${reached?`<div class="ok" style="margin-top:0">Цель достигнута! Теперь держим вес — норма на поддержание около ${c.tdee} ккал.</div>`:''}
+    <div class="row"><div class="sp"><div class="sub">Вес</div><div class="big">${fmtKg(c.w)} <span style="font-size:18px;font-weight:500">кг</span></div></div>
+     <div style="text-align:right">${c.lost>=0.1?`<div class="pill">−${fmtKg(c.lost)} кг</div>`:''}<div class="sub" style="margin-top:6px">осталось ${fmtKg(c.left)} кг</div></div></div>
+    <div class="bar" style="margin:14px 0 8px"><i style="width:${Math.max(3,done*100)}%"></i></div>
+    <div class="row sub"><span>${fmtKg(p.start)}</span><span class="sp" style="text-align:center">по плану сегодня ${fmtKg(planAt(new Date()))}</span><span>${fmtKg(p.target)}</span></div>
+    <button class="btn ${wToday?'ghost':''}" id="wbtn" style="margin-top:14px">${wToday?`Сегодня ${fmtKg(wToday)} кг · изменить`:'Записать вес'}</button>
+   </div>
+   <div class="card"><div class="row">
+    <div class="ring"><svg width="150" height="150"><circle cx="75" cy="75" r="${R}" stroke="#ECE6DA" stroke-width="13" fill="none"/>
+     <circle cx="75" cy="75" r="${R}" stroke="${left<0?'#D9895B':'#5B8A72'}" stroke-width="13" fill="none" stroke-linecap="round" stroke-dasharray="${L}" stroke-dashoffset="${L*(1-pr)}"/></svg>
+     <div class="c"><b>${Math.abs(left)}</b><span>${left<0?'ккал сверх':'ккал можно'}</span></div></div>
+    <div class="sp" style="display:flex;flex-direction:column;gap:10px">
+     <div class="stat">Съела<b>${eat}</b></div><div class="stat">Норма<b>${c.kcal}</b></div><div class="stat">Сожгла<b>${burn}</b></div></div>
+   </div><button class="btn ghost" id="addf" style="margin-top:12px">+ Добавить еду</button></div>
+   <div class="card"><div class="row"><div class="sp"><b>Вода</b> <span class="sub">· ${d.water} из 8 стаканов</span></div>
+     ${d.water?`<button class="x" id="wminus">−</button>`:''}</div>
+    <div class="glasses" id="gl">${Array.from({length:8},(_,i)=>`<button class="glass ${i<d.water?'on':''}" data-i="${i}"></button>`).join('')}</div></div>
+   ${moveCard(d,c)}
+   <div class="grid2">
+    <button class="mini" id="stp" style="text-align:left"><div class="t">Шаги</div><div class="v">${d.steps?d.steps.toLocaleString('ru'):'—'}</div><div class="t">цель 8 000</div></button>
+    <button class="mini" id="rt" style="text-align:left"><div class="t">${isShift(d)?'После смены':'Зарядка дня'}</div><div class="v">${rtDone(d)}/${routine(d).x.length}</div><div class="t">${isShift(d)?'5 минут':routine(d).n}</div></button>
+   </div>
+   <div class="tip" style="margin-top:12px"><div class="ic">🌿</div><div>${tip}</div></div>
+  </div>`;
+  $('#set').onclick=()=>renderSetup(true);
+  $('#shift').onclick=()=>{ d.shift=!isShift(d); S.shiftDefault=d.shift; save(); renderToday(); toast(d.shift?'Смена: зарядка заменена на разгрузку':'Выходной: зарядка на 10 минут') };
+  document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{ const f=FOODS.find(x=>x[0]===b.dataset.q); d.food.push({id:uid(),n:f[0],kcal:f[1],meal:'s',p:''}); save(); renderToday(); toast('Добавлено: '+f[0]) });
+  $('#wbtn').onclick=weightSheet;
+  $('#addf').onclick=()=>foodSheet();
+  document.querySelectorAll('#gl .glass').forEach(g=>g.onclick=()=>{ const i=+g.dataset.i; d.water=i<d.water?i:i+1; if(d.water===8) toast('Норма воды выполнена'); save(); renderToday() });
+  $('#wminus')&&($('#wminus').onclick=()=>{d.water=Math.max(0,d.water-1);save();renderToday()});
+  $('#stp').onclick=stepsSheet;
+  $('#rt').onclick=()=>{TAB='move';render()};
+  $('#mv')&&($('#mv').onclick=()=>{TAB='move';render()});
+  $('#bst')&&($('#bst').onclick=()=>renderSetup(true));
+}
+
+function moveCard(d,c){
+  const done=d.ex.filter(x=>!x.rt).reduce((a,x)=>a+x.kcal,0);
+  if(!c.boost) return `<button class="card row" id="bst" style="width:100%;text-align:left"><div class="sp"><b>Хочешь быстрее?</b><div class="sub">Включи ускорение: 20–40 минут движения в день</div></div><span class="link">›</span></button>`;
+  const pr=Math.min(1,done/c.extra);
+  return `<button class="card" id="mv" style="width:100%;text-align:left"><div class="row"><div class="sp"><b>Ускорение</b> <span class="sub">· ${c.boost} мин в день</span></div><span class="sub">${done} из ${c.extra} ккал</span></div>
+    <div class="bar" style="margin-top:10px"><i style="width:${Math.max(3,pr*100)}%;background:${pr>=1?'#5B8A72':'#D9895B'}"></i></div>
+    <div class="sub" style="margin-top:8px">${pr>=1?'Сделано! Сегодня ты идёшь быстрее плана.':'Утренняя тренировка или быстрая прогулка — нажми, чтобы добавить'}</div></button>`;
+}
+function streak(){ let n=0; const dt=new Date(); if(!logged(dkey(dt))) dt.setDate(dt.getDate()-1);
+  while(logged(dkey(dt))){ n++; dt.setDate(dt.getDate()-1) } return n }
+function logged(k){ const d=S.days[k]; return !!(S.weights[k]!=null||(d&&(d.food.length||d.water||d.ex.length))) }
+function endH0(d){ return isShift(d)?(new Date().getDay()===0?19:21):18 }
+function nudge(d,c,eat,hr){
+  const ate=d.food.some(f=>f.meal==='b'||f.meal==='l'||f.meal==='s');
+  if(hr>=13&&hr<endH0(d)&&!ate&&!d.food.length) return `<div class="tip" style="margin:12px 0 0;flex-direction:column;gap:10px"><div><b>Ты сегодня ещё ничего не ела.</b> Перекуси сейчас — тогда вечером не будет зверского голода.</div>
+    <div class="chips">${['Банан','Кефир 1%','Яйцо варёное','Йогурт натуральный'].map(n=>`<button class="chip" data-q="${n}">+ ${n}</button>`).join('')}</div></div>`;
+  if(hr>=6&&hr<11&&isShift(d)&&!d.food.some(f=>f.meal==='b')) return `<div class="tip" style="margin:12px 0 0"><div class="ic">☕</div><div><b>Позавтракай до смены.</b> Не только кофе: яйца, творог или каша. Впереди 10 часов на ногах.</div></div>`;
+  const left=c.kcal-eat, sun=new Date().getDay()===0, endH=isShift(d)?(sun?19:21):18;
+  if(hr>=endH&&left>150) return `<div class="tip" style="margin:12px 0 0"><div class="ic">🍽</div><div>На ужин осталось <b>${left} ккал</b>. Хорошо: ${left>450?'мясо или курица 150 г + гарнир 100 г + салат':'кусок мяса или курицы + овощи, без хлеба'}.</div></div>`;
+  if(hr>=endH&&left<=150&&left>=0&&eat>0) return `<div class="tip" style="margin:12px 0 0"><div class="ic">🌙</div><div>Норма почти съедена. Если голодно — кефир или огурец, это почти ничего.</div></div>`;
+  return '';
+}
+// ---------- шторки ----------
+function sheet(title,html,bind){
+  const e=document.createElement('div'); e.className='sheet';
+  e.innerHTML=`<div class="pn"><div class="hd"><h3>${title}</h3><button class="x" data-close>×</button></div>${html}</div>`;
+  document.body.appendChild(e);
+  const close=()=>{e.remove();render()};
+  e.onclick=ev=>{ if(ev.target===e||ev.target.closest('[data-close]')) close() };
+  bind(e,close); return e;
+}
+function stepper(id,val,stepv,dec){ return `<div class="stepper"><button data-m="${id}">−</button><input id="${id}" inputmode="decimal" value="${dec?fmtKg(val):val}"><button data-p="${id}">+</button></div>`}
+function bindStepper(e,id,stepv,dec){
+  const inp=e.querySelector('#'+id), set=v=>inp.value=dec?fmtKg(v):Math.max(0,Math.round(v));
+  e.querySelector(`[data-m="${id}"]`).onclick=()=>set((num(inp.value)||0)-stepv);
+  e.querySelector(`[data-p="${id}"]`).onclick=()=>set((num(inp.value)||0)+stepv);
+}
+function weightSheet(){
+  const v=S.weights[today()]||lastWeight();
+  sheet('Вес сегодня',`<div class="sub" style="margin-bottom:14px">Лучше утром, до еды.</div>${stepper('wv',v,0.1,1)}<button class="btn" id="ok" style="margin-top:16px">Сохранить</button>`,(e,close)=>{
+    bindStepper(e,'wv',0.1,1);
+    e.querySelector('#ok').onclick=()=>{ const w=num(e.querySelector('#wv').value); if(!(w>30&&w<250)) return toast('Проверь вес');
+      const prev=lastWeight(); S.weights[today()]=Math.round(w*10)/10; save(); close(); const st=streak(); if([3,7,14,21,30,60,90].includes(st)) return toast(st+' дней подряд! Так и худеют');
+      toast(w<prev?`Минус ${fmtKg(prev-w)} кг — отлично`:w>prev?'Вес скачет, это нормально — смотри на неделю':'Вес записан') };
+  });
+}
+function stepsSheet(){
+  const d=day();
+  sheet('Шаги за сегодня',`<div class="sub" style="margin-bottom:14px">Посмотри число в телефоне (Google Fit, «Здоровье» или Samsung Health) и впиши сюда.</div>${stepper('sv',d.steps||0,500)}<button class="btn" id="ok" style="margin-top:16px">Сохранить</button>`,(e,close)=>{
+    bindStepper(e,'sv',500);
+    e.querySelector('#ok').onclick=()=>{ d.steps=Math.max(0,Math.round(num(e.querySelector('#sv').value)||0)); save(); close(); toast(d.steps>=8000?'Цель по шагам выполнена':'Шаги записаны') };
+  });
+}
+function autoMeal(){ const h=new Date().getHours(); return h<11?'b':h<16?'l':h<21?'d':'s' }
+function foodSheet(meal){
+  meal=meal||autoMeal(); let q='';
+  const all=()=>[...S.myFoods.map(f=>({n:f.n,k:f.k,u:f.u,my:1,id:f.id})),...FOODS.filter(f=>!(S.hidden||[]).includes(f[0])).map(f=>({n:f[0],k:f[1],u:f[2]}))];
+  const e=sheet('Добавить еду',`
+    <div class="seg" id="ml" style="margin-bottom:12px">${Object.entries(MEALS).map(([k,t])=>`<button data-m="${k}" class="${k===meal?'on':''}">${t}</button>`).join('')}</div>
+    <input class="search" id="q" placeholder="Поиск: гречка, яблоко…">
+    <button class="btn ghost" id="mine" style="margin-bottom:10px">+ Своё блюдо</button>
+    <div class="card list" id="fl" style="padding:4px 14px"></div>`,(e,close)=>{
+    const draw=()=>{ const ql=q.toLowerCase(); const items=all().filter(f=>!ql||f.n.toLowerCase().includes(ql)).slice(0,80);
+      e.querySelector('#fl').innerHTML=items.length?items.map((f,i)=>`<div class="it" data-i="${i}"><div class="nm">${esc(f.n)}${f.my?' <span class="pill" style="font-size:12px;padding:2px 8px">моё</span>':''}<small>${esc(f.u)}</small></div><div class="kc">${f.k} ккал</div>${f.my?`<button class="x" data-del="${f.id}" title="Удалить">×</button>`:`<button class="x" data-hide="${esc(f.n)}" title="Убрать из списка">×</button>`}</div>`).join(''):`<div class="empty">Не нашла. Добавь как своё блюдо ↑</div>`;
+      e.querySelectorAll('#fl .it').forEach(r=>r.onclick=ev=>{ if(ev.target.dataset.del){ ev.stopPropagation(); S.myFoods=S.myFoods.filter(x=>x.id!==ev.target.dataset.del); save(); toast('Блюдо удалено'); return draw() }
+        if(ev.target.dataset.hide){ ev.stopPropagation(); S.hidden=S.hidden||[]; S.hidden.push(ev.target.dataset.hide); save(); toast('Убрано. Вернуть можно во вкладке «Еда»'); return draw() } portionSheet(items[+r.dataset.i],meal,close) });
+    };
+    e.querySelector('#q').oninput=ev=>{q=ev.target.value;draw()};
+    e.querySelectorAll('#ml button').forEach(b=>b.onclick=()=>{meal=b.dataset.m;e.querySelectorAll('#ml button').forEach(x=>x.classList.toggle('on',x===b))});
+    e.querySelector('#mine').onclick=()=>myFoodSheet(meal,close);
+    draw();
+  });
+}
+function portionSheet(f,meal,closeParent){
+  let pm=1;
+  sheet(esc(f.n),`<div class="sub">${esc(f.u)} · ${f.k} ккал</div>
+    <div class="field"><label>Порция</label><div class="seg" id="pp">${PORT.map(([t,m])=>`<button data-m="${m}" class="${m===1?'on':''}">${t}<br><small style="font-weight:400">${Math.round(f.k*m)} ккал</small></button>`).join('')}</div></div>
+    <div class="field"><label>Сколько порций</label>${stepper('pc',1,1)}</div>
+    <button class="btn" id="ok">Добавить · <span id="tot">${f.k}</span> ккал</button>`,(e,close)=>{
+    bindStepper(e,'pc',1);
+    const tot=()=>Math.round(f.k*pm*Math.max(1,num(e.querySelector('#pc').value)||1));
+    const upd=()=>e.querySelector('#tot').textContent=tot();
+    e.querySelectorAll('#pp button').forEach(b=>b.onclick=()=>{pm=+b.dataset.m;e.querySelectorAll('#pp button').forEach(x=>x.classList.toggle('on',x===b));upd()});
+    e.querySelectorAll('.stepper button').forEach(b=>b.addEventListener('click',upd)); e.querySelector('#pc').oninput=upd;
+    e.querySelector('#ok').onclick=()=>{ const n=Math.max(1,num(e.querySelector('#pc').value)||1);
+      day().food.push({id:uid(),n:f.n,kcal:tot(),meal,p:(pm!==1?PORT.find(x=>x[1]===pm)[0].toLowerCase()+' ':'')+(n>1?'× '+n:'')}); save();
+      e.remove(); closeParent(); toast('Добавлено: '+f.n) };
+  });
+}
+function myFoodSheet(meal,closeParent){
+  sheet('Своё блюдо',`<div class="sub" style="margin-bottom:6px">Например «Мамин суп» или «Салат с тунцом». Сохранится в списке.</div>
+    <div class="field"><label>Название</label><input class="inp" id="mn" placeholder="Название блюда"></div>
+    <div class="field"><label>Какая порция</label><input class="inp" id="mu" placeholder="тарелка, 1 шт, 200 г"></div>
+    <div class="field"><label>Калорий в порции</label><input class="inp" id="mk" inputmode="numeric" placeholder="250"></div>
+    <div class="sub" style="margin:-4px 4px 12px;font-size:14px">Не знаешь калории? Возьми похожее блюдо из списка или посмотри на упаковке (ккал на 100 г × граммы ÷ 100).</div>
+    <button class="btn" id="ok">Сохранить и добавить</button>`,(e,close)=>{
+    e.querySelector('#ok').onclick=()=>{ const n=e.querySelector('#mn').value.trim(), u=e.querySelector('#mu').value.trim()||'порция', k=Math.round(num(e.querySelector('#mk').value));
+      if(!n) return toast('Впиши название'); if(!(k>0&&k<3000)) return toast('Впиши калории');
+      S.myFoods.unshift({id:uid(),n,u,k}); day().food.push({id:uid(),n,kcal:k,meal,p:''}); save(); e.remove(); closeParent(); toast('Сохранено: '+n) };
+  });
+}
+
+// ---------- ЕДА ----------
+function renderFood(){
+  const d=day(), c=calc(), {eat}=sumDay(d);
+  $('#app').innerHTML=`<div class="wrap"><h1>Еда</h1><div class="sub">Сегодня ${eat} из ${c.kcal} ккал</div>
+   <div class="bar" style="margin:12px 0 4px"><i style="width:${Math.min(100,eat/c.kcal*100)}%;background:${eat>c.kcal?'#D9895B':'#5B8A72'}"></i></div>
+   ${Object.entries(MEALS).map(([k,t])=>{ const it=d.food.filter(f=>f.meal===k); const s=it.reduce((a,f)=>a+f.kcal,0);
+    return `<h2 class="row"><span class="sp">${t}</span><span class="sub">${s?s+' ккал':''}</span></h2><div class="card list" style="padding:4px 16px">
+     ${it.map(f=>`<div class="it"><div class="nm">${esc(f.n)}${f.p?`<small>${esc(f.p)}</small>`:''}</div><div class="kc">${f.kcal}</div><button class="x" data-del="${f.id}">×</button></div>`).join('')}
+     <div class="it"><button class="link" data-add="${k}" style="padding:4px 0">+ Добавить</button></div></div>` }).join('')}
+   <h2>Мои блюда</h2><div class="card list" style="padding:4px 16px">${S.myFoods.length?S.myFoods.map(f=>`<div class="it"><div class="nm">${esc(f.n)}<small>${esc(f.u)}</small></div><div class="kc">${f.k}</div><button class="x" data-mydel="${f.id}">×</button></div>`).join(''):'<div class="empty">Тут будут твои блюда</div>'}
+    <div class="it"><button class="link" id="addmy" style="padding:4px 0">+ Новое блюдо</button></div></div>
+   <div class="sub" style="margin:10px 4px 0;font-size:14px">Лишнее блюдо в списке можно убрать крестиком ×, когда добавляешь еду.</div>
+   ${(S.hidden||[]).length?`<h2>Убранные блюда</h2><div class="card list" style="padding:4px 16px">${S.hidden.map(n=>`<div class="it"><div class="nm">${esc(n)}</div><button class="link" data-unhide="${esc(n)}">Вернуть</button></div>`).join('')}</div>`:''}
+  </div>`;
+  document.querySelectorAll('[data-unhide]').forEach(b=>b.onclick=()=>{ S.hidden=S.hidden.filter(n=>n!==b.dataset.unhide); save(); renderFood(); toast('Блюдо вернулось в список') });
+  document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{d.food=d.food.filter(f=>f.id!==b.dataset.del);save();renderFood()});
+  document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>foodSheet(b.dataset.add));
+  document.querySelectorAll('[data-mydel]').forEach(b=>b.onclick=()=>{S.myFoods=S.myFoods.filter(f=>f.id!==b.dataset.mydel);save();renderFood()});
+  $('#addmy').onclick=()=>myFoodSheet(autoMeal(),render);
+}
+
+// ---------- ДВИЖЕНИЕ ----------
+function rtIdx(k=today()){ return Math.floor(parseD(k)/864e5)%ROUTINES.length }
+function isShift(d){ return d.shift!=null?d.shift:(S.shiftDefault!=null?S.shiftDefault:true) }
+function routine(d){ return isShift(d)?AFTER_SHIFT:ROUTINES[rtIdx()] }
+function rtDone(d){ return Object.values(d.rt||{}).filter(Boolean).length }
+function renderMove(){
+  const d=day(); d.rt=d.rt||{}; const r=routine(d); const burn=d.ex.reduce((a,x)=>a+x.kcal,0)+stepKcal(d.steps);
+  $('#app').innerHTML=`<div class="wrap"><h1>Движение</h1><div class="sub">Сегодня сожжено около ${burn} ккал</div>
+   <h2>${isShift(d)?r.n:'Зарядка дня · '+r.n}</h2><div class="card" style="padding:6px 18px">
+    ${r.x.map((x,i)=>`<div class="ex"><button class="chk ${d.rt[i]?'on':''}" data-r="${i}"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></button><div class="sp"><b>${x[0]}</b><div class="sub">${x[1]}</div></div></div>`).join('')}
+    <div class="sub" style="padding:10px 0 12px">${isShift(d)?'5 минут вечером после работы. Ногам, спине и коленям станет легче.':'Около 10 минут, бережно к коленям. Каждый день — другой набор.'}</div></div>
+   <h2>${MORNING.n} · ${MORNING.min} мин</h2><div class="card" style="padding:6px 18px">
+    ${MORNING.x.map(x=>`<div class="ex"><div class="dot on" style="width:8px;height:8px"></div><div class="sp"><b>${x[0]}</b><div class="sub">${x[1]}</div></div></div>`).join('')}
+    <div class="sub" style="padding:10px 0 4px">${MORNING.note} Лучше утром до смены.</div>
+    <div class="row" style="padding:8px 0 12px;gap:8px">${[1,2,3].map(k=>`<button class="btn ghost sm" data-mr="${k}">${k} ${k===1?'круг':'круга'}</button>`).join('')}</div></div>
+   <h2>Быстро добавить</h2><div class="chips">${[10,20,30,40].map(m=>`<button class="chip" data-walk="${m}">Прогулка ${m} мин</button>`).join('')}</div>
+   <h2>Шаги</h2><button class="card row" id="stp" style="width:100%;text-align:left"><div class="sp"><div class="big" style="font-size:28px">${d.steps?d.steps.toLocaleString('ru'):'0'}</div><div class="sub">из 8 000 · около ${stepKcal(d.steps)} ккал</div></div><span class="link">Вписать</span></button>
+   <h2>Занятия сегодня</h2><div class="card list" style="padding:4px 16px">
+    ${d.ex.map(x=>`<div class="it"><div class="nm">${esc(x.n)}<small>${x.min} мин</small></div><div class="kc">${x.kcal} ккал</div><button class="x" data-del="${x.id}">×</button></div>`).join('')||'<div class="empty">Пока ничего. Прогулка тоже считается!</div>'}
+    <div class="it"><button class="link" id="addx" style="padding:4px 0">+ Добавить занятие</button></div></div>
+  </div>`;
+  document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{ const i=b.dataset.r; d.rt[i]=!d.rt[i];
+    const all=rtDone(d)===r.x.length, has=d.ex.find(x=>x.rt);
+    if(all&&!has){ const sh=isShift(d); d.ex.push({id:uid(),n:sh?'Разгрузка после смены':'Зарядка дня',min:sh?5:10,kcal:sh?exKcal(2.5,5):exKcal(3.5,10),rt:1}); toast(sh?'Разгрузка сделана, отдыхай':'Зарядка сделана, молодец') }
+    if(!all&&has) d.ex=d.ex.filter(x=>!x.rt);
+    save(); renderMove() });
+  document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{ const x=d.ex.find(x=>x.id===b.dataset.del); if(x&&x.rt) d.rt={}; d.ex=d.ex.filter(x=>x.id!==b.dataset.del); save(); renderMove() });
+  $('#stp').onclick=stepsSheet;
+  $('#addx').onclick=exSheet;
+  document.querySelectorAll('[data-mr]').forEach(b=>b.onclick=()=>{ const k=+b.dataset.mr, m=k*5; d.ex.push({id:uid(),n:'Утренняя тренировка',min:m,kcal:exKcal(MORNING.met,m)}); save(); renderMove(); toast(`Тренировка ${m} мин: ${exKcal(MORNING.met,m)} ккал`) });
+  document.querySelectorAll('[data-walk]').forEach(b=>b.onclick=()=>{ const m=+b.dataset.walk; d.ex.push({id:uid(),n:'Быстрая прогулка',min:m,kcal:exKcal(4.3,m)}); save(); renderMove(); toast(`Прогулка ${m} мин: ${exKcal(4.3,m)} ккал`) });
+}
+function exSheet(){
+  const list=()=>[...S.myEx.map(x=>({n:x.n,m:x.m,my:1,id:x.id})),...EXS.map(x=>({n:x[0],m:x[1]}))];
+  let sel=null;
+  const e=sheet('Добавить занятие',`<div class="chips" id="exl"></div>
+    <div class="field" style="margin-top:16px"><label>Сколько минут</label>${stepper('em',20,5)}</div>
+    <button class="btn" id="ok">Добавить</button>
+    <button class="btn ghost" id="myx" style="margin-top:10px">+ Своё упражнение</button>`,(e,close)=>{
+    bindStepper(e,'em',5);
+    const draw=()=>{ const L=list(); e.querySelector('#exl').innerHTML=L.map((x,i)=>`<button class="chip ${sel&&sel.n===x.n?'on':''}" data-i="${i}">${esc(x.n)}${x.my?` <span data-xdel="${x.id}" style="margin-left:4px;color:var(--mut)">×</span>`:''}</button>`).join('');
+      e.querySelectorAll('#exl .chip').forEach(c=>c.onclick=ev=>{ if(ev.target.dataset.xdel){ S.myEx=S.myEx.filter(x=>x.id!==ev.target.dataset.xdel); save(); if(sel&&sel.my) sel=null; return draw() } sel=L[+c.dataset.i]; draw() }) };
+    draw();
+    e.querySelector('#ok').onclick=()=>{ if(!sel) return toast('Выбери занятие'); const m=Math.max(1,Math.round(num(e.querySelector('#em').value)||0));
+      day().ex.push({id:uid(),n:sel.n,min:m,kcal:exKcal(sel.m,m)}); save(); close(); toast(`${sel.n}: ${exKcal(sel.m,m)} ккал`) };
+    e.querySelector('#myx').onclick=()=>{
+      sheet('Своё упражнение',`<div class="field"><label>Название</label><input class="inp" id="xn" placeholder="Например: обруч"></div>
+        <div class="field"><label>Насколько тяжело</label><div class="seg" id="xi"><button data-m="3" class="on">Легко</button><button data-m="5">Средне</button><button data-m="7.5">Тяжело</button></div></div>
+        <button class="btn" id="xok">Сохранить</button>`,(e2,close2)=>{
+        let m=3; e2.querySelectorAll('#xi button').forEach(b=>b.onclick=()=>{m=+b.dataset.m;e2.querySelectorAll('#xi button').forEach(x=>x.classList.toggle('on',x===b))});
+        e2.querySelector('#xok').onclick=()=>{ const n=e2.querySelector('#xn').value.trim(); if(!n) return toast('Впиши название');
+          const x={id:uid(),n,m}; S.myEx.unshift(x); save(); sel={n,m,my:1,id:x.id}; e2.remove(); draw(); toast('Сохранено') };
+      });
+    };
+  });
+}
+
+// ---------- ПРОГРЕСС И ПЛАН ----------
+function renderPlan(){
+  const p=S.profile, c=calc(), start=parseD(p.startDate);
+  const ks=Object.keys(S.weights).sort();
+  // вехи раз в 2 недели
+  const ms=[], stw=c.weeksTotal>16?4:2; for(let w=stw;w<=c.weeksTotal+stw-1;w+=stw){ const dt=new Date(start.getTime()+Math.min(w,c.weeksTotal)*7*864e5); ms.push([dt,planAt(dt)]); if(w>=c.weeksTotal) break }
+  if(!ms.length||ms[ms.length-1][1]>p.target) ms.push([c.endDate,p.target]);
+  $('#app').innerHTML=`<div class="wrap"><h1>Прогресс</h1>
+   <div class="card"><div class="sub">Цель</div><div class="big">${fmtKg(p.target)} кг <span style="font-size:17px;font-weight:500;color:var(--mut)">к ${fmtD(c.endDate)}</span></div>
+    <div class="sub" style="margin-top:4px">Минус ${fmtKg(c.rate)} кг в неделю · ${c.weeksTotal} нед. · ${c.kcal} ккал в день</div>
+    <div id="ch" style="margin-top:14px"></div>
+    <div class="row sub" style="font-size:14px;gap:16px;margin-top:4px"><span><b style="color:var(--acc)">●</b> твой вес</span><span><b style="color:#C9C2B4">- -</b> план</span></div></div>
+   <h2>План по шагам</h2><div class="card" style="padding:6px 18px">
+    <div class="ms"><div class="dot on"></div><div class="sp">Старт · ${fmtD(start)}</div><b>${fmtKg(p.start)} кг</b></div>
+    ${ms.map(([dt,w])=>{ const passed=c.w<=w+0.05; return `<div class="ms"><div class="dot ${passed?'on':''}"></div><div class="sp">${fmtD(dt)}${dt.getFullYear()!==start.getFullYear()?' '+dt.getFullYear():''}</div><b>${fmtKg(w)} кг</b></div>` }).join('')}
+   </div>
+   <h2>Записи веса</h2><div class="card list" style="padding:4px 16px">
+    ${ks.slice().reverse().slice(0,30).map((k,i,a)=>{ const prev=S.weights[a[i+1]]; const df=prev!=null?S.weights[k]-prev:0;
+      return `<div class="it"><div class="nm">${fmtD(parseD(k))}</div><span class="sub" style="color:${df<0?'var(--acc)':df>0?'var(--warm)':'var(--mut)'}">${df?(df>0?'+':'−')+fmtKg(Math.abs(df)):''}</span><div class="kc" style="min-width:64px;text-align:right">${fmtKg(S.weights[k])}</div>${ks.length>1?`<button class="x" data-wd="${k}">×</button>`:''}</div>` }).join('')}
+   </div>
+   <button class="btn ghost" id="edit" style="margin-top:6px">Изменить рост, цель или темп</button>
+  </div>`;
+  drawChart(ks);
+  document.querySelectorAll('[data-wd]').forEach(b=>b.onclick=()=>{ delete S.weights[b.dataset.wd]; save(); renderPlan() });
+  $('#edit').onclick=()=>renderSetup(true);
+}
+function drawChart(ks){
+  const p=S.profile, c=calc(), W=Math.min(488,innerWidth-68), H=180, P=28;
+  const t0=parseD(p.startDate).getTime(), last=ks.length?parseD(ks[ks.length-1]).getTime():t0;
+  const t1=Math.max(c.endDate.getTime(), last);
+  const vals=ks.map(k=>S.weights[k]); const lo=Math.min(p.target,...vals)-0.5, hi=Math.max(p.start,...vals)+0.5;
+  const X=t=>P+(t-t0)/(t1-t0||1)*(W-P-8), Y=v=>8+(hi-v)/(hi-lo)*(H-30);
+  const pts=ks.map(k=>[X(parseD(k).getTime()),Y(S.weights[k])]);
+  const grid=[]; for(let v=Math.ceil(lo);v<=hi;v++) grid.push(v);
+  const step=Math.ceil(grid.length/5);
+  $('#ch').innerHTML=`<svg width="${W}" height="${H}" style="display:block">
+   ${grid.filter((v,i)=>i%step===0).map(v=>`<line x1="${P}" x2="${W}" y1="${Y(v)}" y2="${Y(v)}" stroke="#F0EBE1"/><text x="0" y="${Y(v)+4}" font-size="11" fill="#A9A396">${v}</text>`).join('')}
+   <line x1="${X(t0)}" y1="${Y(p.start)}" x2="${X(c.endDate.getTime())}" y2="${Y(p.target)}" stroke="#C9C2B4" stroke-width="2" stroke-dasharray="5 5"/>
+   <line x1="${X(c.endDate.getTime())}" y1="${Y(p.target)}" x2="${W}" y2="${Y(p.target)}" stroke="#C9C2B4" stroke-width="2" stroke-dasharray="5 5"/>
+   ${pts.length>1?`<polyline points="${pts.map(q=>q.join(',')).join(' ')}" fill="none" stroke="#5B8A72" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`:''}
+   ${pts.map(q=>`<circle cx="${q[0]}" cy="${q[1]}" r="4" fill="#5B8A72"/>`).join('')}
+   <text x="${P}" y="${H-4}" font-size="11" fill="#A9A396">${fmtD(new Date(t0))}</text>
+   <text x="${W}" y="${H-4}" font-size="11" fill="#A9A396" text-anchor="end">${fmtD(new Date(t1))}</text>
+  </svg>`;
+}
+
+render();
+if('serviceWorker' in navigator) addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
