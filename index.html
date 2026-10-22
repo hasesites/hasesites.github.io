@@ -3,83 +3,177 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>HASE — сайты для салонов, кофеен и мастеров</title>
-<meta name="description" content="Делаем сайты для малого бизнеса: салоны, барбершопы, кофейни, мастера, мебель и ремонт. Черновик бесплатно.">
+<title>HASE — сайты для малого бизнеса</title>
+<meta name="description" content="Делаем сайты для салонов, барбершопов, кофеен, мастеров, мебели и ремонта. Черновик для вашего бизнеса — бесплатно.">
+<meta property="og:title" content="HASE — сайты для малого бизнеса">
+<meta property="og:description" content="Черновик сайта для вашего бизнеса — бесплатно. Посмотрите примеры по нишам.">
+<meta property="og:image" content="https://hasesites.github.io/img/n-hero.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Golos+Text:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Golos+Text:wght@400;500;600;700&display=swap">
 <style>
-:root{--bg:#f4f2ef;--panel:#fff;--fg:#191516;--mut:#6b6264;--line:#e4dedb;--red:#d3261c;
-  --display:"Unbounded",system-ui,sans-serif;--body:"Golos Text",system-ui,sans-serif}
-@media (prefers-color-scheme:dark){:root{--bg:#111011;--panel:#1b191a;--fg:#f3efed;--mut:#a39b9c;--line:#2d292a;--red:#ff4a3d;color-scheme:dark}}
+:root{
+  --ink:#0f0d0d; --ink2:#1a1717; --paper:#f5f1ec; --mut:#8f8683; --line:rgba(255,255,255,.1);
+  --red:#e3342a; --red2:#ff5a4c; --wa:#1fb15a; --tg:#2a9df4;
+  --display:"Unbounded",system-ui,sans-serif; --body:"Golos Text",system-ui,sans-serif;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 var(--body);
-  padding:max(28px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(40px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}
-.w{max-width:980px;margin:0 auto;display:grid;gap:44px}
-.logo{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.01em}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--paper);font:17px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.in{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+
+/* ---- верхняя полоса-CTA ---- */
+.bar{position:sticky;top:0;z-index:20;background:rgba(15,13,13,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top)}
+.bar .in{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-block:12px}
+.logo{font-family:var(--display);font-weight:900;font-size:20px;letter-spacing:-.02em;text-decoration:none}
 .logo i{color:var(--red);font-style:normal}
-h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,6vw,56px);line-height:1.05;margin:14px 0 0;letter-spacing:-.02em;text-wrap:balance}
-h1 b{color:var(--red);font-weight:800}
-.lead{font-size:clamp(17px,2.2vw,20px);color:var(--mut);max-width:620px;margin:16px 0 0}
-h2{font-family:var(--display);font-weight:600;font-size:20px;margin:0 0 14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-.card{display:grid;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;text-decoration:none;color:inherit;transition:transform .15s,border-color .15s}
-.card:hover{transform:translateY(-2px);border-color:var(--red)}
-.card:focus-visible{outline:2px solid var(--red);outline-offset:3px}
-.tag{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--red);font-weight:600}
-.nm{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.25}
-.ds{color:var(--mut);font-size:14px}
-.go{margin-top:6px;font-weight:600;font-size:14px}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;counter-reset:s}
-.step{border-top:2px solid var(--fg);padding-top:12px;counter-increment:s}
-.step::before{content:counter(s);font-family:var(--display);font-weight:800;color:var(--red);font-size:22px;display:block}
-.step p{margin:4px 0 0;color:var(--mut)}
-.price{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.pc{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}
-.pc b{font-family:var(--display);font-size:30px;display:block;font-variant-numeric:tabular-nums}
-.pc span{color:var(--mut)}
-.inc{color:var(--mut);margin:14px 0 0}
-footer{color:var(--mut);font-size:14px;border-top:1px solid var(--line);padding-top:18px}
+.bar .mini{display:flex;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-weight:600;font-size:14px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.chip.wa{background:var(--wa);border-color:var(--wa);color:#fff}
+.chip.tg{background:var(--tg);border-color:var(--tg);color:#fff}
+@media (max-width:520px){.bar .mini .chip span{display:none}.chip{padding:9px 12px}}
+svg.ic{width:17px;height:17px;flex:none}
+
+/* ---- первый экран: CTA сразу ---- */
+.hero{position:relative;overflow:hidden;padding-block:56px 64px}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:720px;height:720px;background:radial-gradient(closest-side,rgba(227,52,42,.32),transparent 70%);pointer-events:none}
+.kicker{font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--red2);font-weight:700}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(34px,6.6vw,78px);line-height:.98;letter-spacing:-.035em;margin:16px 0 0;max-width:13ch;text-wrap:balance}
+h1 em{font-style:normal;color:var(--red)}
+.sub{font-size:clamp(17px,2vw,21px);color:#cfc6c2;max-width:560px;margin:22px 0 0}
+.offer{margin-top:34px;display:grid;gap:16px;max-width:640px;background:var(--ink2);border:1px solid var(--line);border-radius:24px;padding:22px}
+.offer h2{font-family:var(--display);font-weight:700;font-size:clamp(19px,2.4vw,24px);line-height:1.2;margin:0}
+.offer p{margin:0;color:#bfb6b2}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:700;font-size:17px;padding:16px 22px;border-radius:16px;flex:1 1 220px;transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.btn.wa{background:var(--wa);color:#fff}
+.btn.tg{background:var(--tg);color:#fff}
+.btn:focus-visible,.chip:focus-visible,.nc:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.trust{display:flex;flex-wrap:wrap;gap:8px 22px;color:var(--mut);font-size:14px}
+.trust b{color:var(--paper);font-weight:600}
+
+/* ---- ниши ---- */
+section{padding-block:56px}
+.h2{font-family:var(--display);font-weight:700;font-size:clamp(24px,3.6vw,40px);line-height:1.08;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}
+.hint{color:var(--mut);margin:0 0 26px}
+.niches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.niches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.niches{grid-template-columns:1fr}}
+.nc{position:relative;display:block;aspect-ratio:4/5;border-radius:22px;overflow:hidden;text-decoration:none;background:#222;isolation:isolate}
+@media (max-width:520px){.nc{aspect-ratio:16/11}}
+.nc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1);z-index:-2}
+.nc::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.82) 100%);z-index:-1}
+.nc:hover img{transform:scale(1.05)}
+.nc .t{position:absolute;left:18px;right:18px;bottom:16px;display:grid;gap:4px}
+.nc .tag{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#ffd8d2;font-weight:700}
+.nc .nm{font-family:var(--display);font-weight:700;font-size:21px;line-height:1.15;color:#fff}
+.nc .go{font-size:14px;color:#e9e1de;margin-top:4px}
+
+/* ---- как работает ---- */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+.st{background:var(--ink2);border:1px solid var(--line);border-radius:22px;padding:22px}
+.st .n{font-family:var(--display);font-weight:900;font-size:42px;line-height:1;color:var(--red)}
+.st h3{font-family:var(--display);font-weight:700;font-size:19px;margin:14px 0 6px}
+.st p{margin:0;color:#bfb6b2}
+
+/* ---- цены (светлая полоса) ---- */
+.light{background:var(--paper);color:var(--ink)}
+.light .hint{color:#6f6764}
+.prices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:700px){.prices{grid-template-columns:1fr}}
+.pc{background:#fff;border:1px solid #e6dfda;border-radius:24px;padding:26px;display:grid;gap:8px}
+.pc .lab{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--red);font-weight:700}
+.pc .val{font-family:var(--display);font-weight:900;font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;line-height:1.05;font-variant-numeric:tabular-nums}
+.pc .val small{font-family:var(--body);font-weight:600;font-size:16px;color:#6f6764;letter-spacing:0}
+.pc p{margin:0;color:#6f6764}
+.inc{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.inc span{background:#fff;border:1px solid #e6dfda;border-radius:999px;padding:8px 14px;font-size:15px}
+
+/* ---- финальный CTA ---- */
+.final{padding-block:64px 80px}
+.final .box{background:linear-gradient(135deg,#2a0f0d,#160f0f 60%);border:1px solid rgba(227,52,42,.35);border-radius:28px;padding:clamp(24px,4vw,44px);display:grid;gap:18px}
+footer{color:var(--mut);font-size:14px;padding-bottom:max(28px,env(safe-area-inset-bottom))}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<div class="w">
-  <header>
-    <div class="logo">HASE<i>.</i></div>
-    <h1>Сайты для салонов, кофеен и мастеров. <b>Черновик бесплатно.</b></h1>
-    <p class="lead">Собираем сайт по вашей карточке в 2ГИС: адрес, рейтинг, услуги и цены. Вы смотрите готовый черновик и решаете, нужен ли он вам.</p>
-  </header>
 
-  <section>
-    <h2>Посмотрите пример для вашей ниши</h2>
-    <div class="grid">
-      <a class="card" href="s/nails/"><span class="tag">Маникюр и красота</span><span class="nm">Пудра — студия маникюра</span><span class="ds">Работы, прайс и запись в WhatsApp одним касанием</span><span class="go">Открыть пример →</span></a>
-      <a class="card" href="s/demo/"><span class="tag">Барбершоп</span><span class="nm">Борода и Ножницы</span><span class="ds">Мастера, время и запись без звонков</span><span class="go">Открыть пример →</span></a>
-      <a class="card" href="s/coffee/"><span class="tag">Кофейня</span><span class="nm">Тёплая чашка</span><span class="ds">Меню и цены с телефона за 10 секунд, кнопка «как добраться»</span><span class="go">Открыть пример →</span></a>
-      <a class="card" href="s/furniture/"><span class="tag">Мебель на заказ</span><span class="nm">Кедр</span><span class="ds">Кухни и шкафы на фото, заявка на замер в WhatsApp</span><span class="go">Открыть пример →</span></a>
-      <a class="card" href="s/repair/"><span class="tag">Ремонт квартир</span><span class="nm">Ровные стены</span><span class="ds">Фото объектов, понятные цены, заявка на замер</span><span class="go">Открыть пример →</span></a>
-      <a class="card" href="s/build/"><span class="tag">Строительство домов</span><span class="nm">Северный дом</span><span class="ds">Проекты, цены и заявка на смету</span><span class="go">Открыть пример →</span></a>
+<div class="bar"><div class="in">
+  <a class="logo" href="#">HASE<i>.</i></a>
+  <div class="mini">
+    <a class="chip tg" id="tg1" href="https://t.me/gethase" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.2-8.3c.4-.4-.1-.6-.6-.2L6 13.6l-4.9-1.5c-1.1-.3-1.1-1.1.2-1.6L20.5 3c.9-.3 1.7.2 1.4 1.3z"/></svg><span>Telegram</span></a>
+    <a class="chip wa" id="wa1" href="https://wa.me/79931374214?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%87%D0%B5%D1%80%D0%BD%D0%BE%D0%B2%D0%B8%D0%BA%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D1%81%D0%B2%D0%BE%D0%B5%D0%B3%D0%BE%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B0.%20%D0%9D%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%3A%20" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1.1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg><span>WhatsApp</span></a>
+  </div>
+</div></div>
+
+<header class="hero"><div class="in">
+  <div class="kicker">Сайты для малого бизнеса</div>
+  <h1>Сайт, который <em>приводит</em> клиентов</h1>
+  <p class="sub">Салоны, барбершопы, кофейни, мастера, мебель и ремонт. Делаем под телефон: цены, фото работ, адрес и запись в одно касание.</p>
+  <div class="offer">
+    <h2>Хотите черновик сайта для своего бизнеса? Бесплатно.</h2>
+    <p>Неважно, какая у вас ниша. Напишите название — соберём черновик по вашей карточке в 2ГИС и пришлём ссылку. Понравится — доделаем, нет — ничего не платите.</p>
+    <div class="cta">
+      <a class="btn wa" id="wa2" href="https://wa.me/79931374214?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%87%D0%B5%D1%80%D0%BD%D0%BE%D0%B2%D0%B8%D0%BA%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D1%81%D0%B2%D0%BE%D0%B5%D0%B3%D0%BE%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B0.%20%D0%9D%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%3A%20" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1.1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>Написать в WhatsApp</a>
+      <a class="btn tg" id="tg2" href="https://t.me/gethase" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.2-8.3c.4-.4-.1-.6-.6-.2L6 13.6l-4.9-1.5c-1.1-.3-1.1-1.1.2-1.6L20.5 3c.9-.3 1.7.2 1.4 1.3z"/></svg>Написать в Telegram</a>
     </div>
-  </section>
+    <div class="trust"><span><b>Черновик</b> — бесплатно</span><span><b>Готово</b> за 1–2 дня</span><span><b>Без предоплаты</b> за черновик</span></div>
+  </div>
+</div></header>
 
-  <section>
-    <h2>Как это работает</h2>
-    <div class="steps">
-      <div class="step"><strong>Собираем черновик</strong><p>По вашей карточке в 2ГИС. Бесплатно, без звонков.</p></div>
-      <div class="step"><strong>Вы смотрите</strong><p>С телефона, как увидят клиенты. Нравится — идём дальше.</p></div>
-      <div class="step"><strong>Доделываем под вас</strong><p>Ваши фото, цены и кнопка записи. Обычно 1–2 дня.</p></div>
-    </div>
-  </section>
+<section id="primery"><div class="in">
+  <h2 class="h2">Примеры по нишам</h2>
+  <p class="hint">Откройте с телефона — так сайт увидят ваши клиенты.</p>
+  <div class="niches">
+    <a class="nc" href="s/nails/"><img src="img/n-hero.webp" alt="" loading="lazy"><div class="t"><span class="tag">Маникюр и красота</span><span class="nm">Студия «Пудра»</span><span class="go">Открыть пример →</span></div></a>
+    <a class="nc" href="s/demo/"><img src="img/hall.webp" alt="" loading="lazy"><div class="t"><span class="tag">Барбершоп</span><span class="nm">«Борода и Ножницы»</span><span class="go">Открыть пример →</span></div></a>
+    <a class="nc" href="s/coffee/"><img src="img/c-hall.webp" alt="" loading="lazy"><div class="t"><span class="tag">Кофейня</span><span class="nm">«Тёплая чашка»</span><span class="go">Открыть пример →</span></div></a>
+    <a class="nc" href="s/furniture/"><img src="img/f-hero.webp" alt="" loading="lazy"><div class="t"><span class="tag">Мебель на заказ</span><span class="nm">«Кедр»</span><span class="go">Открыть пример →</span></div></a>
+    <a class="nc" href="s/repair/"><img src="img/r-hero.webp" alt="" loading="lazy"><div class="t"><span class="tag">Ремонт квартир</span><span class="nm">«Ровные стены»</span><span class="go">Открыть пример →</span></div></a>
+    <a class="nc" href="s/build/"><img src="img/b-hero.webp" alt="" loading="lazy"><div class="t"><span class="tag">Строительство домов</span><span class="nm">«Северный дом»</span><span class="go">Открыть пример →</span></div></a>
+  </div>
+</div></section>
 
-  <section>
-    <h2>Цена</h2>
-    <div class="price">
-      <div class="pc"><b>10 000 ₽</b><span>один раз</span></div>
-      <div class="pc"><b>1 500 ₽</b><span>в месяц, без большой суммы сразу</span></div>
-    </div>
-    <p class="inc">Сайт под телефон, цены, фото работ, адрес с картой, кнопка записи или WhatsApp.</p>
-  </section>
+<section><div class="in">
+  <h2 class="h2">Как это работает</h2>
+  <p class="hint">Вы ничего не готовите заранее — всё начинается с готового черновика.</p>
+  <div class="steps">
+    <div class="st"><div class="n">01</div><h3>Собираем черновик</h3><p>По вашей карточке в 2ГИС: название, адрес, рейтинг, услуги. Бесплатно.</p></div>
+    <div class="st"><div class="n">02</div><h3>Вы смотрите</h3><p>Открываете ссылку с телефона и решаете, нужен ли вам такой сайт.</p></div>
+    <div class="st"><div class="n">03</div><h3>Доделываем под вас</h3><p>Ваши фото, цены, мастера и кнопка записи. Обычно 1–2 дня.</p></div>
+  </div>
+</div></section>
 
-  <footer>Чтобы получить свой черновик, ответьте тому, кто вам написал. HASE — небольшая команда, делаем сайты для малого бизнеса.</footer>
-</div>
+<section class="light"><div class="in">
+  <h2 class="h2">Стоимость</h2>
+  <p class="hint">Цена зависит от сложности сайта: количества страниц, услуг и функций.</p>
+  <div class="prices">
+    <div class="pc"><span class="lab">Разово</span><div class="val">10 000 – 25 000 ₽</div><p>Сайт ваш, платите один раз.</p></div>
+    <div class="pc"><span class="lab">Помесячно</span><div class="val">1 500 – 2 500 ₽ <small>/ мес</small></div><p>Без большой суммы сразу.</p></div>
+  </div>
+  <div class="inc"><span>Под телефон</span><span>Цены и услуги</span><span>Фото работ</span><span>Адрес и карта</span><span>Запись в WhatsApp</span><span>Подключение к поиску</span></div>
+</div></section>
+
+<div class="final"><div class="in"><div class="box">
+  <h2 class="h2">Пришлём черновик для вашего бизнеса уже сегодня</h2>
+  <p class="sub" style="margin:0">Напишите название и город — остальное сделаем сами.</p>
+  <div class="cta">
+    <a class="btn wa" id="wa3" href="https://wa.me/79931374214?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%87%D0%B5%D1%80%D0%BD%D0%BE%D0%B2%D0%B8%D0%BA%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D1%81%D0%B2%D0%BE%D0%B5%D0%B3%D0%BE%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B0.%20%D0%9D%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%3A%20" target="_blank" rel="noopener">Написать в WhatsApp</a>
+    <a class="btn tg" id="tg3" href="https://t.me/gethase" target="_blank" rel="noopener">Написать в Telegram</a>
+  </div>
+</div></div></div>
+
+<footer><div class="in">HASE — команда, которая делает сайты для малого бизнеса.</div></footer>
+
+<script>
+// Контакты: впиши сюда один раз — подставятся во все кнопки
+const TG_USER = 'gethase';           // без @
+const WA_PHONE = '79931374214';             // только цифры, например 79991234567
+const WA_TEXT = 'Здравствуйте! Хочу черновик сайта для своего бизнеса. Название и город: ';
+document.querySelectorAll('[id^="tg"]').forEach(a=>a.href=`https://t.me/${TG_USER}`);
+document.querySelectorAll('[id^="wa"]').forEach(a=>a.href=`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(WA_TEXT)}`);
+</script>
 </body>
 </html>
