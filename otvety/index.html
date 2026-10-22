@@ -117,7 +117,9 @@ const $=s=>document.querySelector(s);
 let cat='Все', used={};
 try{used=JSON.parse(localStorage.getItem('hunter_used')||'{}')}catch(e){}
 try{const s=JSON.parse(localStorage.getItem('hunter_vars')||'{}'); if(s.who) $('#who').value=s.who; if(s.biz) $('#biz').value=s.biz}catch(e){}
-function fill(t){const b=$('#biz').value.trim();
+function fill(t){const b=$('#biz').value.trim(); const rin=$('#who').value==='Ринат'; // тест цены у Рината
+  if(rin) t=t.replace('{price}','от 18 000 ₽ разово или от 2 000 ₽ в месяц').replace(/1 500 ₽/g,'2 000 ₽').replace(/10 000 ₽/g,'18 000 ₽');
+  if($('#who').value==='Матвей') t=t.replace('{price}','от 15 000 ₽ разово или от 1 800 ₽ в месяц').replace(/1 500 ₽/g,'1 800 ₽').replace(/10 000 ₽/g,'15 000 ₽'); // тест цены у Матвея
   return t.replace('{price}',PRICE).replace('{who}',$('#who').value).replace('{niche}',niche()).replace('{biz}',b?b+', ':'').replace(/^(.)/,m=>m.toUpperCase())}
 function cats(){const c=['Все',...new Set(R.map(r=>r.c))];
   $('#nav').innerHTML=c.map(x=>`<button class="${x===cat?'on':''}" data-c="${x}">${x}<span class="n">${x==='Все'?R.length:R.filter(r=>r.c===x).length}</span></button>`).join('');
