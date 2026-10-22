@@ -29,6 +29,14 @@ button{font:inherit;font-weight:700;border:0;border-radius:16px;padding:18px;cur
 .skip{background:transparent;color:var(--mut);border:1px solid var(--line);font-weight:600;padding:14px}
 button:disabled{opacity:.45}
 .note{font-size:13px;color:var(--mut);text-align:center}
+.ringw{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px 14px}
+.ring{width:64px;height:64px;flex:none}
+.ring circle{fill:none;stroke-width:8}
+.ring .bg{stroke:var(--line)} .ring .fg{stroke:var(--wa);stroke-linecap:round;transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1);transform:rotate(-90deg);transform-origin:50% 50%}
+.rt{display:grid;gap:2px}.rt b{font-size:17px}.rt span{font-size:13px;color:var(--mut)}
+.combo{font-weight:800;color:var(--red);font-size:15px;min-height:20px;text-align:center}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:50}
+.pop{animation:pop .45s cubic-bezier(.2,1.6,.4,1)}@keyframes pop{0%{transform:scale(.6)}100%{transform:scale(1)}}
 .err{color:var(--red)}
 </style>
 </head>
@@ -37,6 +45,9 @@ button:disabled{opacity:.45}
   <div class="st"><b id="today">–</b><span>сегодня</span></div>
   <div class="st"><b id="ready">–</b><span>с номером</span></div>
 </div>
+<div class="ringw"><svg class="ring" viewBox="0 0 64 64"><circle class="bg" cx="32" cy="32" r="27"/><circle class="fg" id="rg" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="169.6"/></svg><div class="rt"><b id="rtb">Норма дня: 30</b><span id="rts">Каждое сообщение приближает к сделке</span></div></div>
+<div class="combo" id="combo"></div>
+<canvas id="fx"></canvas>
 <div class="card" id="card"><div class="meta">Загружаю бизнес…</div></div>
 <div class="btns">
   <button class="wa" id="wa" disabled>Написать в WhatsApp</button>
@@ -66,11 +77,27 @@ function show(j){
   $('wa').disabled=!j.phone; $('skip').disabled=false;
   const u=(String(j.tg||'').match(/t\.me\/([A-Za-z0-9_]{4,})/)||[])[1]; if(u&&!/^(joinchat|share|addlist|c)$/i.test(u)){ $('tg').hidden=false; $('tg').dataset.u=u }
 }
+
+// ---- 22.10: игра — норма, комбо, конфетти, вибрация ----
+const NORM=30; let combo=0, lastSent=0, lastToday=null;
+const H=(t)=>{ try{ W.HapticFeedback&&(t==='ok'?W.HapticFeedback.notificationOccurred('success'):W.HapticFeedback.impactOccurred(t||'light')) }catch(e){} };
+function ring(today){ const k=Math.min(1,today/NORM); $('rg').style.strokeDashoffset=String(169.6*(1-k));
+  $('rtb').textContent=today>=NORM?`Норма закрыта: ${today} 🔥`:`${today} из ${NORM} на сегодня`;
+  $('rts').textContent=today>=NORM?'Всё сверху — чистый бонус':today>=NORM*0.66?`Осталось ${NORM-today} — финишная прямая`:today>=NORM/3?`Ещё ${NORM-today}, темп хороший`:'Каждое сообщение приближает к сделке';
+  if(lastToday!==null && today>lastToday){ $('today').classList.remove('pop'); void $('today').offsetWidth; $('today').classList.add('pop');
+    if([10,20,NORM,50].includes(today)){ confetti(today>=NORM?220:110); H('ok') } }
+  lastToday=today }
+function bumpCombo(){ const t=Date.now(); combo = (t-lastSent<120000)? combo+1 : 1; lastSent=t;
+  $('combo').textContent = combo>=3 ? `Комбо ×${combo} — не останавливайся` : ''; if(combo>=3) H('medium') }
+function confetti(n){ const c=$('fx'), g=c.getContext('2d'); c.width=innerWidth*devicePixelRatio; c.height=innerHeight*devicePixelRatio; g.scale(devicePixelRatio,devicePixelRatio);
+  const cols=['#1faa59','#ffd23f','#ff4a3d','#2a9df4','#ffffff']; const P=[...Array(n)].map(()=>({x:innerWidth/2,y:innerHeight*0.35,vx:(Math.random()-0.5)*14,vy:-Math.random()*13-4,s:4+Math.random()*6,c:cols[Math.floor(Math.random()*cols.length)],r:Math.random()*6,vr:(Math.random()-0.5)*0.4}));
+  let f=0; (function step(){ g.clearRect(0,0,innerWidth,innerHeight); P.forEach(p=>{p.vy+=0.38;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;g.save();g.translate(p.x,p.y);g.rotate(p.r);g.fillStyle=p.c;g.fillRect(-p.s/2,-p.s/3,p.s,p.s*0.6);g.restore()}); if(++f<110) requestAnimationFrame(step); else g.clearRect(0,0,innerWidth,innerHeight) })() }
+const _show=show; show=function(j){ _show(j); if(j&&j.today!=null) ring(j.today) };
 function load(prev,pst){ nextP=call('next',prev?{prev,pst}:{}).catch(()=>null); return nextP }
 function go(prev,pst){ $('card').innerHTML='<div class="meta">Беру следующий…</div>'; load(prev,pst).then(show) }
 function open(url,tg){ try{ tg&&W.openTelegramLink?W.openTelegramLink(url):W.openLink(url) }catch(e){ location.href=url } }
-$('wa').onclick=()=>{ if(!cur) return; const id=cur.id; open(`https://wa.me/${cur.phone}?text=${encodeURIComponent(cur.texts.none||cur.texts.weak)}`); go(id,'sent') };
-$('tg').onclick=()=>{ if(!cur) return; const id=cur.id; open(`https://t.me/${$('tg').dataset.u}?text=${encodeURIComponent(cur.texts.none||cur.texts.weak)}`,true); go(id,'sent') };
+$('wa').onclick=()=>{ if(!cur) return; const id=cur.id; H('light'); bumpCombo(); open(`https://wa.me/${cur.phone}?text=${encodeURIComponent(cur.texts.none||cur.texts.weak)}`); go(id,'sent') };
+$('tg').onclick=()=>{ if(!cur) return; const id=cur.id; H('light'); bumpCombo(); open(`https://t.me/${$('tg').dataset.u}?text=${encodeURIComponent(cur.texts.none||cur.texts.weak)}`,true); go(id,'sent') };
 $('skip').onclick=()=>{ if(!cur) return; go(cur.id,'skip') };
 if(!init){ show({error:'auth'}) } else go();
 </script>
