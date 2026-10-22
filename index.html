@@ -1,1 +1,85 @@
-<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=s/demo/"><title>HASE</title>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HASE — сайты для салонов, кофеен и мастеров</title>
+<meta name="description" content="Делаем сайты для малого бизнеса: салоны, барбершопы, кофейни, мастера, мебель и ремонт. Черновик бесплатно.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#f4f2ef;--panel:#fff;--fg:#191516;--mut:#6b6264;--line:#e4dedb;--red:#d3261c;
+  --display:"Unbounded",system-ui,sans-serif;--body:"Golos Text",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#111011;--panel:#1b191a;--fg:#f3efed;--mut:#a39b9c;--line:#2d292a;--red:#ff4a3d;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 var(--body);
+  padding:max(28px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(40px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}
+.w{max-width:980px;margin:0 auto;display:grid;gap:44px}
+.logo{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.01em}
+.logo i{color:var(--red);font-style:normal}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,6vw,56px);line-height:1.05;margin:14px 0 0;letter-spacing:-.02em;text-wrap:balance}
+h1 b{color:var(--red);font-weight:800}
+.lead{font-size:clamp(17px,2.2vw,20px);color:var(--mut);max-width:620px;margin:16px 0 0}
+h2{font-family:var(--display);font-weight:600;font-size:20px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{display:grid;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;text-decoration:none;color:inherit;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-2px);border-color:var(--red)}
+.card:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.tag{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--red);font-weight:600}
+.nm{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.25}
+.ds{color:var(--mut);font-size:14px}
+.go{margin-top:6px;font-weight:600;font-size:14px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;counter-reset:s}
+.step{border-top:2px solid var(--fg);padding-top:12px;counter-increment:s}
+.step::before{content:counter(s);font-family:var(--display);font-weight:800;color:var(--red);font-size:22px;display:block}
+.step p{margin:4px 0 0;color:var(--mut)}
+.price{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.pc{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}
+.pc b{font-family:var(--display);font-size:30px;display:block;font-variant-numeric:tabular-nums}
+.pc span{color:var(--mut)}
+.inc{color:var(--mut);margin:14px 0 0}
+footer{color:var(--mut);font-size:14px;border-top:1px solid var(--line);padding-top:18px}
+</style>
+</head>
+<body>
+<div class="w">
+  <header>
+    <div class="logo">HASE<i>.</i></div>
+    <h1>Сайты для салонов, кофеен и мастеров. <b>Черновик бесплатно.</b></h1>
+    <p class="lead">Собираем сайт по вашей карточке в 2ГИС: адрес, рейтинг, услуги и цены. Вы смотрите готовый черновик и решаете, нужен ли он вам.</p>
+  </header>
+
+  <section>
+    <h2>Посмотрите пример для вашей ниши</h2>
+    <div class="grid">
+      <a class="card" href="s/nails/"><span class="tag">Маникюр и красота</span><span class="nm">Пудра — студия маникюра</span><span class="ds">Работы, прайс и запись в WhatsApp одним касанием</span><span class="go">Открыть пример →</span></a>
+      <a class="card" href="s/demo/"><span class="tag">Барбершоп</span><span class="nm">Борода и Ножницы</span><span class="ds">Мастера, время и запись без звонков</span><span class="go">Открыть пример →</span></a>
+      <a class="card" href="s/coffee/"><span class="tag">Кофейня</span><span class="nm">Тёплая чашка</span><span class="ds">Меню и цены с телефона за 10 секунд, кнопка «как добраться»</span><span class="go">Открыть пример →</span></a>
+      <a class="card" href="s/furniture/"><span class="tag">Мебель на заказ</span><span class="nm">Кедр</span><span class="ds">Кухни и шкафы на фото, заявка на замер в WhatsApp</span><span class="go">Открыть пример →</span></a>
+      <a class="card" href="s/repair/"><span class="tag">Ремонт квартир</span><span class="nm">Ровные стены</span><span class="ds">Фото объектов, понятные цены, заявка на замер</span><span class="go">Открыть пример →</span></a>
+      <a class="card" href="s/build/"><span class="tag">Строительство домов</span><span class="nm">Северный дом</span><span class="ds">Проекты, цены и заявка на смету</span><span class="go">Открыть пример →</span></a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Как это работает</h2>
+    <div class="steps">
+      <div class="step"><strong>Собираем черновик</strong><p>По вашей карточке в 2ГИС. Бесплатно, без звонков.</p></div>
+      <div class="step"><strong>Вы смотрите</strong><p>С телефона, как увидят клиенты. Нравится — идём дальше.</p></div>
+      <div class="step"><strong>Доделываем под вас</strong><p>Ваши фото, цены и кнопка записи. Обычно 1–2 дня.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Цена</h2>
+    <div class="price">
+      <div class="pc"><b>10 000 ₽</b><span>один раз</span></div>
+      <div class="pc"><b>1 500 ₽</b><span>в месяц, без большой суммы сразу</span></div>
+    </div>
+    <p class="inc">Сайт под телефон, цены, фото работ, адрес с картой, кнопка записи или WhatsApp.</p>
+  </section>
+
+  <footer>Чтобы получить свой черновик, ответьте тому, кто вам написал. HASE — небольшая команда, делаем сайты для малого бизнеса.</footer>
+</div>
+</body>
+</html>
