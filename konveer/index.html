@@ -53,6 +53,7 @@ button:disabled{opacity:.45}
   <button class="wa" id="wa" disabled>Написать в WhatsApp</button>
   <button class="tgb" id="tg" hidden>Написать в Telegram</button>
   <button class="skip" id="skip" disabled>Пропустить</button>
+  <button class="skip" id="undo" hidden>Не отправилось: нет в WhatsApp</button>
   <div class="note" id="note">Нажал «Написать» → в WhatsApp нажми «Отправить» → вернись сюда, следующий уже готов.</div>
 </div>
 <script>
@@ -96,8 +97,12 @@ const _show=show; show=function(j){ _show(j); if(j&&j.today!=null) ring(j.today)
 function load(prev,pst){ nextP=call('next',prev?{prev,pst}:{}).catch(()=>null); return nextP }
 function go(prev,pst){ $('card').innerHTML='<div class="meta">Беру следующий…</div>'; load(prev,pst).then(show) }
 function open(url,tg){ try{ tg&&W.openTelegramLink?W.openTelegramLink(url):W.openLink(url) }catch(e){ location.href=url } }
-$('wa').onclick=()=>{ if(!cur) return; const id=cur.id; H('light'); bumpCombo(); open(`https://wa.me/${cur.phone}?text=${encodeURIComponent(cur.texts.none||cur.texts.weak)}`); go(id,'sent') };
-$('tg').onclick=()=>{ if(!cur) return; const id=cur.id; H('light'); bumpCombo(); open(`https://t.me/${$('tg').dataset.u}?text=${encodeURIComponent(cur.texts.none||cur.texts.weak)}`,true); go(id,'sent') };
+$('wa').onclick=()=>{ if(!cur) return; const id=cur.id; H('light'); bumpCombo(); open(`https://wa.me/${cur.phone}?text=${encodeURIComponent(cur.texts.none||cur.texts.weak)}`); lastId=id; $('undo').hidden=false; go(id,'sent') };
+$('tg').onclick=()=>{ if(!cur) return; const id=cur.id; H('light'); bumpCombo(); open(`https://t.me/${$('tg').dataset.u}?text=${encodeURIComponent(cur.texts.none||cur.texts.weak)}`,true); lastId=id; $('undo').hidden=false; go(id,'sent') };
+
+let lastId=null;
+$('undo').onclick=async()=>{ if(!lastId) return; const id=lastId; lastId=null; $('undo').hidden=true; H('medium');
+  const j=await call('next',{undo:id,wa:true}).catch(()=>null); if(j&&j.today!=null){ $('today').textContent=j.today; lastToday=j.today; ring(j.today) } };
 $('skip').onclick=()=>{ if(!cur) return; go(cur.id,'skip') };
 if(!init){ show({error:'auth'}) } else go();
 </script>
