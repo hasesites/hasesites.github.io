@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<title>Пульт ответов Hunter</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+/* Layout: пульт — слева ситуации-фильтры, справа карточки ответов; на телефоне всё одной колонкой */
+:root{
+  --bg:#f3f1ee; --panel:#ffffff; --fg:#1b1717; --mut:#6d6463; --line:#e3ddd9;
+  --red:#d3261c; --redsoft:#fbe7e5; --ok:#1f8a4c; --oksoft:#e3f3ea;
+  --display:"Unbounded",system-ui,sans-serif; --body:"Golos Text",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121011; --panel:#1c191a; --fg:#f2eeec; --mut:#a49c9a; --line:#2e2a2b;
+  --red:#ff4a3d; --redsoft:#3a1714; --ok:#4fd18a; --oksoft:#12301f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121011; --panel:#1c191a; --fg:#f2eeec; --mut:#a49c9a; --line:#2e2a2b;
+  --red:#ff4a3d; --redsoft:#3a1714; --ok:#4fd18a; --oksoft:#12301f; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 60px}
+.wrap{max-width:1100px;margin:0 auto;display:grid;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(22px,4vw,32px);margin:0;letter-spacing:-.01em;text-wrap:balance}
+h1 b{color:var(--red)}
+.sub{color:var(--mut);margin:4px 0 0}
+.vars{display:flex;flex-wrap:wrap;gap:10px}
+.vars label{display:grid;gap:4px;font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.vars input,.vars select{font:inherit;font-size:15px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-width:0;width:200px}
+.grid{display:grid;grid-template-columns:240px 1fr;gap:18px;align-items:start}
+@media (max-width:760px){.grid{grid-template-columns:1fr}}
+nav{display:flex;flex-direction:column;gap:6px;position:sticky;top:max(12px,env(safe-area-inset-top,0px))}
+@media (max-width:760px){nav{position:static;flex-direction:row;flex-wrap:wrap}}
+nav button{font:inherit;text-align:left;background:transparent;color:var(--fg);border:1px solid transparent;border-radius:10px;padding:9px 12px;cursor:pointer;display:flex;justify-content:space-between;gap:8px}
+nav button:hover{border-color:var(--line)}
+nav button.on{background:var(--panel);border-color:var(--line);font-weight:600}
+nav button .n{color:var(--mut);font-variant-numeric:tabular-nums}
+.search{font:inherit;width:100%;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.list{display:grid;gap:12px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:10px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.q{font-family:var(--display);font-weight:600;font-size:15px}
+.tag{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.txt{white-space:pre-wrap;margin:0}
+.why{font-size:13px;color:var(--mut);border-left:3px solid var(--line);padding-left:10px;margin:0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.copy{font:inherit;font-weight:600;background:var(--red);color:#fff;border:0;border-radius:10px;padding:9px 16px;cursor:pointer}
+.copy.done{background:var(--ok)}
+.copy:focus-visible,nav button:focus-visible,.search:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.used{font-size:12px;color:var(--mut);font-variant-numeric:tabular-nums}
+.rules{background:var(--redsoft);border-radius:14px;padding:14px 16px;display:grid;gap:6px}
+.rules h2{font-family:var(--display);font-size:14px;margin:0;color:var(--red)}
+.rules p{margin:0}
+kbd{font-family:ui-monospace,monospace;font-size:12px;border:1px solid var(--line);border-radius:5px;padding:1px 5px;background:var(--panel)}
+</style>
+<style>:root{color-scheme:light}@media (prefers-color-scheme:dark){:root{color-scheme:dark}}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Пульт ответов <b>Hunter</b></h1>
+      <p class="sub">Лид ответил — нашёл ситуацию — скопировал одним нажатием. Цифры 1–9 копируют карточку по номеру, <kbd>/</kbd> — поиск.</p>
+    </div>
+    <div class="vars">
+      <label for="who">Кто пишет<select id="who"><option>Искандер</option><option>Саркис</option><option>Данияр</option><option>Ринат</option><option>Матвей</option></select></label>
+      <label for="biz">Название бизнеса<input id="biz" placeholder="например, Виви"></label>
+    </div>
+  </header>
+
+  <div class="grid">
+    <nav id="nav"></nav>
+    <div class="list">
+      <input id="q" class="search" placeholder="Что написал лид? Например: дорого, инстаграм, подумаем">
+      <div id="list" class="list"></div>
+      <div class="rules">
+        <h2>Три правила, которые продают</h2>
+        <p>Отвечай в первые 5 минут — пока человек в чате, шанс сделки в разы выше.</p>
+        <p>Заканчивай вопросом с выбором: «разово или помесячно?», а не «если что — пишите».</p>
+        <p>После двух «нет» — вежливо прощайся. Не надоевший лид часто пишет сам через месяц.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PRICE='10 000 ₽ разово или 1 500 ₽ в месяц';
+const R=[
+ {c:'Цена',q:'«Сколько стоит?»',k:'цена сколько стоимость прайс',t:'{biz}Сайт стоит {price}. Черновик уже готов — ссылка выше. Если нравится, за 1–2 дня доделаем под вас: ваши фото, цены и кнопку записи. Вам удобнее разово или помесячно?',w:'Цена сразу и честно, без «зависит». Закрываешь вопросом с выбором из двух да.'},
+ {c:'Цена',q:'«Дорого»',k:'дорого дороговато много денег нет бюджета',t:'Понимаю. Поэтому есть вариант 1 500 ₽ в месяц — это меньше одной процедуры у вас. Сайт окупается с первого клиента, который нашёл вас в поиске, а не конкурента. Попробуем помесячно?',w:'Не спорь с «дорого» — переведи цену в их единицы (одна стрижка, одна чашка кофе).'},
+ {c:'Цена',q:'«Можно дешевле?»',k:'дешевле скидка торг подешевле',t:'Цена и так минимальная для такого сайта. Но можно без большой суммы сразу: 1 500 ₽ в месяц, отключить можно в любой момент. Начнём с первого месяца?',w:'Не режь цену просто так — предложи другую форму оплаты. Скидку давай только в обмен на что-то (срок, отзыв).'},
+ {c:'Сомнения',q:'«Подумаем»',k:'подумаем подумаю позже потом решим',t:'Конечно. Черновик повисит ещё несколько дней, потом я его удалю, чтобы не занимал место. Скажите честно, что смущает больше — цена или нужен ли сайт вообще? Может, сразу подправлю.',w:'«Подумаем» — это почти всегда скрытое возражение. Вопрос с вариантами вытаскивает настоящую причину.'},
+ {c:'Сомнения',q:'«Есть Инстаграм / ВК»',k:'инстаграм инста вк вконтакте соцсети таплинк',t:'Это отлично, сайт его не заменяет, а приводит туда людей. Когда человек ищет «{niche} рядом» в Яндексе, соцсети почти не выдаются, а сайт — да. Плюс на сайте сразу цены и запись в одно касание. Показать, как ваш черновик выглядит в поиске?',w:'Соглашайся с их каналом и показывай, чем сайт его усиливает. Никогда не говори, что соцсети — плохо.'},
+ {c:'Сомнения',q:'«Клиентов и так хватает»',k:'хватает клиентов много записи полная запись',t:'Здорово, значит работаете хорошо. Сайт тогда нужен не для потока, а чтобы новые клиенты приходили сами, когда кто-то из постоянных уйдёт. И чтобы можно было поднять цены — с сайтом это проще объяснить. Оставить черновик за вами?',w:'Переводишь разговор с «больше клиентов» на стабильность и цены.'},
+ {c:'Сомнения',q:'«Уже был сайт, не помог»',k:'был сайт не помог не работает толку нет',t:'Частая история: сайт сделали и бросили, в поиске его никто не видел. Мы делаем под телефон и подключаем к поиску и картам — поэтому есть помесячный вариант: если за 2 месяца не будет заявок, просто отключите. Попробуем?',w:'Признай чужой провал и сними риск — помесячная оплата отвечает на страх лучше любых слов.'},
+ {c:'Кто вы',q:'«Кто вы? Откуда номер?»',k:'кто вы откуда номер откуда контакт',t:'Меня зовут {who}, номер из вашей карточки в 2ГИС. Мы небольшая команда, делаем сайты для салонов, кофеен и мастеров. Ваш черновик собрал по отзывам и данным из карточки — посмотреть можно по ссылке, это ни к чему не обязывает.',w:'Прозрачность снимает подозрение в спаме. Источник номера называй сразу.'},
+ {c:'Кто вы',q:'«Пришлите примеры»',k:'примеры портфолио работы покажите',t:'Ваш черновик и есть пример — по ссылке выше. Откройте с телефона, так его увидят клиенты. Если что-то поменять — скажите, поправлю до запуска.',w:'Лучший пример — их собственный сайт. Не уводи в чужие работы.'},
+ {c:'Кто вы',q:'«Это развод?»',k:'развод мошенники обман предоплата',t:'Понимаю осторожность. Поэтому сначала вы бесплатно смотрите готовый черновик — он уже по ссылке. И есть помесячный вариант: 1 500 ₽, отключить можно в любой момент. Никаких больших сумм вслепую.',w:'Снимай риск, а не уговаривай. Готовый черновик до оплаты — лучший аргумент.'},
+ {c:'Детали',q:'«Что входит?»',k:'что входит состав что будет функции',t:'Сайт под телефон, цены, фото работ, адрес с картой, кнопка записи или WhatsApp, подключение к поиску. Правки до запуска — бесплатно. Удобнее разово или помесячно?',w:'Коротко и по пунктам, в конце — снова выбор.'},
+ {c:'Детали',q:'«Сколько делаете?»',k:'сроки сколько делаете когда готово долго',t:'Черновик уже готов. С вашими фото и ценами запускаем за 1–2 дня. Пришлёте фото сегодня — завтра сайт будет в сети.',w:'Конкретный срок + конкретный следующий шаг («пришлёте фото»).'},
+ {c:'Детали',q:'«Свой домен / адрес?»',k:'домен адрес сайта ссылка свой',t:'Да, можно на ваше название — подберём свободный адрес и подключим. Стоимость домена подскажу, когда выберем адрес.',w:'Не усложняй. Ответ «да» + что это уже включено.'},
+ {c:'Дожим',q:'Ответил «да», пропал',k:'пропал молчит не отвечает игнор',t:'{biz}добрый день! Не хочу терять ваш черновик — подскажите, оставляем его за вами? Если неактуально, просто напишите «нет», я удалю.',w:'Лёгкое «нет» парадоксально повышает ответы: человеку проще ответить, чем молчать.'},
+ {c:'Дожим',q:'Готов купить',k:'берём давайте согласен оплата как оплатить',t:'Отлично! Тогда пришлите, пожалуйста: 5–10 фото работ, актуальные цены и время работы. Как будет готово — пришлю ссылку и реквизиты на оплату.',w:'Сразу конкретный список, без «ну, давайте обсудим». Чем меньше шагов, тем меньше отвалов.'},
+ {c:'Отказ',q:'«Не надо, спасибо»',k:'не надо не нужно нет спасибо неинтересно',t:'Понял, без проблем. Можно один вопрос: дело в цене или сайт сейчас просто не в приоритете? Хочу понять, чтобы не писать лишнего.',w:'Один уточняющий вопрос часто возвращает разговор. Если и после него «нет» — прощайся.'},
+ {c:'Отказ',q:'Второе «нет»',k:'второе нет точно нет отстаньте',t:'Понял, спасибо за ответ! Черновик удалю. Если когда-нибудь понадобится сайт — пишите, сделаем быстро. Хорошего дня!',w:'Красиво закрытая дверь — это будущая сделка. Никакого давления.'},
+];
+const niche=()=>'салон';
+const $=s=>document.querySelector(s);
+let cat='Все', used={};
+try{used=JSON.parse(localStorage.getItem('hunter_used')||'{}')}catch(e){}
+try{const s=JSON.parse(localStorage.getItem('hunter_vars')||'{}'); if(s.who) $('#who').value=s.who; if(s.biz) $('#biz').value=s.biz}catch(e){}
+function fill(t){const b=$('#biz').value.trim();
+  return t.replace('{price}',PRICE).replace('{who}',$('#who').value).replace('{niche}',niche()).replace('{biz}',b?b+', ':'').replace(/^(.)/,m=>m.toUpperCase())}
+function cats(){const c=['Все',...new Set(R.map(r=>r.c))];
+  $('#nav').innerHTML=c.map(x=>`<button class="${x===cat?'on':''}" data-c="${x}">${x}<span class="n">${x==='Все'?R.length:R.filter(r=>r.c===x).length}</span></button>`).join('');
+  $('#nav').querySelectorAll('button').forEach(b=>b.onclick=()=>{cat=b.dataset.c;render()})}
+let shown=[];
+function render(){cats();const q=$('#q').value.trim().toLowerCase();
+  shown=R.map((r,i)=>({...r,i})).filter(r=>(cat==='Все'||r.c===cat)&&(!q||(r.q+' '+r.k+' '+r.t).toLowerCase().includes(q)));
+  $('#list').innerHTML=shown.length?shown.map((r,n)=>`<article class="card"><div class="top"><span class="q">${n<9?n+1+'. ':''}${r.q}</span><span class="tag">${r.c}</span></div>
+    <p class="txt">${fill(r.t)}</p><p class="why">${r.w}</p>
+    <div class="row"><button class="copy" id="cp${r.i}" data-i="${r.i}">Скопировать</button><span class="used">${used[r.i]?'использовано '+used[r.i]+' раз':''}</span></div></article>`).join('')
+    :'<p class="sub">Ничего не нашлось. Попробуй другое слово: «дорого», «инстаграм», «подумаем».</p>';
+  $('#list').querySelectorAll('.copy').forEach(b=>b.onclick=()=>copy(+b.dataset.i,b))}
+function copy(i,btn){const t=fill(R[i].t);
+  const ok=()=>{used[i]=(used[i]||0)+1;try{localStorage.setItem('hunter_used',JSON.stringify(used))}catch(e){}btn.textContent='Скопировано';btn.classList.add('done');setTimeout(render,900)};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,()=>sel(btn))}else sel(btn)}
+function sel(btn){const p=btn.closest('.card').querySelector('.txt');const r=document.createRange();r.selectNodeContents(p);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Выделено — нажми ⌘C'}
+['#q','#biz'].forEach(s=>$(s).addEventListener('input',()=>{save();render()}));$('#who').addEventListener('change',()=>{save();render()});
+function save(){try{localStorage.setItem('hunter_vars',JSON.stringify({who:$('#who').value,biz:$('#biz').value}))}catch(e){}}
+document.addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement.tagName!=='INPUT'){e.preventDefault();$('#q').focus()}
+  else if(/^[1-9]$/.test(e.key)&&!['INPUT','SELECT'].includes(document.activeElement.tagName)){const r=shown[+e.key-1];if(r)copy(r.i,$('#cp'+r.i))}});
+// Telegram мини-приложение: имя по юзернейму, на весь экран
+try{const W=window.Telegram&&Telegram.WebApp; if(W&&W.initData){W.ready();W.expand();
+  const M={dworryame:'Саркис',ghuiop1:'Данияр',financemethod:'Ринат',safonov_222:'Матвей'};
+  const u=((W.initDataUnsafe&&W.initDataUnsafe.user&&W.initDataUnsafe.user.username)||'').toLowerCase();
+  if(M[u]) $('#who').value=M[u]; else if(u) $('#who').value='Искандер';
+  document.querySelector('.sub').textContent='Лид ответил — нашёл ситуацию — нажал «Скопировать» и вставил в чат.';}}catch(e){}
+render();
+</script>
+
+</body>
+</html>
