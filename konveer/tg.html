@@ -103,7 +103,7 @@ function open(url,tg){ try{ tg&&W.openTelegramLink?W.openTelegramLink(url):W.ope
 $('wa').onclick=()=>{ if(!cur) return; const id=cur.id; H('light'); bumpCombo(); open(`https://wa.me/${cur.phone}?text=${encodeURIComponent(cur.texts.none||cur.texts.weak)}`); lastId=id; $('undo').hidden=false; go(id,'sent') };
 // 23.10: Telegram не вставляет текст в личный чат сам — копируем его перед открытием
 function copyText(t){ try{ if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t); return } }catch(e){} try{ const a=document.createElement('textarea'); a.value=t; a.style.position='fixed'; a.style.opacity='0'; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove() }catch(e){} }
-$('tg').onclick=()=>{ if(!cur) return; const id=cur.id; copyText(cur.texts.none||cur.texts.weak); H('light'); bumpCombo(); if(combo<3) $('combo').textContent='Текст скопирован — вставь его в чат'; open(`https://t.me/${$('tg').dataset.u}?text=${encodeURIComponent(cur.texts.none||cur.texts.weak)}`,true); lastId=id; $('undo').hidden=false; go(id,'sent') };
+$('tg').onclick=()=>{ if(!cur) return; const id=cur.id; copyText(cur.texts.none||cur.texts.weak); H('light'); bumpCombo(); if(combo<3) $('combo').textContent='Текст скопирован — вставь его в чат'; const u=$('tg').dataset.u, t=cur.texts.none||cur.texts.weak; lastId=id; $('undo').hidden=false; go(id,'sent'); setTimeout(()=>open(`https://t.me/${u}?text=${encodeURIComponent(t)}`,true),400) };
 
 let lastId=null;
 $('undo').onclick=async()=>{ if(!lastId) return; const id=lastId; lastId=null; $('undo').hidden=true; H('medium');
