@@ -2,6 +2,8 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<link rel="preload" as="image" href="img/bani3-bg.webp">
+<link rel="preload" as="image" href="img/bani1.webp">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Берёзовый Пар: бани под ключ</title>
 <meta name="description" content="Бани под ключ: соберите баню в калькуляторе и получите смету до договора.">
@@ -59,7 +61,7 @@ html{scroll-behavior:smooth}
 </div>
 </header>
 
-<div style="background:linear-gradient(90deg,rgba(23,16,11,.96) 0%,rgba(23,16,11,.82) 42%,rgba(23,16,11,.45) 100%),url(img/bani3.jpg) center/cover">
+<div style="background:linear-gradient(90deg,rgba(23,16,11,.96) 0%,rgba(23,16,11,.82) 42%,rgba(23,16,11,.45) 100%),url(img/bani3-bg.webp) center/cover">
 <section id="top" style="padding:72px 48px 64px;display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start;max-width:1360px;margin:0 auto;box-sizing:border-box">
 <div style="flex:1 1 440px;min-width:0">
 <p style="margin:0 0 20px;color:#E2A25E;font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase">Бани под ключ</p>
@@ -125,7 +127,7 @@ html{scroll-behavior:smooth}
 <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:40px">
 <sc-for list="{{tiers}}" as="t" hint-placeholder-count="3">
 <div class="card" style="flex:1 1 300px;background:#fff;border:1px solid #DCCFB8;border-radius:20px;overflow:hidden;box-sizing:border-box">
-<img src="{{t.img}}" alt="{{t.title}}" style="width:100%;height:200px;object-fit:cover;display:block">
+<img loading="lazy" decoding="async" src="{{t.img}}" alt="{{t.title}}" style="width:100%;height:200px;object-fit:cover;display:block">
 <div style="padding:28px 32px 32px">
 <div style="font-size:13px;font-weight:600;letter-spacing:.1em;color:#B2551F">{{t.tag}}</div>
 <h3 style="margin:10px 0 8px;font-family:'Playfair Display',serif;font-size:28px">{{t.title}}</h3>
@@ -159,7 +161,7 @@ html{scroll-behavior:smooth}
 <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:40px">
 <sc-for list="{{tiles}}" as="t" hint-placeholder-count="6">
 <figure style="flex:1 1 280px;margin:0;border-radius:18px;overflow:hidden;position:relative;height:260px;background:#17100B">
-<img src="{{t.src}}" alt="{{t.title}}" style="width:100%;height:100%;object-fit:cover;display:block">
+<img loading="lazy" decoding="async" src="{{t.src}}" alt="{{t.title}}" style="width:100%;height:100%;object-fit:cover;display:block">
 <figcaption style="position:absolute;left:0;right:0;bottom:0;padding:14px 20px;background:rgba(23,16,11,.82);font-weight:600">{{t.title}}</figcaption>
 </figure>
 </sc-for>
@@ -331,7 +333,7 @@ class Component extends DCLogic {
       ['КАРКАС', 'Каркасная баня', 'Тёплая баня с отдельной парной и комнатой отдыха.', 'frame', 24, 'м²'],
       ['СРУБ', 'Баня из сруба', 'Классическая русская баня для постоянного использования.', 'log', 32, 'м²']
     ];
-    const tiers = tierSrc.map(([tag, title, text, id, sz, unit]) => ({ tag, title, text, size: sz + ' ' + unit, img: { barrel: 'img/bani1.jpg', frame: 'img/bani2.jpg', log: 'img/bani3.jpg' }[id], price: fmt(sz * rates[id] + 45000) }));
+    const tiers = tierSrc.map(([tag, title, text, id, sz, unit]) => ({ tag, title, text, size: sz + ' ' + unit, img: { barrel: 'img/bani1.webp', frame: 'img/bani2.webp', log: 'img/bani3.webp' }[id], price: fmt(sz * rates[id] + 45000) }));
 
     const faqSrc = [
       ['Как считается цена?', 'Цена зависит от типа бани, размера, дерева и дополнений. Калькулятор показывает ориентир, а итоговую сумму мы записываем в договор после осмотра участка.'],
@@ -344,7 +346,7 @@ class Component extends DCLogic {
     return {
       guarantee: P.guarantee ?? '5 лет',
       kinds, woods, extras, tiers, faq,
-      kindImg: { barrel: 'img/bani1.jpg', frame: 'img/bani2.jpg', log: 'img/bani3.jpg' }[s.kind],
+      kindImg: { barrel: 'img/bani1.webp', frame: 'img/bani2.webp', log: 'img/bani3.webp' }[s.kind],
       kindName: { barrel: 'Баня-бочка', frame: 'Каркасная баня', log: 'Баня из сруба' }[s.kind],
       isBarrel, isHouse: !isBarrel,
       x0, w, hoops, lines, chimX, doorX: x0 + w - 26, doorHX: x0 + w * 0.12, winX: x0 + w * 0.46,
@@ -363,7 +365,7 @@ class Component extends DCLogic {
         { n: '04', title: 'Строительство', text: 'Собираем баню и ставим печь, показываем ход работ.' },
         { n: '05', title: 'Сдача', text: 'Подписываем акт и объясняем уход за баней.' }
       ],
-      tiles: [{ title: 'Баня-бочка из кедра', src: 'img/bani1.jpg' }, { title: 'Каркасная баня с верандой', src: 'img/bani2.jpg' }, { title: 'Баня из сруба', src: 'img/bani3.jpg' }, { title: 'Парная с каменкой', src: 'img/bani4.jpg' }, { title: 'Купель на террасе', src: 'img/bani5.jpg' }, { title: 'Комната отдыха', src: 'img/bani6.jpg' }]
+      tiles: [{ title: 'Баня-бочка из кедра', src: 'img/bani1.webp' }, { title: 'Каркасная баня с верандой', src: 'img/bani2.webp' }, { title: 'Баня из сруба', src: 'img/bani3.webp' }, { title: 'Парная с каменкой', src: 'img/bani4.webp' }, { title: 'Купель на террасе', src: 'img/bani5.webp' }, { title: 'Комната отдыха', src: 'img/bani6.webp' }]
     };
   }
 }
