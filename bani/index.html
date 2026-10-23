@@ -59,11 +59,12 @@ html{scroll-behavior:smooth}
 </div>
 </header>
 
+<div style="background:linear-gradient(90deg,rgba(23,16,11,.96) 0%,rgba(23,16,11,.82) 42%,rgba(23,16,11,.45) 100%),url(img/bani3.jpg) center/cover">
 <section id="top" style="padding:72px 48px 64px;display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start;max-width:1360px;margin:0 auto;box-sizing:border-box">
 <div style="flex:1 1 440px;min-width:0">
 <p style="margin:0 0 20px;color:#E2A25E;font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase">Бани под ключ</p>
 <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(36px,4.6vw,62px);line-height:1.06">Баня на вашем участке. Смета до подписания договора.</h1>
-<p style="margin:28px 0 0;font-size:19px;color:#CDBBA3;max-width:520px">Выберите тип и размер справа и сразу увидите цену и срок. Дальше мы приезжаем на участок, уточняем детали и фиксируем сумму в договоре.</p>
+<p style="margin:28px 0 0;font-size:19px;color:#CDBBA3;max-width:520px">Выберите тип и размер в калькуляторе и сразу увидите цену и срок. Дальше мы приезжаем на участок, уточняем детали и фиксируем сумму в договоре.</p>
 <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:36px">
 <a class="btn" href="#calc" style="background:#E2603A;color:#1A0A04;text-decoration:none;font-weight:600;padding:16px 26px;border-radius:14px;font-size:16px">Собрать свою баню</a>
 <a class="btn" href="#contact" style="border:1px solid #5A4331;text-decoration:none;font-weight:600;padding:16px 26px;border-radius:14px;font-size:16px">Написать в WhatsApp</a>
@@ -76,39 +77,10 @@ html{scroll-behavior:smooth}
 </div>
 
 <div id="calc" style="flex:1 1 560px;min-width:0;background:#221711;border:1px solid #3C2B1E;border-radius:24px;padding:28px;box-sizing:border-box">
-<div style="background:#17100B;border-radius:16px;padding:12px 8px 0">
-<svg viewBox="0 0 520 280" width="100%" role="img" aria-label="Схема выбранной бани" style="display:block;max-height:300px">
-<rect x="0" y="240" width="520" height="40" fill="#2B1E14"/>
-<sc-if value="{{isBarrel}}" hint-placeholder-val="{{true}}">
-<g>
-<rect x="{{x0}}" y="120" width="{{w}}" height="120" rx="56" fill="#B9773A" stroke="#17100B" stroke-width="3"/>
-<sc-for list="{{hoops}}" as="h" hint-placeholder-count="4">
-<line x1="{{h.x}}" y1="124" x2="{{h.x}}" y2="236" stroke="#5A3A1C" stroke-width="5"/>
-</sc-for>
-<rect x="{{chimX}}" y="82" width="14" height="46" fill="#2B2623"/>
-<ellipse cx="{{doorX}}" cy="180" rx="14" ry="40" fill="#3A2412" stroke="#17100B" stroke-width="3"/>
-</g>
-</sc-if>
-<sc-if value="{{isHouse}}" hint-placeholder-val="{{false}}">
-<g>
-<rect x="{{x0}}" y="110" width="{{w}}" height="130" fill="#B9773A" stroke="#17100B" stroke-width="3"/>
-<sc-for list="{{lines}}" as="l" hint-placeholder-count="6">
-<line x1="{{l.x1}}" y1="{{l.y1}}" x2="{{l.x2}}" y2="{{l.y2}}" stroke="#8C5A2A" stroke-width="2"/>
-</sc-for>
-<polygon points="{{roofPts}}" fill="#2B2623" stroke="#17100B" stroke-width="3"/>
-<rect x="{{chimX}}" y="66" width="16" height="48" fill="#4A403A"/>
-<rect x="{{doorHX}}" y="170" width="38" height="70" fill="#3A2412"/>
-<rect x="{{winX}}" y="150" width="54" height="46" fill="#F0C98A" stroke="#17100B" stroke-width="3"/>
-</g>
-</sc-if>
-<g aria-hidden="true">
-<path class="steam" d="{{steam1}}" fill="none" stroke="#F5ECDD" stroke-width="5" stroke-linecap="round"/>
-<path class="steam s2" d="{{steam2}}" fill="none" stroke="#F5ECDD" stroke-width="5" stroke-linecap="round"/>
-<path class="steam s3" d="{{steam3}}" fill="none" stroke="#F5ECDD" stroke-width="5" stroke-linecap="round"/>
-</g>
-</svg>
+<div style="position:relative;border-radius:16px;overflow:hidden;height:300px;background:#17100B">
+<img src="{{kindImg}}" alt="{{kindName}}" style="width:100%;height:100%;object-fit:cover;display:block">
+<div style="position:absolute;left:14px;bottom:14px;background:rgba(23,16,11,.85);padding:8px 14px;border-radius:10px;font-weight:600;font-size:15px">{{kindName}} · {{sizeText}}</div>
 </div>
-<p style="margin:8px 0 0;font-size:12px;color:#B8A892;text-align:center">Схема иллюстративная</p>
 
 <p style="margin:22px 0 10px;font-weight:600;font-size:14px;color:#B8A892">Тип</p>
 <div style="display:flex;flex-wrap:wrap;gap:10px">
@@ -145,18 +117,22 @@ html{scroll-behavior:smooth}
 </div>
 </section>
 
+</div>
 <section id="projects" style="background:#F5ECDD;color:#2A1B10;padding:80px 48px">
 <div style="max-width:1264px;margin:0 auto">
 <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(30px,3.4vw,44px);line-height:1.12">Три формата, из которых выбирают</h2>
-<p style="margin:16px 0 0;font-size:18px;color:#5A4331;max-width:640px">Цена «от» считается по тому же калькулятору. Фото реальных объектов добавим сюда.</p>
+<p style="margin:16px 0 0;font-size:18px;color:#5A4331;max-width:640px">Цена «от» считается по тому же калькулятору.</p>
 <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:40px">
 <sc-for list="{{tiers}}" as="t" hint-placeholder-count="3">
-<div class="card" style="flex:1 1 300px;background:#fff;border:1px solid #DCCFB8;border-radius:20px;padding:32px;box-sizing:border-box">
+<div class="card" style="flex:1 1 300px;background:#fff;border:1px solid #DCCFB8;border-radius:20px;overflow:hidden;box-sizing:border-box">
+<img src="{{t.img}}" alt="{{t.title}}" style="width:100%;height:200px;object-fit:cover;display:block">
+<div style="padding:28px 32px 32px">
 <div style="font-size:13px;font-weight:600;letter-spacing:.1em;color:#B2551F">{{t.tag}}</div>
 <h3 style="margin:10px 0 8px;font-family:'Playfair Display',serif;font-size:28px">{{t.title}}</h3>
 <p style="margin:0;color:#5A4331">{{t.text}}</p>
 <div style="margin-top:20px;font-size:14px;color:#5A4331">{{t.size}}</div>
 <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:30px;margin-top:4px">от {{t.price}} ₽</div>
+</div>
 </div>
 </sc-for>
 </div>
@@ -355,7 +331,7 @@ class Component extends DCLogic {
       ['КАРКАС', 'Каркасная баня', 'Тёплая баня с отдельной парной и комнатой отдыха.', 'frame', 24, 'м²'],
       ['СРУБ', 'Баня из сруба', 'Классическая русская баня для постоянного использования.', 'log', 32, 'м²']
     ];
-    const tiers = tierSrc.map(([tag, title, text, id, sz, unit]) => ({ tag, title, text, size: sz + ' ' + unit, price: fmt(sz * rates[id] + 45000) }));
+    const tiers = tierSrc.map(([tag, title, text, id, sz, unit]) => ({ tag, title, text, size: sz + ' ' + unit, img: { barrel: 'img/bani1.jpg', frame: 'img/bani2.jpg', log: 'img/bani3.jpg' }[id], price: fmt(sz * rates[id] + 45000) }));
 
     const faqSrc = [
       ['Как считается цена?', 'Цена зависит от типа бани, размера, дерева и дополнений. Калькулятор показывает ориентир, а итоговую сумму мы записываем в договор после осмотра участка.'],
@@ -368,6 +344,8 @@ class Component extends DCLogic {
     return {
       guarantee: P.guarantee ?? '5 лет',
       kinds, woods, extras, tiers, faq,
+      kindImg: { barrel: 'img/bani1.jpg', frame: 'img/bani2.jpg', log: 'img/bani3.jpg' }[s.kind],
+      kindName: { barrel: 'Баня-бочка', frame: 'Каркасная баня', log: 'Баня из сруба' }[s.kind],
       isBarrel, isHouse: !isBarrel,
       x0, w, hoops, lines, chimX, doorX: x0 + w - 26, doorHX: x0 + w * 0.12, winX: x0 + w * 0.46,
       roofPts: (x0 - 14) + ',112 ' + (x0 + w / 2) + ',62 ' + (x0 + w + 14) + ',112',
