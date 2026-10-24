@@ -15,7 +15,9 @@ body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 -apple-system,
   padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
   display:flex;flex-direction:column;gap:14px}
 .stats{display:flex;gap:10px}
-.st{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.st{position:relative;flex:1;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.minus{position:absolute;top:8px;right:8px;min-width:44px;height:36px;border-radius:10px;border:1px solid var(--line);background:transparent;color:inherit;font:600 15px/1 inherit;cursor:pointer}
+.minus:active{transform:scale(.94)}
 .st b{display:block;font-size:26px;font-variant-numeric:tabular-nums;line-height:1.1}
 .st span{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:6px;min-height:130px}
@@ -43,7 +45,7 @@ button:disabled{opacity:.45}
 </head>
 <body>
 <div class="stats">
-  <div class="st"><b id="today">–</b><span>сегодня</span></div>
+  <div class="st"><b id="today">–</b><span>сегодня</span><button class="minus" id="minus" type="button" aria-label="Убрать одно отправленное">−1</button></div>
   <div class="st"><b id="ready">–</b><span>с Telegram</span></div>
 </div>
 <div class="ringw"><svg class="ring" viewBox="0 0 64 64"><circle class="bg" cx="32" cy="32" r="27"/><circle class="fg" id="rg" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="169.6"/></svg><div class="rt"><b id="rtb">Норма дня: 30</b><span id="rts">Каждое сообщение приближает к сделке</span></div></div>
@@ -108,6 +110,11 @@ $('undo').onclick=async()=>{ if(!lastId) return; const id=lastId; lastId=null; $
   const j=await call('next',{undo:id,wa:false}).catch(()=>null); if(j&&j.today!=null){ $('today').textContent=j.today; lastToday=j.today; ring(j.today) } };
 $('skip').onclick=()=>{ if(!cur) return; go(cur.id,'skip') };
 if(!init){ show({error:'auth'}) } else go();
+
+// 23.10: «−1» — убрать последнюю отправку за сегодня (если сообщение не ушло)
+$('minus').onclick=async()=>{ const b=$('minus'); if(b.disabled) return; b.disabled=true; H('medium');
+  const j=await call('next',{minus:1}).catch(()=>null); b.disabled=false;
+  if(j&&j.today!=null){ $('today').textContent=j.today; lastToday=j.today; ring(j.today) } };
 </script>
 </body>
 </html>
