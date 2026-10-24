@@ -245,6 +245,7 @@ html{scroll-behavior:smooth}
       if (v === false || v == null) continue;
       el.setAttribute(n, v === true ? 'true' : String(v));
     }
+    if (tag === 'img') { var sr = el.getAttribute('src') || ''; if (/\.webp$/.test(sr) && !/-(m|bg)\.webp$/.test(sr)) { el.setAttribute('srcset', sr.replace(/\.webp$/, '-m.webp') + ' 900w, ' + sr + ' 1200w'); el.setAttribute('sizes', '(max-width: 900px) 100vw, 45vw'); } }
     var c = []; kids(node, scope, c); c.forEach(function (x) { el.appendChild(x); });
     out.push(el);
   }
