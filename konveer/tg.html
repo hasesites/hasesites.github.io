@@ -55,6 +55,7 @@ button:disabled{opacity:.45}
 <div class="btns">
   <button class="wa" id="wa" disabled>Написать в WhatsApp</button>
   <button class="tgb" id="tg" hidden>Написать в Telegram</button>
+  <button class="skip" id="notg" hidden>Нет в Telegram</button>
   <button class="skip" id="skip" disabled>Пропустить</button>
   <button class="skip" id="undo" hidden>Не отправилось</button>
   <div class="note" id="note">Нажал «Написать в Telegram» → в чате вставь текст (он уже скопирован) и нажми «Отправить» → вернись сюда, следующий уже готов. Если текст не вставился — он в карточке выше, скопируй.</div>
@@ -67,7 +68,7 @@ const $=id=>document.getElementById(id);
 let cur=null, nextP=null;
 async function call(path,body){ const r=await fetch(API+path,{method:'POST',headers:{'content-type':'text/plain'},body:JSON.stringify({init,mode:'tg',...body})}); return r.json() }
 function show(j){
-  cur=null; $('wa').disabled=true; $('skip').disabled=true; $('tg').hidden=true;
+  cur=null; $('wa').disabled=true; $('skip').disabled=true; $('tg').hidden=true; $('notg').hidden=true;
   if(j&&j.today!=null) $('today').textContent=j.today;
   if(j&&j.ready!=null) $('ready').textContent=j.ready;
   if(!j||j.error){ $('card').innerHTML=`<div class="name err">${j&&j.error==='notmember'?'Нет доступа':'Ошибка'}</div><div class="meta">${j&&j.error==='notmember'?'Тебя нет в команде Hunter.':j&&j.error==='auth'?'Открой конвейер кнопкой из бота Hunter.':'Проверь интернет и открой ещё раз.'}</div>`; return }
@@ -79,7 +80,8 @@ function show(j){
   $('card').querySelector('.meta').textContent=[j.rubric,j.city,j.phone?'+'+j.phone:''].filter(Boolean).join(' · ');
   $('card').querySelector('.msg').textContent=txt;
   $('wa').disabled=!j.phone; $('skip').disabled=false;
-  const u=(String(j.tg||'').match(/t\.me\/([A-Za-z0-9_]{4,})/)||[])[1]; if(u&&!/^(joinchat|share|addlist|c)$/i.test(u)){ $('tg').hidden=false; $('tg').dataset.u=u }
+  const u=(String(j.tg||'').match(/t\.me\/(\+\d{10,15}|[A-Za-z0-9_]{4,})/)||[])[1]; if(u&&!/^(joinchat|share|addlist|c)$/i.test(u)){ $('tg').hidden=false; $('tg').dataset.u=u; $('tg').textContent=u[0]==='+'?'Telegram по номеру':'Написать в Telegram' }
+  if(j.viaPhone){ $('notg').hidden=false; $('card').querySelector('.meta').textContent+=' · Telegram по номеру, может не найтись' }
 }
 
 // ---- 22.10: игра — норма, комбо, конфетти, вибрация ----
@@ -109,6 +111,8 @@ let lastId=null;
 $('undo').onclick=async()=>{ if(!lastId) return; const id=lastId; lastId=null; $('undo').hidden=true; H('medium');
   const j=await call('next',{undo:id,wa:false}).catch(()=>null); if(j&&j.today!=null){ $('today').textContent=j.today; lastToday=j.today; ring(j.today) } };
 $('skip').onclick=()=>{ if(!cur) return; go(cur.id,'skip') };
+// 24.10: по номеру Telegram не нашёлся — бизнес уходит обратно в WhatsApp-очередь
+$('notg').onclick=()=>{ if(!cur) return; const id=cur.id; H('medium'); $('card').innerHTML='<div class="meta">Беру следующий…</div>'; nextP=call('next',{notg:id,mode:'tg'}).catch(()=>null); nextP.then(show) };
 if(!init){ show({error:'auth'}) } else go();
 
 // 23.10: «−1» — убрать последнюю отправку за сегодня (если сообщение не ушло)
