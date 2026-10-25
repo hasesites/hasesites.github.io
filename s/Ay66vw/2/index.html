@@ -1,0 +1,1174 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tiffany, студия красоты</title>
+<meta name="description" content="Tiffany, студия красоты: маникюр, педикюр, запись онлайн.">
+<meta name="theme-color" content="#F6F1EA">
+<meta property="og:title" content="Tiffany, студия красоты">
+<meta property="og:description" content="Маникюр, который хочется показывать. Онлайн-запись.">
+<meta property="og:image" content="https://hasesites.github.io/img/e-hero.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 6c9 14 18 23 18 34a18 18 0 0 1-36 0C14 29 23 20 32 6z' fill='%237E1F2E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+:root{
+  --milk:#F6F1EA; --cream:#ECE3D7; --ink:#2B1F1D; --accent:#7E1F2E; --rose:#E9C9C1;
+  --shade:#7E1F2E;
+  --muted:color-mix(in oklab, var(--ink) 62%, var(--milk));
+  --line:color-mix(in oklab, var(--ink) 14%, transparent);
+  --serif:'Cormorant Garamond', 'Lora', 'Times New Roman', serif;
+  --sans:'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --pad:clamp(20px, 5vw, 72px);
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --r:22px;
+  color-scheme: light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--milk);color:var(--ink);font:400 16px/1.6 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+em{font-style:italic;font-family:var(--serif);color:var(--accent);font-weight:400}
+::selection{background:var(--rose)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--milk);padding:8px 14px;border-radius:99px;z-index:99}
+.skip:focus{left:8px}
+
+/* grain — тонкая фактура бумаги */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+.eyebrow{font:600 11px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:22px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:26px;height:1px;background:currentColor;opacity:.6}
+.h-display{font:400 clamp(52px,7.6vw,128px)/.92 var(--serif);letter-spacing:-.025em}
+.h2{font:400 clamp(38px,4.6vw,72px)/1 var(--serif);letter-spacing:-.02em;max-width:16ch}
+.lead{font-size:clamp(16px,1.25vw,18px);color:var(--muted);max-width:44ch}
+.muted{color:var(--muted)}
+.note{color:var(--muted);font-size:14px;margin-top:28px}
+section{padding:clamp(80px,11vw,160px) var(--pad)}
+.sec-head{display:flex;flex-direction:column;margin-bottom:clamp(36px,5vw,64px)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 28px;border-radius:99px;border:1px solid transparent;font-weight:500;font-size:15px;cursor:pointer;transition:background .35s var(--ease),color .35s,border-color .35s,transform .35s var(--ease);white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.btn span{display:inline-block;transition:transform .35s var(--ease)}
+.btn-dark{background:var(--ink);color:var(--milk)}
+.btn-dark:hover{background:var(--accent)}
+.btn-line{border-color:var(--line);background:transparent}
+.btn-line:hover{border-color:var(--ink)}
+.btn-pill{height:44px;padding:0 22px;background:var(--ink);color:var(--milk);font-size:14px}
+.btn-pill:hover{background:var(--accent)}
+
+/* header */
+.hdr{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;gap:32px;padding:calc(18px + env(safe-area-inset-top,0px)) var(--pad) 18px;transition:background .4s,padding .4s,box-shadow .4s}
+
+.hdr.scrolled{background:color-mix(in oklab,var(--milk) 82%,transparent);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);padding-top:calc(12px + env(safe-area-inset-top,0px));padding-bottom:12px;box-shadow:0 1px 0 var(--line)}
+.logo{font:500 30px/1.1 var(--serif);letter-spacing:-.01em;font-style:italic;max-width:46vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.logo.long{font-size:19px;line-height:1.08;white-space:normal;max-width:min(320px,58vw);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.nav{display:flex;gap:30px;margin-left:auto;font-size:14px}
+.nav a{position:relative;padding:6px 0}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;width:44px;height:44px;border:0;background:none;position:relative;cursor:pointer}
+.burger i{position:absolute;left:11px;right:11px;height:1.5px;background:var(--ink);transition:transform .35s var(--ease)}
+.burger i:first-child{top:18px}.burger i:last-child{top:25px}
+.burger[aria-expanded=true] i:first-child{transform:translateY(3.5px) rotate(45deg)}
+.burger[aria-expanded=true] i:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+.mnav{position:fixed;inset:0;z-index:45;background:var(--milk);display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad);gap:6px}
+.mnav[hidden]{display:none}
+.mnav a{font:400 46px/1.15 var(--serif)}
+
+/* hero */
+.hero{min-height:100svh;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:40px;padding-top:120px;padding-bottom:70px;position:relative}
+.hero-txt{position:relative;z-index:2}
+.h-display .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.h-display .w>span{display:inline-block;transform:translateY(105%);transition:transform 1.1s var(--ease)}
+.loaded .h-display .w>span{transform:none}
+.h-display em{padding-right:.06em}
+.hero .lead{margin:30px 0 38px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero-stage{position:relative;aspect-ratio:1/1.08;width:100%;max-width:640px;justify-self:end}
+.stage-glow{position:absolute;inset:6% 4% 18%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in oklab,var(--shade) 26%,transparent),transparent 72%);filter:blur(30px);transition:background 1s;pointer-events:none}
+#drop{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
+.drop-fallback{position:absolute;inset:6% 10% 22%;width:80%;height:72%;object-fit:cover;border-radius:999px 999px 46% 46%}
+.palette{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,460px);text-align:center}
+.palette-label{font-size:13px;color:var(--muted);margin-bottom:14px;min-height:1.6em}
+.palette-label b{font:italic 500 21px/1 var(--serif);color:var(--ink);margin-left:6px;display:inline-block;transition:opacity .3s,transform .3s}
+.palette-label b.swap{opacity:0;transform:translateY(6px)}
+.swatches{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.sw{--c:#ccc;width:34px;height:34px;border-radius:50%;border:0;cursor:pointer;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.75),transparent 34%),var(--c);box-shadow:inset 0 -3px 6px rgba(0,0,0,.18),0 2px 8px rgba(43,31,29,.15);position:relative;transition:transform .35s var(--ease)}
+.sw::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid var(--ink);opacity:0;transform:scale(.8);transition:.35s var(--ease)}
+.sw:hover{transform:translateY(-3px)}
+.sw[aria-pressed=true]::after{opacity:1;transform:none}
+.swatches.sm .sw{width:30px;height:30px}
+.sw.none{background:var(--milk);box-shadow:inset 0 0 0 1px var(--line)}
+.sw.none::before{content:"";position:absolute;left:50%;top:5px;bottom:5px;width:1px;background:var(--muted);transform:rotate(45deg)}
+.shade-book{display:inline-block;margin-top:16px;font-size:14px;border-bottom:1px solid var(--line);padding-bottom:2px;transition:border-color .3s}
+.shade-book:hover{border-color:var(--ink)}
+.scroll-hint{position:absolute;left:var(--pad);bottom:28px;width:1px;height:46px;background:var(--line);overflow:hidden}
+.scroll-hint span{position:absolute;inset:0;background:var(--ink);animation:hint 2.2s var(--ease) infinite}
+@keyframes hint{0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)}}
+
+/* marquee */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding:22px 0;background:var(--cream)}
+.marquee-track{display:flex;width:max-content;animation:mq 38s linear infinite}
+.marquee-track span{font:italic 400 clamp(26px,3vw,40px)/1 var(--serif);padding:0 28px;white-space:nowrap;display:flex;align-items:center;gap:56px}
+.marquee-track span::after{content:"";width:9px;height:12px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--accent);display:inline-block}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(40px,7vw,120px);align-items:center}
+.about-img{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5}
+.about-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);transition:transform 1.8s var(--ease)}
+.about-img.in img{transform:scale(1)}
+.about-txt .h2{margin-bottom:28px}
+.about-txt [data-about-text] p{color:var(--muted);max-width:52ch;margin-bottom:14px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;padding-top:36px;border-top:1px solid var(--line)}
+.fact b{display:block;font:400 clamp(44px,4.6vw,68px)/1 var(--serif);color:var(--accent)}
+.fact b small{font:500 13px/1 var(--sans);color:var(--ink);margin-left:6px;letter-spacing:.02em}
+.fact p{font-size:13.5px;color:var(--muted);margin-top:10px;max-width:22ch}
+
+/* services */
+.services{background:var(--cream);position:relative}
+.tabs{display:flex;gap:8px;margin-bottom:26px;flex-wrap:wrap}
+.tab{height:44px;padding:0 22px;border-radius:99px;border:1px solid var(--line);background:transparent;cursor:pointer;font-size:14px;transition:.3s}
+.tab[aria-selected=true]{background:var(--ink);color:var(--milk);border-color:var(--ink)}
+.svc-list{border-top:1px solid var(--line)}
+.svc{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:28px;padding:26px 4px;border-bottom:1px solid var(--line);cursor:pointer;position:relative;transition:padding .45s var(--ease)}
+.svc::before{content:"";position:absolute;inset:0;background:var(--milk);transform:scaleY(0);transform-origin:bottom;transition:transform .45s var(--ease);z-index:0;border-radius:4px}
+.svc>*{position:relative;z-index:1}
+.svc:hover{padding-inline:18px}
+.svc:hover::before{transform:scaleY(1)}
+.svc h3{font:400 clamp(24px,2.4vw,36px)/1.1 var(--serif)}
+.svc .dur{color:var(--muted);font-size:14px}
+.svc .pr{font:500 18px/1 var(--sans);min-width:110px;text-align:right}
+.svc .go{display:none}
+.svc-thumb{display:none}
+.svc-list.fade .svc{animation:rise .6s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+
+/* works — горизонтальная галерея */
+.works{padding:0;height:calc(var(--works-h, 300vh));position:relative}
+.works-pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:40px;padding:90px 0 40px}
+.works-head{padding:0 var(--pad);display:flex;align-items:end;gap:30px;flex-wrap:wrap}
+.works-head .eyebrow{width:100%;margin-bottom:0}
+.works-count{margin-left:auto;font:400 22px/1 var(--serif);color:var(--muted)}
+.works-count b{color:var(--ink);font-weight:500}
+.works-track{display:flex;gap:28px;padding:0 var(--pad);will-change:transform}
+.work{flex:0 0 auto;width:clamp(260px,26vw,400px)}
+.work-img{aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;background:var(--cream)}
+.work-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.work:hover .work-img img{transform:scale(1.06)}
+.work:nth-child(even){margin-top:60px}
+.work h3{font:400 26px/1.1 var(--serif);margin-top:18px}
+.work p{font-size:14px;color:var(--muted)}
+.works-bar{margin:0 var(--pad);height:1px;background:var(--line);position:relative}
+.works-bar i{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--ink);transform-origin:left;transform:scaleX(0)}
+
+/* masters */
+.m-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.mcard{--c:#7E1F2E;border-radius:var(--r);background:var(--cream);padding:30px;min-height:420px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:transform .6s var(--ease)}
+.mcard:hover{transform:translateY(-6px)}
+.mcard .mono{flex:1;display:grid;place-items:center;position:relative}
+.mcard .mono::before{content:"";position:absolute;width:62%;aspect-ratio:1;border-radius:50% 50% 50% 50%/58% 58% 42% 42%;background:radial-gradient(circle at 34% 26%,rgba(255,255,255,.65),transparent 30%),var(--c);box-shadow:inset 0 -14px 30px rgba(0,0,0,.2),0 30px 50px -20px color-mix(in oklab,var(--c) 70%,transparent);transition:transform .8s var(--ease)}
+.mcard:hover .mono::before{transform:scale(1.06) rotate(-6deg)}
+.mcard .mono span{position:relative;font:italic 400 92px/1 var(--serif);color:var(--milk);mix-blend-mode:soft-light;text-shadow:0 2px 12px rgba(0,0,0,.2)}
+.mcard h3{font:400 34px/1 var(--serif);margin-top:20px}
+.mcard .role{color:var(--muted);font-size:14px;margin-top:8px}
+.mcard .meta{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:18px;border-top:1px solid var(--line);font-size:13px}
+.mcard .meta button{border:0;background:none;cursor:pointer;font-weight:600;border-bottom:1px solid currentColor;padding:2px 0}
+
+/* booking */
+.booking{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,6vw,100px);background:var(--ink);color:var(--milk);border-radius:clamp(24px,3vw,40px);margin:0 clamp(10px,1.5vw,24px)}
+.booking .eyebrow,.booking .lead{color:color-mix(in oklab,var(--milk) 62%,var(--ink))}
+.booking em{color:var(--rose)}
+.booking .h2{margin-bottom:24px}
+.bk-side{position:sticky;top:120px;align-self:start}
+.bk-summary{margin-top:40px;border-top:1px solid rgba(246,241,234,.16);padding-top:24px;display:grid;gap:12px;font-size:14px}
+.bk-summary div{display:flex;justify-content:space-between;gap:20px}
+.bk-summary dt{color:rgba(246,241,234,.55)}
+.bk-summary .tot{font:400 34px/1 var(--serif);margin-top:8px}
+.bk{display:grid;gap:14px}
+.step{border:1px solid rgba(246,241,234,.14);border-radius:18px;padding:22px 22px 24px;display:grid;gap:14px}
+.step legend{float:left;width:100%;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:rgba(246,241,234,.62);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.step legend span{font:italic 400 20px/1 var(--serif);color:var(--rose);letter-spacing:0}
+.step legend small{text-transform:none;letter-spacing:0;margin-left:auto;opacity:.7}
+.step.two{grid-template-columns:1fr 1fr}
+.step legend{grid-column:1/-1}
+.swatches.sm{justify-content:flex-start}
+.step select,.fld input{width:100%;height:52px;border-radius:12px;border:1px solid rgba(246,241,234,.18);background:rgba(246,241,234,.05);padding:0 16px;color:var(--milk);outline:none;transition:border-color .3s}
+.step select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--milk) 50%),linear-gradient(135deg,var(--milk) 50%,transparent 50%);background-position:calc(100% - 22px) 23px,calc(100% - 16px) 23px;background-size:6px 6px;background-repeat:no-repeat}
+.step select option{color:var(--ink)}
+.step select:focus,.fld input:focus{border-color:var(--rose)}
+.fld{display:grid;gap:6px;font-size:12px;color:rgba(246,241,234,.6)}
+.fld.full{grid-column:1/-1}
+.fld input::placeholder{color:rgba(246,241,234,.32)}
+.fld.bad input{border-color:#E6797F}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{height:42px;padding:0 18px;border-radius:99px;border:1px solid rgba(246,241,234,.2);background:none;cursor:pointer;font-size:14px;color:var(--milk);transition:.25s}
+.chip:hover{border-color:var(--milk)}
+.chip[aria-pressed=true]{background:var(--milk);color:var(--ink);border-color:var(--milk)}
+.chip:disabled{opacity:.28;cursor:not-allowed;text-decoration:line-through}
+.days{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;margin-inline:-4px;padding-inline:4px}
+.days::-webkit-scrollbar{display:none}
+.day{flex:0 0 auto;width:62px;height:72px;border-radius:14px;border:1px solid rgba(246,241,234,.18);background:none;cursor:pointer;display:grid;place-content:center;gap:2px;text-align:center;color:var(--milk);transition:.25s}
+.day small{font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.6}
+.day b{font:500 22px/1 var(--serif)}
+.day[aria-pressed=true]{background:var(--milk);color:var(--ink)}
+.booking .sw::after{border-color:var(--milk)}
+.booking .sw.none{background:transparent;box-shadow:inset 0 0 0 1px rgba(246,241,234,.3)}
+.bk-err{color:#F2A0A5;font-size:14px;min-height:1.2em}
+.bk-send{display:flex;gap:10px;flex-wrap:wrap}
+.booking .btn-dark{background:var(--milk);color:var(--ink)}
+.booking .btn-dark:hover{background:var(--rose)}
+.booking .btn-line{border-color:rgba(246,241,234,.25);color:var(--milk)}
+.booking .btn-line:hover{border-color:var(--milk)}
+.ready{border:1px solid rgba(246,241,234,.2);border-radius:18px;padding:20px;display:grid;gap:14px;background:rgba(246,241,234,.04)}
+.ready-h{font:400 26px/1 var(--serif);color:var(--rose)}
+.ready pre{white-space:pre-wrap;font:400 14px/1.6 var(--sans);color:rgba(246,241,234,.82);user-select:text}
+.fine{font-size:12px;color:rgba(246,241,234,.4)}
+
+/* faq */
+.faq-list{border-top:1px solid var(--line);max-width:980px}
+.qa{border-bottom:1px solid var(--line)}
+.qa button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px 0;background:none;border:0;cursor:pointer;text-align:left;font:400 clamp(22px,2.2vw,30px)/1.2 var(--serif)}
+.qa button i{flex:0 0 auto;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);position:relative;transition:transform .45s var(--ease),background .3s}
+.qa button i::before,.qa button i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1px;background:var(--ink);transform:translate(-50%,-50%)}
+.qa button i::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .45s var(--ease)}
+.qa.open button i{background:var(--ink)}
+.qa.open button i::before{background:var(--milk)}
+.qa.open button i::after{transform:translate(-50%,-50%) rotate(0);background:var(--milk)}
+.qa .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.qa.open .a{grid-template-rows:1fr}
+.qa .a>div{overflow:hidden}
+.qa .a p{color:var(--muted);padding-bottom:28px;max-width:60ch}
+
+/* contacts */
+.contacts{display:grid;grid-template-columns:1fr 1.25fr;gap:clamp(30px,5vw,80px);align-items:stretch;padding-top:0}
+.contacts .h2{max-width:14ch;margin-bottom:12px}
+.hours{display:grid;grid-template-columns:auto 1fr;gap:10px 28px;margin:34px 0;font-size:15px}
+.hours dt{color:var(--muted)}
+.ct-links{display:flex;flex-direction:column;gap:6px}
+.ct-links a{font:400 26px/1.3 var(--serif);display:inline-flex;align-items:center;gap:10px;width:fit-content;border-bottom:1px solid transparent;transition:border-color .3s}
+.ct-links a:hover{border-color:var(--ink)}
+.ct-links a small{font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);width:80px}
+.ct-map{position:relative;border-radius:var(--r);overflow:hidden;min-height:440px;background:var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 20h40M20 0v40' stroke='%232B1F1D' stroke-opacity='.06'/%3E%3C/svg%3E")}
+.ct-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.85) sepia(.18) contrast(.95)}
+.map-open{position:absolute;left:16px;bottom:16px;background:var(--milk);padding:12px 18px;border-radius:99px;font-size:14px;font-weight:500;box-shadow:0 10px 30px -10px rgba(43,31,29,.35)}
+
+/* footer */
+.ftr{padding:60px var(--pad) 40px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:10px 30px;align-items:end}
+.ftr-brand{font:italic 400 clamp(80px,16vw,240px)/.8 var(--serif);letter-spacing:-.04em;grid-column:1/-1;color:var(--accent);opacity:.92}
+.demo-note{font-size:12px;color:var(--muted);text-align:right}
+
+.fab{display:none}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,calc(100% + 60px));visibility:hidden;background:var(--ink);color:var(--milk);padding:14px 22px;border-radius:18px;font-size:14px;z-index:70;width:max-content;transition:transform .5s var(--ease);max-width:calc(100% - 32px);text-align:center}
+.toast.on{transform:translate(-50%,0);visibility:visible}
+
+/* reveal */
+.reveal{transform:translateY(26px);transition:transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal-clip{clip-path:inset(12% 8% 12% 8% round var(--r));transition:clip-path 1.4s var(--ease)}
+.reveal-clip.in{clip-path:inset(0 0 0 0 round var(--r))}
+
+/* ---------- tablet ---------- */
+@media (max-width:1080px){
+  .hero{grid-template-columns:1fr;padding-top:110px;gap:10px}
+  .hero-stage{justify-self:center;max-width:560px}
+  .booking{grid-template-columns:1fr}
+  .bk-side{position:static}
+  .m-grid{grid-template-columns:repeat(2,1fr)}
+}
+/* ---------- mobile ---------- */
+@media (max-width:760px){
+  section{padding:84px 16px}
+  :root{--pad:16px}
+  .nav,.hdr .btn-pill{display:none}
+  .burger{display:block;margin-left:auto}
+  .hdr{padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px}
+  
+.hdr.scrolled{padding-top:calc(8px + env(safe-area-inset-top,0px));padding-bottom:8px}
+  .hero{min-height:auto;padding-top:96px;padding-bottom:40px}
+  .h-display{font-size:clamp(46px,13.4vw,64px)}
+  .hero .lead{margin:20px 0 26px}
+  .hero-cta .btn{flex:1}
+  .hero-stage{aspect-ratio:auto;margin-top:6px;display:flex;flex-direction:column;align-items:center}
+  #drop{position:relative;height:min(92vw,380px)}
+  .stage-glow{inset:0 6% auto;height:min(80vw,330px)}
+  .palette{position:static;transform:none;margin-top:-6px}
+  .scroll-hint{display:none}
+  .sw{width:32px;height:32px}
+  .swatches{gap:9px}
+  .about{grid-template-columns:1fr}
+  .about-img{aspect-ratio:4/4.4}
+  .facts{grid-template-columns:1fr;gap:22px}
+  .fact{display:grid;grid-template-columns:110px 1fr;align-items:center;gap:16px}
+  .fact p{margin-top:0}
+  .svc{grid-template-columns:64px 1fr auto;gap:14px;padding:16px 0}
+  .svc:hover{padding-inline:0}
+  .svc:hover::before{transform:scaleY(0)}
+  .svc-thumb{display:block;width:64px;height:76px;border-radius:12px;overflow:hidden}
+  .svc-thumb img{width:100%;height:100%;object-fit:cover}
+  .svc h3{font-size:22px}
+  .svc .dur{grid-column:2;grid-row:2;margin-top:-8px;font-size:13px}
+  .svc h3{grid-column:2;grid-row:1;align-self:end}
+  .svc .svc-thumb{grid-row:1/3}
+  .svc .pr{grid-column:3;grid-row:1/3;min-width:0;font-size:15px}
+  .works{height:auto}
+  .works-pin{position:static;height:auto;padding:84px 0 70px;gap:28px}
+  .works-track{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 16px 4px;gap:14px;transform:none!important;overscroll-behavior-x:contain}
+  .works-track::-webkit-scrollbar{display:none}
+  .work{width:76vw;scroll-snap-align:center}
+  .work:nth-child(even){margin-top:0}
+  .m-grid{grid-template-columns:1fr;gap:14px}
+  .mcard{min-height:0;display:grid;grid-template-columns:110px 1fr;grid-template-rows:auto auto auto;column-gap:18px;padding:20px}
+  .mcard .mono{grid-row:1/4;height:120px}
+  .mcard .mono::before{width:100%}
+  .mcard .mono span{font-size:56px}
+  .mcard h3{margin-top:4px;font-size:30px}
+  .mcard .meta{grid-column:2;margin-top:12px;padding-top:12px;flex-wrap:wrap;gap:6px}
+  .booking{margin:0 8px;padding:60px 16px;border-radius:26px}
+  .step{padding:18px 16px 20px}
+  .step.two{grid-template-columns:1fr}
+  .bk-send .btn{width:100%}
+  .contacts{grid-template-columns:1fr;padding-top:0}
+  .ct-map{min-height:340px}
+  .ct-links a{font-size:22px}
+  .ftr{grid-template-columns:1fr;padding-bottom:110px}
+  .demo-note{text-align:left}
+  .fab{display:flex;position:fixed;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom));height:54px;border-radius:99px;background:var(--ink);color:var(--milk);align-items:center;justify-content:center;font-weight:500;z-index:44;box-shadow:0 14px 34px -12px rgba(43,31,29,.55);transform:translateY(160%);transition:transform .5s var(--ease)}
+  .fab.on{transform:none}
+  .toast{bottom:calc(84px + env(safe-area-inset-bottom))}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  .reveal-clip{clip-path:none}
+  .h-display .w>span{transform:none}
+  .about-img img{transform:none}
+  .works{height:auto}
+  .works-pin{position:static;height:auto}
+  .works-track{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important}
+  .work{scroll-snap-align:start}
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+
+<header class="hdr" id="hdr">
+  <a class="logo" href="#top" data-brand>Éclat</a>
+  <nav class="nav" aria-label="Разделы">
+    <a href="#services">Услуги</a><a href="#works">Работы</a><a href="#masters">Мастера</a><a href="#contacts">Контакты</a>
+  </nav>
+  <a class="btn btn-pill mag" href="#booking"><span>Записаться</span></a>
+  <button class="burger" aria-label="Меню" aria-expanded="false" aria-controls="mnav"><i></i><i></i></button>
+</header>
+<div class="mnav" id="mnav" hidden>
+  <a href="#services">Услуги</a><a href="#works">Работы</a><a href="#masters">Мастера</a><a href="#booking">Запись</a><a href="#contacts">Контакты</a>
+</div>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-txt">
+      <p class="eyebrow" data-hero-eyebrow></p>
+      <h1 class="h-display" data-hero-title></h1>
+      <p class="lead" data-hero-text></p>
+      <div class="hero-cta">
+        <a class="btn btn-dark mag" href="#booking"><span>Записаться онлайн</span></a>
+        <a class="btn btn-line" href="#services">Цены и услуги</a>
+      </div>
+    </div>
+    <div class="hero-stage">
+      <div class="stage-glow" aria-hidden="true"></div>
+      <canvas id="drop" aria-label="3D-капля лака выбранного оттенка" role="img"></canvas>
+      <img class="drop-fallback" src="../../../img/e-hero-p.webp" alt="" hidden>
+      <div class="palette" role="group" aria-label="Выберите оттенок">
+        <p class="palette-label"><span>Оттенок</span> <b data-shade-name></b></p>
+        <div class="swatches" data-swatches></div>
+        <a class="shade-book" href="#booking" data-shade-book>Записаться с этим оттенком →</a>
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"><span></span></div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" data-marquee></div></div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-img reveal-clip"><picture><source media="(max-width:760px)" data-about-img-m><img data-about-img alt="Интерьер студии" loading="lazy"></picture></div>
+    <div class="about-txt">
+      <p class="eyebrow reveal">О студии</p>
+      <h2 class="h2 reveal" data-about-title></h2>
+      <div class="reveal" data-about-text></div>
+      <div class="facts" data-facts></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="sec-head">
+      <p class="eyebrow reveal">Услуги и цены</p>
+      <h2 class="h2 reveal">Всё, что нужно <em>рукам и стопам</em></h2>
+    </div>
+    <div class="tabs reveal" role="tablist" data-tabs></div>
+    <div class="svc-list" data-svc></div>
+    <p class="note reveal">Цена «от» — финальная зависит от длины и сложности. Снятие чужого покрытия +300 ₽.</p>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="works" id="works">
+    <div class="works-pin">
+      <div class="works-head">
+        <p class="eyebrow">Работы</p>
+        <h2 class="h2">Нюд, вишня, <em>френч</em> — и всё между</h2>
+        <p class="works-count"><b data-works-cur>01</b> / <span data-works-total></span></p>
+      </div>
+      <div class="works-track" data-works></div>
+      <div class="works-bar"><i data-works-bar></i></div>
+    </div>
+  </section>
+
+  <!-- MASTERS -->
+  <section class="masters" id="masters">
+    <div class="sec-head">
+      <p class="eyebrow reveal">Мастера</p>
+      <h2 class="h2 reveal">Руки, которым <em>доверяют</em></h2>
+    </div>
+    <div class="m-grid" data-masters></div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="booking" id="booking">
+    <div class="bk-side">
+      <p class="eyebrow">Онлайн-запись</p>
+      <h2 class="h2">Выберите <em>время</em> — остальное мы</h2>
+      <p class="lead">Заявка уйдёт администратору в WhatsApp или Telegram. Он подтвердит время в течение 15 минут в рабочие часы.</p>
+      <div class="bk-summary" data-summary aria-live="polite"></div>
+    </div>
+    <form class="bk" data-bk novalidate>
+      <fieldset class="step">
+        <legend><span>01</span> Услуга</legend>
+        <select name="service" data-f-service required></select>
+      </fieldset>
+      <fieldset class="step">
+        <legend><span>02</span> Мастер</legend>
+        <div class="chips" data-f-master></div>
+      </fieldset>
+      <fieldset class="step">
+        <legend><span>03</span> День и время</legend>
+        <div class="days" data-f-days></div>
+        <div class="chips slots" data-f-slots></div>
+      </fieldset>
+      <fieldset class="step">
+        <legend><span>04</span> Оттенок <small>необязательно</small></legend>
+        <div class="swatches sm" data-f-shades></div>
+      </fieldset>
+      <fieldset class="step two">
+        <legend><span>05</span> Контакты</legend>
+        <label class="fld"><span>Имя</span><input name="name" autocomplete="given-name" required maxlength="40"></label>
+        <label class="fld"><span>Телефон</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7"></label>
+        <label class="fld full"><span>Комментарий</span><input name="comment" maxlength="160" placeholder="Например: хочу как на фото, пришлю в чат"></label>
+      </fieldset>
+      <p class="bk-err" data-err role="alert"></p>
+      <div class="bk-send">
+        <button class="btn btn-dark mag" type="submit" data-via="wa"><span>Отправить в WhatsApp</span></button>
+        <button class="btn btn-line" type="submit" data-via="tg">Через Telegram</button>
+      </div>
+      <div class="ready" data-ready hidden>
+        <p class="ready-h">Заявка готова</p>
+        <pre data-ready-text></pre>
+        <div class="bk-send">
+          <a class="btn btn-dark" data-ready-wa target="_blank" rel="noopener">Открыть WhatsApp</a>
+          <a class="btn btn-line" data-ready-tg target="_blank" rel="noopener">Открыть Telegram</a>
+          <a class="btn btn-dark" data-ready-tel hidden></a>
+          <button class="btn btn-line" type="button" data-ready-copy>Скопировать текст</button>
+        </div>
+        <p class="fine">Заявка отправится, когда вы нажмёте «Отправить» в мессенджере.</p>
+      </div>
+      <p class="fine">Нажимая кнопку, вы соглашаетесь на обработку персональных данных для записи.</p>
+    </form>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="sec-head"><p class="eyebrow reveal">Вопросы</p><h2 class="h2 reveal">Коротко о <em>важном</em></h2></div>
+    <div class="faq-list" data-faq></div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section class="contacts" id="contacts">
+    <div class="ct-info">
+      <p class="eyebrow">Контакты</p>
+      <h2 class="h2" data-ct-address></h2>
+      <p class="muted" data-ct-note></p>
+      <dl class="hours" data-hours></dl>
+      <div class="ct-links" data-ct-links></div>
+    </div>
+    <div class="ct-map">
+      <iframe data-map title="Карта" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <a class="map-open" data-map-link target="_blank" rel="noopener">Открыть в Яндекс Картах ↗</a>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <p class="ftr-brand" data-brand>Éclat</p>
+  <p class="muted">© <span data-year></span> <span data-brand>Éclat</span><span data-kind> · nail studio</span></p>
+  <p class="demo-note">Демо-версия: название, адрес, контакты, цены, мастера и фотографии — демонстрационные.</p>
+</footer>
+
+<a class="fab" href="#booking" aria-label="Записаться">Записаться</a>
+<div class="toast" data-toast role="status"></div>
+
+<script>window.__LEAD={"n":"Tiffany, студия красоты","a":"улица Степана Разина, 35","c":"Саранск","r":4.8,"v":29,"p":"+79272762502","wa":"","tg":"http://t.me/tiffany"}</script>
+<script type="module">
+// =====================================================================
+//  НАСТРОЙКИ САЙТА. Под нового клиента меняется только этот файл.
+//  Всё, что помечено DEMO, — демонстрационные данные: заменить перед публикацией.
+// =====================================================================
+const SITE = {
+  brand: 'Éclat',                       // DEMO: название студии
+  kind: 'nail studio',
+  city: 'Москва',                       // DEMO
+  address: 'Москва, Малая Бронная, 12',  // DEMO
+  addressNote: 'вход со двора, 2 этаж',  // DEMO
+  hours: [['Пн–Пт', '10:00 – 21:00'], ['Сб–Вс', '11:00 – 20:00']], // DEMO
+  phone: '+7 900 000-00-00',            // DEMO: телефон для звонков
+  whatsapp: '79000000000',              // DEMO: номер WhatsApp без «+», только цифры
+  telegram: 'eclat_nails',              // DEMO: ник Telegram без «@»
+  instagram: '',                        // можно оставить пустым — ссылка не появится
+  map: { lat: 55.7631, lon: 37.5948 },  // DEMO: координаты для карты
+  img: '../../../img/e-',                           // папка с фото
+
+  // Цвета бренда (меняются здесь — меняется весь сайт)
+  colors: { milk: '#F6F1EA', cream: '#ECE3D7', ink: '#2B1F1D', accent: '#7E1F2E', rose: '#E9C9C1' },
+
+  hero: {
+    eyebrow: 'Nail studio · Патриаршие',          // DEMO
+    title: ['Маникюр,', 'который', '<em>хочется</em>', 'показывать'],
+    text: 'Аккуратный маникюр и стойкое покрытие в спокойной студии. Один мастер — один гость, стерильные инструменты и время, чтобы выбрать свой оттенок.',
+  },
+
+  // 8 оттенков для 3D-капли. hex — цвет капли, name — как называется оттенок в студии.
+  shades: [
+    { name: 'Молочный нюд', hex: '#E9D3C6' },
+    { name: 'Пудровая роза', hex: '#D9A3A0' },
+    { name: 'Капучино', hex: '#A7765F' },
+    { name: 'Вишня', hex: '#7E1F2E' },
+    { name: 'Бордо ночь', hex: '#4A1220' },
+    { name: 'Алый классик', hex: '#C2192B' },
+    { name: 'Шалфей', hex: '#9AA48C' },
+    { name: 'Графит', hex: '#2E2C31' },
+  ],
+
+  about: {
+    title: 'Студия, в которую <em>не страшно</em> доверить руки',
+    text: [
+      'Мы работаем в формате «один мастер — один гость»: никто не торопит, никто не сидит в очереди за спиной.',
+      'Каждый инструмент проходит три этапа обработки и открывается из крафт-пакета при вас. Покрытие держится до четырёх недель — если скол появится раньше, исправим бесплатно.',
+    ],
+    image: 'studio', imageM: 'studio-m',
+  },
+
+  // Услуги. min — длительность, price — цена «от». img — фото, которое всплывает при наведении.
+  services: [
+    { group: 'Маникюр', items: [
+      { name: 'Маникюр без покрытия', min: 60, price: 1800, img: 'mani' },
+      { name: 'Маникюр + гель-лак', min: 120, price: 3200, img: 'gel' },
+      { name: 'Укрепление и покрытие', min: 135, price: 3700, img: 'ext' },
+      { name: 'Наращивание', min: 180, price: 4800, img: 'ext' },
+    ] },
+    { group: 'Педикюр', items: [
+      { name: 'Педикюр без покрытия', min: 75, price: 2600, img: 'pedi' },
+      { name: 'Педикюр + гель-лак', min: 120, price: 3600, img: 'pedi' },
+      { name: 'SMART-педикюр', min: 90, price: 3200, img: 'pedi' },
+    ] },
+    { group: 'Дизайн и уход', items: [
+      { name: 'Френч', min: 20, price: 600, img: 'art' },
+      { name: 'Дизайн на 2 ногтя', min: 20, price: 400, img: 'art' },
+      { name: 'Парафин для рук', min: 20, price: 700, img: 'gel' },
+    ] },
+  ], // DEMO: цены и длительности
+
+  works: [
+    { img: 'gel', title: 'Пудровый нюд', note: 'гель-лак, 2 часа' },
+    { img: 'art', title: 'Миндаль с френчем', note: 'дизайн, тонкая линия' },
+    { img: 'ext', title: 'Молочная база', note: 'укрепление, стойкость 4 недели' },
+    { img: 'mani', title: 'Работа мастера', note: 'аппаратный маникюр' },
+    { img: 'pedi', title: 'Педикюр', note: 'SMART-диски, покрытие' },
+    { img: 'hero', title: 'Студия', note: 'ваше место на 2 часа' },
+  ], // DEMO: фото — временные, заменить на работы студии
+
+  masters: [
+    { name: 'Алина', role: 'Топ-мастер, дизайн', years: 7, shade: 3 },
+    { name: 'Вероника', role: 'Наращивание и укрепление', years: 5, shade: 1 },
+    { name: 'Дарья', role: 'Педикюр, SMART-диски', years: 4, shade: 6 },
+  ], // DEMO: имена, стаж, позже — фото мастеров
+
+  facts: [
+    { n: '3', unit: 'этапа', text: 'стерилизации каждого инструмента' },
+    { n: '4', unit: 'недели', text: 'держится покрытие — или исправим бесплатно' },
+    { n: '1:1', unit: '', text: 'один мастер — один гость, без очереди за спиной' },
+  ],
+
+  faq: [
+    ['Сколько держится покрытие?', 'В среднем 3–4 недели. Если в первые 7 дней появился скол, исправим бесплатно.'],
+    ['Можно прийти со своим дизайном?', 'Да, пришлите фото в WhatsApp при записи — мастер подскажет, сколько займёт работа.'],
+    ['Как перенести запись?', 'Напишите нам не позже чем за 4 часа — подберём другое время.'],
+    ['Как вы стерилизуете инструменты?', 'Дезинфекция, ультразвуковая очистка и сухожар. Крафт-пакет вскрывается при вас.'],
+  ],
+
+  // Время, которое предлагаем при записи (финальное время подтверждает администратор)
+  slots: ['10:00', '12:00', '14:00', '16:00', '18:00', '19:30'],
+};
+
+// 3D-капля лака: рэймарчинг на чистом WebGL, без библиотек.
+// Глянцевый лак = цветная основа + прозрачный верхний слой, в котором отражается «студийный свет».
+
+const VERT = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }`;
+
+const FRAG = `
+precision highp float;
+uniform vec2 uRes;
+uniform float uTime;
+uniform vec3 uColor;
+uniform vec2 uRot;      // наклон от курсора
+uniform float uPulse;   // «всплеск» при смене оттенка
+uniform float uScroll;  // 0..1 — капля мягко вытягивается при прокрутке
+
+mat2 rot(float a){ float c=cos(a), s=sin(a); return mat2(c,-s,s,c); }
+float smin(float a, float b, float k){ float h=clamp(.5+.5*(b-a)/k,0.,1.); return mix(b,a,h)-k*h*(1.-h); }
+
+float sdRoundCone(vec3 p, float r1, float r2, float h){
+  float b = (r1-r2)/h, a = sqrt(1.-b*b);
+  vec2 q = vec2(length(p.xz), p.y);
+  float k = dot(q, vec2(-b,a));
+  if(k < 0.) return length(q) - r1;
+  if(k > a*h) return length(q - vec2(0.,h)) - r2;
+  return dot(q, vec2(a,b)) - r1;
+}
+
+float map(vec3 p){
+  p.yz *= rot(uRot.y*.18);
+  p.xz *= rot(uRot.x*.6 + uTime*.12);
+  p.xy *= rot(-uRot.x*.08);
+  float t = uTime;
+  // основная капля: «круглый конус» — шар внизу плавно сужается к кончику
+  float h = .92 + .04*sin(t*1.3) + uScroll*.16;
+  float d = sdRoundCone(p - vec3(0., -.3, 0.), .6, .045, h);
+  // маленькая капелька летает вокруг и иногда сливается с основной
+  float a = t*.5;
+  vec3 q = vec3(sin(a)*.98, -.45 + .2*sin(a*1.7), cos(a)*.6);
+  d = smin(d, length(p - q) - .095, .2);
+  // жидкая поверхность: мягкая волна, сильнее при смене цвета
+  float w = (.012 + uPulse*.05) * sin(p.x*6. + t*2.1) * sin(p.y*5. - t*1.7) * sin(p.z*6. + t*1.3);
+  return d + w;
+}
+
+vec3 normalAt(vec3 p){
+  vec2 e = vec2(.0015, 0.);
+  return normalize(vec3(map(p+e.xyy)-map(p-e.xyy), map(p+e.yxy)-map(p-e.yxy), map(p+e.yyx)-map(p-e.yyx)));
+}
+
+// «студия»: тёплый фон и два софтбокса — их отражения и дают ощущение дорогого глянца
+vec3 env(vec3 r){
+  vec3 base = mix(vec3(.93,.89,.84), vec3(1.,.98,.95), smoothstep(-.4,.8,r.y));
+  float box1 = smoothstep(.55,.62, r.y) * smoothstep(.75,.35, abs(r.x+.35)) * step(0., r.z*-1. + 1.2);
+  float box2 = smoothstep(.12,.0, abs(r.x-.78)) * smoothstep(-.3,.2, r.y) * smoothstep(.9,.3, r.y);
+  float floorL = smoothstep(.0,-.35, r.y);
+  vec3 c = base;
+  c = mix(c, vec3(1.5,1.47,1.42), box1);
+  c = mix(c, vec3(1.25,1.22,1.2), box2*.9);
+  c *= 1. - floorL*.45;
+  return c;
+}
+
+void main(){
+  vec2 uv = (gl_FragCoord.xy - uRes*vec2(.5,.6)) / uRes.y;
+  vec3 ro = vec3(0., 0., 4.4);
+  vec3 rd = normalize(vec3(uv*1.02, -1.75));
+  float t = 0., dmin = 1e3, tAtMin = 0.;
+  bool hit = false;
+  for(int i=0;i<84;i++){
+    vec3 p = ro + rd*t;
+    float d = map(p);
+    if(d < dmin){ dmin = d; tAtMin = t; }
+    if(d < .0008){ hit = true; break; }
+    t += d*.9;
+    if(t > 7.5) break;
+  }
+  // мягкий край без лесенки
+  float px = 1.6 / uRes.y * max(tAtMin, 1.);
+  float edge = hit ? 1. : 1. - smoothstep(0., px, dmin);
+
+  vec4 col = vec4(0.);
+  if(edge > 0.){
+    vec3 p = ro + rd*(hit ? t : tAtMin);
+    vec3 n = normalAt(p);
+    vec3 v = -rd;
+    vec3 L = normalize(vec3(-.55,.8,.6));
+    float diff = clamp(dot(n,L),0.,1.);
+    float fres = .04 + .96*pow(1.-clamp(dot(n,v),0.,1.), 5.);
+    vec3 r = reflect(rd, n);
+    vec3 refl = env(r);
+    // цветная основа лака: глубина цвета у краёв, светлее к центру
+    float ndv = clamp(dot(n,v),0.,1.);
+    vec3 base = uColor * (.6 + .4*diff);
+    base = mix(base, uColor*uColor*.85, (1.-ndv)*.6);
+    vec3 c = base + refl*fres*.7;
+    // острые блики — как от ламп в студии
+    vec3 h = normalize(L + v);
+    c += vec3(1.)*pow(clamp(dot(n,h),0.,1.), 160.)*1.4;
+    c += vec3(1.)*pow(clamp(dot(n, normalize(vec3(.8,.15,.6)+v)),0.,1.), 90.)*.55;
+    // мягкое внутреннее свечение снизу (как лак на свету)
+    c += uColor * pow(clamp(-n.y,0.,1.),2.) * .18;
+    c = min(c, vec3(1.));
+    col = vec4(c * edge, edge);
+  }
+  // мягкая тень на «столе» под каплей
+  float sh = exp(-pow(length((uv - vec2(0., -.355)) * vec2(1., 5.5)) * 5., 2.)) * .38 * (1. - uScroll*.4);
+  col.rgb += vec3(.29,.2,.18) * sh * (1. - col.a);
+  col.a = col.a + sh * (1. - col.a);
+  gl_FragColor = col;
+}`;
+
+function hexToRgb(hex) {
+  const n = parseInt(hex.slice(1), 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => v / 255);
+}
+
+function createLacquer(canvas, { color = '#7E1F2E', reduced = false } = {}) {
+  const gl = canvas.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false });
+  if (!gl) return null;
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
+  const prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, VERT));
+  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FRAG));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'p');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const U = (n) => gl.getUniformLocation(prog, n);
+  const u = { res: U('uRes'), time: U('uTime'), color: U('uColor'), rot: U('uRot'), pulse: U('uPulse'), scroll: U('uScroll') };
+
+  let cur = hexToRgb(color), target = cur.slice(), pulse = 0, rotX = 0, rotY = 0, tx = 0, ty = 0, scroll = 0, sTarget = 0;
+  let visible = true, raf = 0, last = performance.now(), time = 0;
+  const mobile = matchMedia('(max-width: 760px)').matches;
+  const dprMax = mobile ? 1.35 : 1.6;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, dprMax);
+    const w = Math.round(canvas.clientWidth * dpr), h = Math.round(canvas.clientHeight * dpr);
+    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  function frame(now) {
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    if (!reduced) time += dt;
+    for (let i = 0; i < 3; i++) cur[i] += (target[i] - cur[i]) * Math.min(1, dt * 4.5);
+    pulse *= Math.pow(0.08, dt);
+    rotX += (tx - rotX) * Math.min(1, dt * 3); rotY += (ty - rotY) * Math.min(1, dt * 3);
+    scroll += (sTarget - scroll) * Math.min(1, dt * 5);
+    resize();
+    gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform2f(u.res, canvas.width, canvas.height);
+    gl.uniform1f(u.time, time);
+    gl.uniform3f(u.color, cur[0], cur[1], cur[2]);
+    gl.uniform2f(u.rot, rotX, rotY);
+    gl.uniform1f(u.pulse, pulse);
+    gl.uniform1f(u.scroll, scroll);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    const settling = Math.abs(target[0] - cur[0]) + Math.abs(target[1] - cur[1]) + Math.abs(target[2] - cur[2]) > 0.002 || pulse > 0.01;
+    if (visible && (!reduced || settling)) raf = requestAnimationFrame(frame); else raf = 0;
+  }
+  const kick = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } };
+
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) kick(); }).observe(canvas);
+  window.addEventListener('pointermove', (e) => {
+    const r = canvas.getBoundingClientRect();
+    tx = ((e.clientX - (r.left + r.width / 2)) / window.innerWidth) * 2;
+    ty = ((e.clientY - (r.top + r.height / 2)) / window.innerHeight) * 2;
+    if (reduced) kick();
+  }, { passive: true });
+  window.addEventListener('resize', kick);
+  kick();
+
+  return {
+    setColor(hex) { target = hexToRgb(hex); pulse = 1; kick(); },
+    setScroll(v) { sTarget = v; if (!reduced) kick(); },
+  };
+}
+
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const el = (tag, attrs = {}, html = '') => { const e = document.createElement(tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (html) e.innerHTML = html; return e; };
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const rub = (n) => n.toLocaleString('ru-RU').replace(/ /g, ' ') + ' ₽';
+const dur = (m) => (m >= 60 ? `${Math.floor(m / 60)} ч${m % 60 ? ' ' + (m % 60) + ' мин' : ''}` : `${m} мин`);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobileQ = matchMedia('(max-width: 760px)');
+const img = (k, v = '') => `${SITE.img}${k}${v}.webp`;
+
+// ---------- черновик под конкретную студию (данные подставляет Hunter) ----------
+const LEAD = window.__LEAD || null;
+if (LEAD) applyLead(LEAD);
+function applyLead(d) {
+  const digits = (s) => String(s || '').replace(/\D/g, '');
+  const p = digits(d.p);
+  const r = Number(d.r) || 0;
+  SITE.lead = true;
+  SITE.brand = String(d.n || 'Студия маникюра').trim();
+  SITE.city = d.c || '';
+  SITE.address = [d.c, d.a].filter(Boolean).join(', ');
+  SITE.addressNote = d.a ? 'адрес с карт' : '';
+  SITE.phone = p.length === 11 ? `+7 ${p.slice(1, 4)} ${p.slice(4, 7)}-${p.slice(7, 9)}-${p.slice(9)}` : (d.p || '');
+  const waM = String(d.wa || '').match(/(?:wa\.me\/|phone=)\+?(\d{10,15})/);
+  SITE.whatsapp = waM ? waM[1] : digits(d.wa).length === 11 ? digits(d.wa) : (p.length === 11 && /^[78]9/.test(p) ? '7' + p.slice(1) : '');
+  const tgM = String(d.tg || '').match(/t\.me\/([A-Za-z0-9_]{4,32})/);
+  SITE.telegram = tgM ? tgM[1] : '';
+  SITE.instagram = '';
+  SITE.map = null;
+  SITE.mapQuery = [d.n, d.c, d.a].filter(Boolean).join(' ');
+  SITE.hero.eyebrow = ['Студия маникюра', d.c, r >= 4 ? `${r.toFixed(1).replace('.', ',')} на картах` : ''].filter(Boolean).join(' · ');
+  SITE.footNote = `Черновик сайта для «${SITE.brand}». Цены, мастера и фото пока примерные, на готовом сайте будут ваши.`;
+}
+
+// ---------- бренд и цвета ----------
+const root = document.documentElement.style;
+for (const [k, v] of Object.entries(SITE.colors)) root.setProperty('--' + k, v);
+$$('[data-brand]').forEach((e) => (e.textContent = SITE.brand));
+if ([...SITE.brand].length > 12) $('.logo').classList.add('long');
+if (SITE.lead) $('[data-kind]').hidden = true;
+{ const n = [...SITE.brand].length, f = $('.ftr-brand'); if (n > 7) f.style.fontSize = `calc(min(16vw, 240px) * ${Math.max(0.3, 7 / n).toFixed(3)})`; }
+document.title = SITE.lead ? SITE.brand : `${SITE.brand} ${SITE.kind}`;
+$('[data-year]').textContent = new Date().getFullYear();
+
+// ---------- hero ----------
+$('[data-hero-eyebrow]').textContent = SITE.hero.eyebrow;
+$('[data-hero-text]').textContent = SITE.hero.text;
+$('[data-hero-title]').innerHTML = SITE.hero.title
+  .map((w, i) => `<span class="w"><span style="transition-delay:${0.12 + i * 0.09}s">${w}</span></span>`)
+  .join(' ');
+requestAnimationFrame(() => setTimeout(() => document.body.classList.add('loaded'), 60));
+
+// ---------- 3D-капля + палитра ----------
+const state = { service: null, master: 'any', day: null, slot: null, shade: null };
+let drop = null;
+try { drop = createLacquer($('#drop'), { color: SITE.shades[3].hex, reduced }); } catch (e) { console.warn('WebGL:', e.message); }
+if (!drop) { $('#drop').hidden = true; $('.drop-fallback').hidden = false; }
+
+const heroSw = $('[data-swatches]');
+const shadeName = $('[data-shade-name]');
+let heroShade = 3;
+function swatch(i, cls = '') {
+  const s = SITE.shades[i];
+  const b = el('button', { type: 'button', class: 'sw ' + cls, 'aria-pressed': 'false', 'aria-label': s.name, title: s.name, 'data-i': i });
+  b.style.setProperty('--c', s.hex);
+  return b;
+}
+SITE.shades.forEach((_, i) => heroSw.append(swatch(i)));
+function setHeroShade(i, fromUser) {
+  heroShade = i;
+  const s = SITE.shades[i];
+  $$('.sw', heroSw).forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.i === i)));
+  shadeName.classList.add('swap');
+  setTimeout(() => { shadeName.textContent = s.name; shadeName.classList.remove('swap'); }, fromUser ? 180 : 0);
+  root.setProperty('--shade', s.hex);
+  drop?.setColor(s.hex);
+}
+heroSw.addEventListener('click', (e) => { const b = e.target.closest('.sw'); if (b) setHeroShade(+b.dataset.i, true); });
+heroSw.addEventListener('keydown', (e) => {
+  if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+  const n = SITE.shades.length, i = (heroShade + (e.key === 'ArrowRight' ? 1 : n - 1)) % n;
+  setHeroShade(i, true); heroSw.children[i].focus();
+});
+setHeroShade(heroShade, false);
+$('[data-shade-book]').addEventListener('click', () => setBookShade(heroShade));
+
+// капля чуть вытягивается при прокрутке первого экрана
+if (drop) addEventListener('scroll', () => drop.setScroll(Math.min(1, scrollY / innerHeight)), { passive: true });
+
+// ---------- бегущая строка ----------
+const words = SITE.services.flatMap((g) => g.items.map((i) => i.name)).filter((v, i, a) => a.indexOf(v) === i).slice(0, 7);
+$('[data-marquee]').innerHTML = [...words, ...words].map((w) => `<span>${esc(w)}</span>`).join('');
+
+// ---------- о студии ----------
+$('[data-about-title]').innerHTML = SITE.about.title;
+$('[data-about-text]').innerHTML = SITE.about.text.map((p) => `<p>${esc(p)}</p>`).join('');
+$('[data-about-img]').src = img(SITE.about.image);
+$('[data-about-img-m]').srcset = img(SITE.about.imageM);
+$('[data-facts]').innerHTML = SITE.facts
+  .map((f) => `<div class="fact reveal"><b>${esc(f.n)}${f.unit ? `<small>${esc(f.unit)}</small>` : ''}</b><p>${esc(f.text)}</p></div>`)
+  .join('');
+
+// ---------- услуги ----------
+const allServices = SITE.services.flatMap((g, gi) => g.items.map((it, ii) => ({ ...it, group: g.group, id: `${gi}-${ii}` })));
+const tabs = $('[data-tabs]'), list = $('[data-svc]');
+SITE.services.forEach((g, gi) => tabs.append(el('button', { type: 'button', class: 'tab', role: 'tab', 'aria-selected': String(gi === 0), 'data-g': gi }, esc(g.group))));
+function renderGroup(gi) {
+  $$('.tab', tabs).forEach((t) => t.setAttribute('aria-selected', String(+t.dataset.g === gi)));
+  list.classList.remove('fade'); void list.offsetWidth; list.classList.add('fade');
+  list.innerHTML = SITE.services[gi].items
+    .map((it, ii) => `<div class="svc" role="button" tabindex="0" data-id="${gi}-${ii}" data-img="${it.img}" style="animation-delay:${ii * 0.06}s" aria-label="${esc(it.name)}, ${dur(it.min)}, от ${rub(it.price)} — выбрать для записи">
+      <div class="svc-thumb"><img src="${img(it.img, '-m')}" alt="" loading="lazy"></div>
+      <h3>${esc(it.name)}</h3><span class="dur">${dur(it.min)}</span><span class="pr">от ${rub(it.price)}</span></div>`)
+    .join('');
+}
+tabs.addEventListener('click', (e) => { const t = e.target.closest('.tab'); if (t) renderGroup(+t.dataset.g); });
+renderGroup(0);
+const pickService = (id) => { setBookService(id); $('#booking').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' }); };
+list.addEventListener('click', (e) => { const r = e.target.closest('.svc'); if (r) pickService(r.dataset.id); });
+list.addEventListener('keydown', (e) => { const r = e.target.closest('.svc'); if (r && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); pickService(r.dataset.id); } });
+
+// ---------- галерея ----------
+const track = $('[data-works]');
+track.innerHTML = SITE.works
+  .map((w) => `<figure class="work"><div class="work-img"><img src="${img(w.img, '-p')}" alt="${esc(w.title)}" loading="lazy" width="900" height="1125"></div><h3>${esc(w.title)}</h3><p>${esc(w.note)}</p></figure>`)
+  .join('');
+const total = SITE.works.length;
+$('[data-works-total]').textContent = String(total).padStart(2, '0');
+const cur = $('[data-works-cur]'), bar = $('[data-works-bar]'), works = $('#works');
+let pinned = false, travel = 0;
+function layoutWorks() {
+  pinned = !mobileQ.matches && !reduced;
+  if (!pinned) { works.style.removeProperty('--works-h'); track.style.transform = ''; return; }
+  travel = Math.max(0, track.scrollWidth - innerWidth);
+  works.style.setProperty('--works-h', `${innerHeight + travel}px`);
+  onWorksScroll();
+}
+function setProgress(p) {
+  bar.style.transform = `scaleX(${p})`;
+  cur.textContent = String(Math.min(total, 1 + Math.round(p * (total - 1)))).padStart(2, '0');
+}
+function onWorksScroll() {
+  if (!pinned) return;
+  const p = Math.min(1, Math.max(0, -works.getBoundingClientRect().top / (works.offsetHeight - innerHeight || 1)));
+  track.style.transform = `translate3d(${-p * travel}px,0,0)`;
+  setProgress(p);
+}
+addEventListener('scroll', onWorksScroll, { passive: true });
+track.addEventListener('scroll', () => { if (!pinned) { const m = track.scrollWidth - track.clientWidth; setProgress(m > 0 ? track.scrollLeft / m : 0); } }, { passive: true });
+addEventListener('resize', layoutWorks);
+mobileQ.addEventListener('change', layoutWorks);
+addEventListener('load', layoutWorks);
+layoutWorks();
+
+// ---------- мастера ----------
+$('[data-masters]').innerHTML = SITE.masters
+  .map((m, i) => `<article class="mcard reveal" style="--c:${SITE.shades[m.shade]?.hex || SITE.colors.accent};transition-delay:${i * 0.08}s">
+    <div class="mono"><span>${esc(m.name[0])}</span></div>
+    <h3>${esc(m.name)}</h3><p class="role">${esc(m.role)}</p>
+    <div class="meta"><span>Стаж ${m.years} ${plural(m.years, 'год', 'года', 'лет')}</span><button type="button" data-m="${i}">Записаться к мастеру</button></div></article>`)
+  .join('');
+$('[data-masters]').addEventListener('click', (e) => { const b = e.target.closest('[data-m]'); if (!b) return; setBookMaster(+b.dataset.m); $('#booking').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' }); });
+function plural(n, a, b, c) { const m10 = n % 10, m100 = n % 100; return m10 === 1 && m100 !== 11 ? a : m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20) ? b : c; }
+
+// ---------- запись ----------
+const form = $('[data-bk]');
+const fService = $('[data-f-service]');
+fService.innerHTML = '<option value="">Выберите услугу</option>' + SITE.services
+  .map((g, gi) => `<optgroup label="${esc(g.group)}">${g.items.map((it, ii) => `<option value="${gi}-${ii}">${esc(it.name)} — от ${rub(it.price)}</option>`).join('')}</optgroup>`)
+  .join('');
+fService.addEventListener('change', () => { state.service = fService.value || null; summary(); clearErr(); });
+function setBookService(id) { state.service = id; fService.value = id; summary(); }
+
+const fMaster = $('[data-f-master]');
+fMaster.innerHTML = `<button type="button" class="chip" data-m="any" aria-pressed="true">Любой мастер</button>` +
+  SITE.masters.map((m, i) => `<button type="button" class="chip" data-m="${i}" aria-pressed="false">${esc(m.name)}</button>`).join('');
+fMaster.addEventListener('click', (e) => { const b = e.target.closest('.chip'); if (b) setBookMaster(b.dataset.m === 'any' ? 'any' : +b.dataset.m); });
+function setBookMaster(m) { state.master = m; $$('.chip', fMaster).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.m === String(m)))); summary(); }
+
+// дни: ближайшие 14
+const DOW = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+const MON = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+const dateLabel = (d) => `${d.getDate()} ${MON[d.getMonth()]}, ${DOW[d.getDay()].toLowerCase()}`;
+const fDays = $('[data-f-days]'), fSlots = $('[data-f-slots]');
+const today = new Date(); today.setHours(0, 0, 0, 0);
+const days = Array.from({ length: 14 }, (_, i) => new Date(today.getTime() + i * 864e5));
+const toMin = (t) => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+const closeMin = (d) => toMin(SITE.hours[d.getDay() === 0 || d.getDay() === 6 ? 1 : 0][1].split('–')[1].trim());
+function slotsFor(d) {
+  const now = new Date(), isToday = d.getTime() === today.getTime(), nowMin = now.getHours() * 60 + now.getMinutes();
+  const open = toMin(SITE.hours[d.getDay() === 0 || d.getDay() === 6 ? 1 : 0][1].split('–')[0].trim());
+  return SITE.slots.map((t) => ({ t, ok: toMin(t) >= open && toMin(t) < closeMin(d) && (!isToday || toMin(t) > nowMin + 60) }));
+}
+const visibleDays = days.filter((d) => slotsFor(d).some((s) => s.ok));
+fDays.innerHTML = visibleDays.map((d, i) => `<button type="button" class="day" data-d="${i}" aria-pressed="false" aria-label="${d.getDate()} ${MON[d.getMonth()]}, ${DOW[d.getDay()]}"><small>${i === 0 && d.getTime() === today.getTime() ? 'Сегодня' : DOW[d.getDay()]}</small><b>${d.getDate()}</b></button>`).join('');
+function setDay(i) {
+  state.day = i; state.slot = null;
+  $$('.day', fDays).forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.d === i)));
+  fSlots.innerHTML = slotsFor(visibleDays[i]).map((s) => `<button type="button" class="chip" data-t="${s.t}" aria-pressed="false" ${s.ok ? '' : 'disabled'}>${s.t}</button>`).join('');
+  summary();
+}
+fDays.addEventListener('click', (e) => { const b = e.target.closest('.day'); if (b) { setDay(+b.dataset.d); clearErr(); } });
+fSlots.addEventListener('click', (e) => { const b = e.target.closest('.chip'); if (!b || b.disabled) return; state.slot = b.dataset.t; $$('.chip', fSlots).forEach((x) => x.setAttribute('aria-pressed', String(x === b))); summary(); clearErr(); });
+setDay(0);
+
+const fShades = $('[data-f-shades]');
+const none = el('button', { type: 'button', class: 'sw none', 'aria-pressed': 'true', 'aria-label': 'Подберу в студии', title: 'Подберу в студии', 'data-i': '-1' });
+fShades.append(none, ...SITE.shades.map((_, i) => swatch(i)));
+fShades.addEventListener('click', (e) => { const b = e.target.closest('.sw'); if (b) setBookShade(+b.dataset.i); });
+function setBookShade(i) { state.shade = i < 0 ? null : i; $$('.sw', fShades).forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.i === i))); summary(); }
+
+// маска телефона
+const phone = form.elements.phone;
+phone.addEventListener('input', () => {
+  let d = phone.value.replace(/\D/g, ''); if (d.startsWith('8')) d = '7' + d.slice(1); if (d && !d.startsWith('7')) d = '7' + d; d = d.slice(0, 11);
+  const p = [d.slice(1, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)];
+  phone.value = d ? '+7' + (p[0] ? ' ' + p[0] : '') + (p[1] ? ' ' + p[1] : '') + (p[2] ? '-' + p[2] : '') + (p[3] ? '-' + p[3] : '') : '';
+  phone.closest('.fld').classList.remove('bad');
+});
+form.elements.name.addEventListener('input', () => form.elements.name.closest('.fld').classList.remove('bad'));
+
+function summary() {
+  const s = allServices.find((x) => x.id === state.service);
+  const rows = [
+    ['Услуга', s ? s.name : '—'],
+    ['Мастер', state.master === 'any' ? 'любой' : SITE.masters[state.master].name],
+    ['Когда', state.day != null ? dateLabel(visibleDays[state.day]) + (state.slot ? ', ' + state.slot : '') : '—'],
+    ['Оттенок', state.shade != null ? SITE.shades[state.shade].name : 'подберу в студии'],
+  ];
+  $('[data-summary]').innerHTML = `<dl>${rows.map(([a, b]) => `<div><dt>${a}</dt><dd>${esc(b)}</dd></div>`).join('')}</dl>` +
+    (s ? `<p class="tot">от ${rub(s.price)} · ${dur(s.min)}</p>` : '');
+}
+summary();
+
+const errBox = $('[data-err]');
+const clearErr = () => (errBox.textContent = '');
+function buildText() {
+  const s = allServices.find((x) => x.id === state.service), f = form.elements;
+  return [
+    `Здравствуйте! Хочу записаться в «${SITE.brand}».`,
+    `Услуга: ${s.name} (от ${rub(s.price)})`,
+    `Мастер: ${state.master === 'any' ? 'любой' : SITE.masters[state.master].name}`,
+    `Когда: ${dateLabel(visibleDays[state.day])}, ${state.slot}`,
+    state.shade != null ? `Оттенок: ${SITE.shades[state.shade].name}` : null,
+    `Имя: ${f.name.value.trim()}`,
+    `Телефон: ${f.phone.value}`,
+    f.comment.value.trim() ? `Комментарий: ${f.comment.value.trim()}` : null,
+  ].filter(Boolean).join('\n');
+}
+function validate() {
+  const f = form.elements;
+  if (!state.service) { fService.focus(); return 'Выберите услугу'; }
+  if (!state.slot) { fSlots.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' }); return 'Выберите время'; }
+  if (f.name.value.trim().length < 2) { f.name.closest('.fld').classList.add('bad'); f.name.focus(); return 'Как к вам обращаться?'; }
+  if (f.phone.value.replace(/\D/g, '').length !== 11) { f.phone.closest('.fld').classList.add('bad'); f.phone.focus(); return 'Проверьте номер телефона'; }
+  return '';
+}
+const viaWa = $('[data-via="wa"]', form), viaTg = $('[data-via="tg"]', form);
+if (!SITE.whatsapp) {
+  viaTg.hidden = true;
+  viaWa.dataset.via = SITE.telegram ? 'tg' : 'none';
+  viaWa.firstElementChild.textContent = SITE.telegram ? 'Отправить в Telegram' : 'Оформить заявку';
+} else if (!SITE.telegram) viaTg.hidden = true;
+let lastVia = viaWa.dataset.via;
+$$('[data-via]', form).forEach((b) => b.addEventListener('click', () => (lastVia = b.dataset.via)));
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const err = validate(); errBox.textContent = err; if (err) return;
+  const text = buildText();
+  const wa = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`, tg = `https://t.me/${SITE.telegram}`;
+  let copied = false;
+  if (lastVia === 'tg') { try { await navigator.clipboard.writeText(text); copied = true; } catch {} }
+  const win = lastVia === 'none' ? null : open(lastVia === 'wa' ? wa : tg, '_blank', 'noopener');
+  // если браузер не дал открыть новую вкладку — показываем готовую заявку с обычными ссылками
+  ready.hidden = false;
+  $('[data-ready-text]', ready).textContent = text;
+  const rw = $('[data-ready-wa]', ready), rt = $('[data-ready-tg]', ready), rp = $('[data-ready-tel]', ready);
+  rw.href = wa; rw.hidden = !SITE.whatsapp;
+  rt.href = tg; rt.hidden = !SITE.telegram;
+  rp.href = 'tel:+' + SITE.phone.replace(/\D/g, ''); rp.textContent = 'Позвонить ' + SITE.phone; rp.hidden = !!(SITE.whatsapp || SITE.telegram) || !SITE.phone;
+  ready.scrollIntoView({ block: 'nearest', behavior: reduced ? 'auto' : 'smooth' });
+  if (win) toast(lastVia === 'wa' ? 'Открываем WhatsApp — текст заявки уже вставлен, осталось нажать «Отправить»' : copied ? 'Текст заявки скопирован — вставьте его в чат Telegram' : 'Откройте чат и вставьте текст заявки');
+});
+const ready = $('[data-ready]');
+$('[data-ready-copy]').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText($('[data-ready-text]').textContent); toast('Текст заявки скопирован'); }
+  catch { const r = document.createRange(); r.selectNodeContents($('[data-ready-text]')); getSelection().removeAllRanges(); getSelection().addRange(r); toast('Текст выделен — скопируйте его'); }
+});
+
+// ---------- FAQ ----------
+$('[data-faq]').innerHTML = SITE.faq
+  .map(([q, a], i) => `<div class="qa reveal"><button type="button" aria-expanded="false" aria-controls="qa${i}">${esc(q)}<i aria-hidden="true"></i></button><div class="a" id="qa${i}" role="region"><div><p>${esc(a)}</p></div></div></div>`)
+  .join('');
+$('[data-faq]').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  const qa = b.parentElement, open_ = !qa.classList.contains('open');
+  qa.classList.toggle('open', open_); b.setAttribute('aria-expanded', String(open_));
+});
+
+// ---------- контакты ----------
+$('[data-ct-address]').textContent = SITE.address.replace(SITE.city + ', ', '');
+$('[data-ct-note]').textContent = `${SITE.city} · ${SITE.addressNote}`;
+$('[data-hours]').innerHTML = SITE.hours.map(([d, h]) => `<dt>${d}</dt><dd>${h}</dd>`).join('');
+$('[data-hours]').hidden = !!SITE.lead; // часов работы лида мы не знаем — не выдумываем
+$('[data-ct-note]').hidden = !SITE.addressNote;
+const links = [
+  SITE.phone ? ['Телефон', `tel:+${SITE.phone.replace(/\D/g, '')}`, SITE.phone] : null,
+  SITE.whatsapp ? ['WhatsApp', `https://wa.me/${SITE.whatsapp}`, 'Написать'] : null,
+  SITE.telegram ? ['Telegram', `https://t.me/${SITE.telegram}`, '@' + SITE.telegram] : null,
+  SITE.instagram ? ['Instagram', `https://instagram.com/${SITE.instagram}`, '@' + SITE.instagram] : null,
+].filter(Boolean);
+$('[data-ct-links]').innerHTML = links.map(([k, href, v]) => `<a href="${href}" ${href.startsWith('http') ? 'target="_blank" rel="noopener"' : ''}><small>${k}</small>${esc(v)}</a>`).join('');
+if (SITE.map) {
+  const { lat, lon } = SITE.map;
+  $('[data-map]').src = `https://yandex.ru/map-widget/v1/?ll=${lon}%2C${lat}&z=16&pt=${lon}%2C${lat}%2Cpm2rdm`;
+  $('[data-map-link]').href = `https://yandex.ru/maps/?pt=${lon},${lat}&z=17&l=map`;
+} else {
+  const q = encodeURIComponent(SITE.mapQuery || SITE.address);
+  $('[data-map]').src = `https://yandex.ru/map-widget/v1/?mode=search&text=${q}&z=16`;
+  $('[data-map-link]').href = `https://yandex.ru/maps/?text=${q}`;
+}
+if (SITE.footNote) $('.demo-note').textContent = SITE.footNote;
+
+// ---------- шапка, меню, кнопка записи ----------
+const hdr = $('#hdr'), fab = $('.fab');
+const onScroll = () => {
+  hdr.classList.toggle('scrolled', scrollY > 30);
+  const bk = $('#booking').getBoundingClientRect();
+  fab.classList.toggle('on', scrollY > innerHeight * 0.7 && !(bk.top < innerHeight && bk.bottom > 0));
+};
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+const burger = $('.burger'), mnav = $('#mnav');
+const setMenu = (o) => { burger.setAttribute('aria-expanded', String(o)); mnav.hidden = !o; document.body.style.overflow = o ? 'hidden' : ''; };
+burger.addEventListener('click', () => setMenu(mnav.hidden));
+mnav.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && !mnav.hidden) setMenu(false); });
+
+// магнитные кнопки
+if (!reduced && matchMedia('(hover: hover)').matches) {
+  $$('.mag').forEach((b) => {
+    b.addEventListener('pointermove', (e) => {
+      const r = b.getBoundingClientRect(), x = e.clientX - r.left - r.width / 2, y = e.clientY - r.top - r.height / 2;
+      b.style.transform = `translate(${x * 0.18}px,${y * 0.28}px)`; b.firstElementChild && (b.firstElementChild.style.transform = `translate(${x * 0.08}px,${y * 0.1}px)`);
+    });
+    b.addEventListener('pointerleave', () => { b.style.transform = ''; b.firstElementChild && (b.firstElementChild.style.transform = ''); });
+  });
+}
+
+// появление при прокрутке
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+$$('.reveal, .reveal-clip').forEach((e) => io.observe(e));
+
+let tt;
+function toast(msg) { const t = $('[data-toast]'); t.textContent = msg; t.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('on'), 4200); }
+
+</script>
+</body>
+</html>
