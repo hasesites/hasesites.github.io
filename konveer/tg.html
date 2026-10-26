@@ -116,9 +116,11 @@ $('notg').onclick=()=>{ if(!cur) return; const id=cur.id; H('medium'); $('card')
 if(!init){ show({error:'auth'}) } else go();
 
 // 23.10: «−1» — убрать последнюю отправку за сегодня (если сообщение не ушло)
-$('minus').onclick=async()=>{ const b=$('minus'); if(b.disabled) return; b.disabled=true; H('medium');
-  const j=await call('next',{minus:1}).catch(()=>null); b.disabled=false;
-  if(j&&j.today!=null){ $('today').textContent=j.today; lastToday=j.today; ring(j.today) } };
+// 24.10: цифра уменьшается сразу, запросы уходят по очереди, сервер потом сверяет итог
+let mq=Promise.resolve(), mPend=0;
+$('minus').onclick=()=>{ const n=Math.max(0,(parseInt($('today').textContent,10)||0)-1); H('medium');
+  lastToday=n; $('today').textContent=n; ring(n); mPend++;
+  mq=mq.then(()=>call('next',{minus:1}).catch(()=>null)).then(j=>{ mPend--; if(!mPend&&j&&j.today!=null){ lastToday=j.today; $('today').textContent=j.today; ring(j.today) } }) };
 </script>
 </body>
 </html>
