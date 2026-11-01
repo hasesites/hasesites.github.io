@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>23 AVENUE</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Салон красоты 23 AVENUE в Ростове-на-Дону: маникюр, педикюр, брови, ресницы, массаж и солярий. Два салона: Мясникова, 8 и Суворова, 62. Онлайн-запись.">
+<meta name="theme-color" content="#FBF5F2">
+<meta property="og:title" content="23 AVENUE — салон красоты, Ростов-на-Дону">
+<meta property="og:description" content="Маникюр, педикюр, брови, ресницы. Мясникова, 8 и Суворова, 62. Онлайн-запись.">
+<meta property="og:image" content="https://hasesites.github.io/23avenue/img/facade.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%232E1D1A'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' text-anchor='middle' fill='%23E8C9A0'%3E23%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="logo" href="#top" aria-label="23 AVENUE — наверх"><span class="logo-n">23</span><span class="logo-w">Avenue</span></a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#salons">Салоны</a><a href="#price">Прайс</a><a href="#masters">Мастера</a><a href="#gallery">Атмосфера</a><a href="#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-dark btn-sm" data-book target="_blank" rel="noopener"><span>Записаться</span></a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="mnav"><i></i><i></i></button>
+  </div>
+  <div class="mnav" id="mnav" hidden>
+    <a href="#salons">Салоны</a><a href="#price">Прайс</a><a href="#masters">Мастера</a><a href="#gallery">Атмосфера</a><a href="#contacts">Контакты</a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="wrap hero-in">
+      <div class="hero-txt">
+        <p class="eyebrow">Салон красоты · <span data-city></span></p>
+        <h1 class="hero-title" aria-label="23 AVENUE">
+          <span class="ht-num" aria-hidden="true"><span>2</span><span>3</span></span>
+          <span class="ht-word" aria-hidden="true">Avenue</span>
+        </h1>
+        <div class="bulbs" aria-hidden="true"></div>
+        <p class="lead">Маникюр, педикюр, брови, ресницы, массаж и солярий в двух салонах: на&nbsp;Мясникова,&nbsp;8 и&nbsp;Суворова,&nbsp;62.</p>
+        <div class="hero-cta">
+          <a class="btn btn-dark mag" data-book target="_blank" rel="noopener"><span>Записаться онлайн</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10h10M11 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-line" href="#price"><span>Смотреть цены</span></a>
+        </div>
+        <p class="hero-hours"><span class="dot"></span>Оба салона ежедневно 9:00–21:00</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <figure class="arch arch-main"><img src="img/interior.webp" alt="" width="975" height="1300" fetchpriority="high"></figure>
+        <figure class="round round-a"><img src="img/nails.webp" alt="" width="731" height="1300"></figure>
+        <div class="seal"><svg viewBox="0 0 120 120"><defs><path id="sealp" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text><textPath href="#sealp" startOffset="0">САЛОН КРАСОТЫ · 23 AVENUE · РОСТОВ-НА-ДОНУ ·</textPath></text></svg><b>23</b></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="mq-track" data-marquee></div></div>
+
+  <!-- SALONS -->
+  <section class="sec salons" id="salons">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow rv">Два адреса</p>
+        <h2 class="h2 rv">Выберите <em>свой</em> салон</h2>
+        <p class="sec-sub rv">Цены и набор услуг в салонах немного отличаются. Выберите адрес, и прайс ниже покажет цены именно этого салона.</p>
+      </div>
+      <div class="br-grid" data-branches></div>
+    </div>
+  </section>
+
+  <!-- PRICE -->
+  <section class="sec price" id="price">
+    <div class="wrap">
+      <div class="sec-head price-head">
+        <div>
+          <p class="eyebrow rv">Прайс</p>
+          <h2 class="h2 rv">Цены <em>салона на</em> <span class="br-name" data-price-branch></span></h2>
+        </div>
+        <div class="seg rv" role="tablist" aria-label="Салон" data-seg></div>
+      </div>
+      <div class="pr-tabs" role="tablist" aria-label="Раздел прайса" data-tabs></div>
+      <div class="pr-body" data-pricebody aria-live="polite"></div>
+      <p class="pr-note">Цена зависит от уровня мастера. Мастера, свободное время и точную стоимость видно в онлайн-записи. Цены указаны в рублях.</p>
+    </div>
+  </section>
+
+  <!-- LEVELS -->
+  <section class="sec masters" id="masters">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow rv">Мастера</p>
+        <h2 class="h2 rv">Четыре <em>уровня</em> мастеров</h2>
+        <p class="sec-sub rv">От уровня зависит цена услуги. Выбрать конкретного мастера можно при онлайн-записи.</p>
+      </div>
+      <div class="lv-grid" data-levels></div>
+    </div>
+  </section>
+
+  <!-- PROMOS (появится, когда заполнены акции) -->
+  <section class="sec promos" id="promos" hidden>
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Акции</p><h2 class="h2">Сейчас <em>действуют</em></h2></div>
+      <div class="pm-grid" data-promos></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="sec gallery" id="gallery">
+    <div class="wrap gl-head">
+      <div>
+        <p class="eyebrow rv">Атмосфера</p>
+        <h2 class="h2 rv">Розовый, золото <em>и цветы</em></h2>
+      </div>
+      <div class="gl-ctrl">
+        <button class="circ" type="button" data-gl="-1" aria-label="Назад"><svg viewBox="0 0 20 20"><path d="M12 5l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="circ" type="button" data-gl="1" aria-label="Вперёд"><svg viewBox="0 0 20 20"><path d="M8 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+    <div class="gl-track" data-gallery tabindex="0" aria-label="Фотографии салона"></div>
+    <div class="wrap">
+      <a class="insta rv" data-insta target="_blank" rel="noopener">
+        <span class="insta-l">Больше работ, новостей и акций в Instagram</span>
+        <span class="insta-h" data-insta-handle></span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14L14 6M7 6h7v7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- PRODUCTS (появится, когда заполнены товары) -->
+  <section class="sec products" id="products" hidden>
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Товары</p><h2 class="h2">Можно <em>купить</em> в салоне</h2></div>
+      <div class="pd-grid" data-products></div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="sec booking" id="booking">
+    <div class="wrap">
+      <div class="bk-card">
+        <div class="bk-glow" aria-hidden="true"></div>
+        <p class="eyebrow">Онлайн-запись</p>
+        <h2 class="h2">Запишитесь <em>за минуту</em></h2>
+        <p class="bk-sub">Выберите салон, услугу, мастера и удобное время в онлайн-записи.</p>
+        <a class="btn btn-light mag big" data-book target="_blank" rel="noopener"><span>Выбрать время</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10h10M11 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="bk-alt" data-bkalt></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section class="sec contacts" id="contacts">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow rv">Контакты</p><h2 class="h2 rv">Как <em>нас найти</em></h2></div>
+      <div class="ct-grid" data-contacts></div>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <a class="logo logo-lg" href="#top"><span class="logo-n">23</span><span class="logo-w">Avenue</span></a>
+    <div class="ftr-col" data-fbranches></div>
+    <div class="ftr-col">
+      <a data-insta target="_blank" rel="noopener" data-insta-handle></a>
+      <a data-book target="_blank" rel="noopener">Онлайн-запись</a>
+    </div>
+  </div>
+  <div class="wrap ftr-low"><span data-owner></span><span>© <span data-year></span> 23 AVENUE</span></div>
+</footer>
+
+<a class="fab" data-book target="_blank" rel="noopener">Записаться онлайн</a>
+
+<script src="config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
