@@ -25,7 +25,7 @@
   var LV = {}; S.levels.forEach(function (l) { LV[l.id] = l; });
   var mapUrl = function (b) { return 'https://yandex.ru/maps/?text=' + encodeURIComponent(S.city + ', ' + b.address); };
   var waUrl = function (b) { return 'https://wa.me/' + b.whatsapp + '?text=' + encodeURIComponent('Здравствуйте! Хочу записаться в салон на ' + b.address + '.'); };
-  var numOf = function (b) { var m = b.address.match(/(\d+)\s*$/); return m ? m[1] : ''; };
+  var numOf = function (b) { if (b.num) return b.num; var m = b.address.match(/(\d+)/); return m ? m[1] : ''; };
 
   // общие ссылки
   $$('[data-book]').forEach(function (a) { a.href = S.booking; });
@@ -37,10 +37,10 @@
 
   // лампочки как на вывеске
   var bulbs = $('.bulbs');
-  for (var i = 0; i < 14; i++) { var b = document.createElement('i'); b.style.animationDelay = (i * 0.16) + 's'; bulbs.appendChild(b); }
+  if (bulbs) for (var i = 0; i < 14; i++) { var b = document.createElement('i'); b.style.animationDelay = (i * 0.16) + 's'; bulbs.appendChild(b); }
 
   // бегущая строка
-  var words = ['Маникюр', 'Педикюр', 'Наращивание', 'Брови', 'Ресницы', 'Массаж', 'Шугаринг', 'Солярий'];
+  var words = ['Маникюр', 'Педикюр', 'Брови', 'Ресницы', 'Косметология', 'Волосы', 'Макияж', 'Шугаринг', 'Лазер', 'Массаж'];
   var mq = $('[data-marquee]'), half = words.concat(words).map(function (w) { return '<span>' + w + '</span>'; }).join('');
   mq.innerHTML = half + half;
 
@@ -99,9 +99,10 @@
           }).join('') + '</tr>';
         }).join('') + '</tbody></table>';
     } else {
-      html = '<ul class="plist">' + g.items.map(function (it, k) {
+      html = (g.note ? '<p class="pr-gnote">' + esc(g.note) + '</p>' : '') + '<ul class="plist">' + g.items.map(function (it, k) {
+        if (it.sub) return '<li class="sub" style="animation-delay:' + (Math.min(k, 14) * 0.035) + 's">' + esc(it.sub) + '</li>';
         var v = fmt(it.price);
-        return '<li style="animation-delay:' + (k * 0.04) + 's"><span class="nm">' + esc(it.name) + '</span><span class="lead-dots"></span>' +
+        return '<li style="animation-delay:' + (Math.min(k, 14) * 0.035) + 's"><span class="nm">' + esc(it.name) + '</span><span class="lead-dots"></span>' +
           (v == null ? '<span class="pv ask">Цена при записи</span>' : '<span class="pv">' + v + '</span>') + '</li>';
       }).join('') + '</ul>';
     }
