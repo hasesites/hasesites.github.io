@@ -4,13 +4,13 @@
   --milk: #FCF6FB;      /* фон */
   --powder: #F6E4F4;    /* пудровый слой */
   --blush: #EBC0E7;     /* розовый */
-  --fuchsia: #B05AAB;   /* тёмный вариант фирменного #D391DF — для текста и кнопок */
+  --fuchsia: #C985CC;   /* тёмный вариант фирменного #D391DF — для текста и кнопок */
   --orchid: #D996D4;
   --lilac: #D391DF;   /* розовый неон вывески — точечный акцент */
-  --cocoa: #2E1A2C;     /* текст и тёмные кнопки */
-  --cocoa-2: #6D5469;   /* второстепенный текст */
-  --gold: #B88A4A;      /* латунь светильников */
-  --gold-soft: #E8C9A0;
+  --cocoa: #4F4150;     /* текст и тёмные кнопки */
+  --cocoa-2: #7C6A7A;   /* второстепенный текст */
+  --gold: #D391DF;      /* латунь светильников */
+  --gold-soft: #EBC0E7;
   --line: rgba(46, 26, 44, .12);
   --card: #FFFCFF;
 
@@ -434,3 +434,39 @@ a { color: inherit; }
 .tagline { margin-top: 30px; }
 .seal text { letter-spacing: .15em; font-size: 10px; }
 .seal text { letter-spacing: 0; font-size: 9.5px; }
+
+/* правки по отзыву салона: только фирменные сиренево-розовые, без тёмных заливок и золота */
+:root { --fill: #C985CC; --fill-2: #D391DF; }
+.btn { --bg: var(--fill); --fg: #fff; }
+.btn::before { background: var(--fill-2); }
+.btn:hover { border-color: var(--fill-2); color: #fff; }
+.btn-line { --bg: transparent; --fg: var(--cocoa); border-color: rgba(201, 133, 204, .45); }
+.btn-light { --bg: #fff; --fg: var(--fuchsia); border-color: #fff; }
+.btn-light::before { background: var(--fill); }
+.btn-light:hover { color: #fff; border-color: var(--fill); }
+.skip, .fab { background: var(--fill); color: #fff; }
+.seg .seg-pill { background: var(--fill); }
+.pr-tabs button[aria-selected="true"], .ptable th[data-col].hl b { background: var(--fill); color: #fff; border-color: var(--fill); }
+.pr-tabs button:hover { border-color: var(--fill); }
+.lv:hover .lv-code, .lv:first-child .lv-code { background: var(--fill); color: #fff; }
+.pm { background: linear-gradient(140deg, var(--blush), var(--lilac)); color: #fff; }
+.pm h3 { color: #fff; }
+.circ:hover, .insta:hover { background: var(--fill); color: #fff; border-color: var(--fill); }
+.bk-card { background: linear-gradient(135deg, var(--blush), var(--orchid) 55%, var(--lilac)); color: #fff; }
+.bk-card .eyebrow, .bk-card .h2 em { color: #fff; }
+.bk-card .bk-sub, .bk-alt { color: rgba(255, 255, 255, .92); }
+.bk-alt a { color: #fff; border-color: rgba(255, 255, 255, .6); }
+.bk-glow { background: radial-gradient(circle, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) 65%); }
+.ht-word { color: var(--cocoa); }
+.ht-num { color: var(--orchid); }
+.ht-num span:last-child { color: var(--lilac); }
+.tagline, .h2 em, .plist li.sub, .insta-h { color: var(--lilac); }
+.br-num { color: var(--orchid); }
+.br-num i { color: var(--lilac); }
+.seal b { color: var(--lilac); }
+.mq-track span::after { background: #fff; }
+.burger i { background: var(--cocoa); }
+.br.on { border-color: var(--fill); }
+.bk-card .h2 { text-shadow: 0 2px 18px rgba(150, 70, 150, .25); }
+.bk-card .bk-sub, .bk-alt, .bk-alt a { color: var(--cocoa); }
+.bk-alt a { border-color: rgba(79, 65, 80, .35); }
