@@ -148,7 +148,13 @@
   }
   if (S.products && S.products.length) {
     $('#products').hidden = false;
-    $('[data-products]').innerHTML = S.products.map(function (p) { return '<article class="pd">' + (p.photo ? '<img src="' + esc(p.photo) + '" alt="' + esc(p.name) + '" loading="lazy">' : '') + '<div><span>' + esc(p.name) + '</span><b>' + (fmt(p.price) || '') + '</b></div></article>'; }).join('');
+    $('[data-products]').innerHTML = S.products.map(function (g) {
+      return '<article class="pd rv"><figure class="pd-ph"><img src="' + (window.IMG_MAP && window.IMG_MAP[g.photo] ? window.IMG_MAP[g.photo] : esc(g.photo)) + '" alt="' + esc(g.alt || g.title) + '" loading="lazy"></figure>' +
+        '<div class="pd-body"><h3>' + esc(g.title) + '</h3><ul>' + g.items.map(function (it) {
+          return '<li><div><b>' + esc(it.name) + '</b>' + (it.vol ? '<small>' + esc(it.vol) + '</small>' : '') + '</div>' + (it.text ? '<p>' + esc(it.text) + '</p>' : '') +
+            '<span class="pd-pr">' + (it.price == null ? 'Цену уточняйте в салоне' : fmt(it.price)) + '</span></li>';
+        }).join('') + '</ul></div></article>';
+    }).join('');
   }
 
   // ---------- галерея ----------

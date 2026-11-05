@@ -213,7 +213,18 @@ window.SITE = {
 
   // Блоки ниже появятся на сайте, как только их заполнить.
   promos: [],   // { title: 'Скидка 15% на педикюр по будням', text: '...', until: 'до 30 ноября' }
-  products: [], // { name: '...', price: 1200, photo: 'img/....webp' }
+  // Косметика в продаже. Цены не указаны — показывается «цену уточняйте в салоне».
+  products: [
+    { title: 'Для волос', photo: 'img/hadat-hair.webp', alt: 'Маски для волос HADAT в салоне', items: [
+      { name: 'Golden Hour Hair Mask', vol: '280 мл', text: 'Маска с кератином и маслами для повреждённых и сухих волос', price: null },
+      { name: 'Hydro Liquid Silk Treatment', vol: '', text: 'Восстанавливающий реконструктор для сухих и сильно повреждённых волос', price: null },
+      { name: 'Softening Microcapsules Hair Mask', vol: '280 мл', text: 'Питательная маска с капсулами витамина E', price: null },
+    ] },
+    { title: 'Для тела', photo: 'img/hadat-body.webp', alt: 'Крем и гель для душа HADAT в салоне', items: [
+      { name: 'Calm Body Cream', vol: '250 мл', text: 'Крем для тела', price: null },
+      { name: 'Calm Shower Gel', vol: '300 мл', text: 'Гель для душа: очищает, не пересушивая кожу, бережёт её pH', price: null },
+    ] },
+  ],
 
   gallery: [
     { img: 'interior', alt: 'Зал маникюра' },
