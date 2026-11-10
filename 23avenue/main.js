@@ -195,6 +195,24 @@
 
   setBranch(cur);
 
+  // ---------- направления ----------
+  var dirEl = $('[data-directions]');
+  if (dirEl && S.directions) {
+    dirEl.innerHTML = S.directions.map(function (d, k) {
+      var img = d.img ? '<figure class="sv2-ph"><img src="' + (window.IMG_MAP && window.IMG_MAP[d.img] ? window.IMG_MAP[d.img] : IMG + d.img + '.webp') + '" alt="" loading="lazy"></figure>' : '';
+      return '<button type="button" class="sv2-card rv' + (d.img ? ' has-ph' : '') + '" data-dir="' + d.tab + '">' + img +
+        '<span class="sv2-n">' + (k < 9 ? '0' : '') + (k + 1) + '</span><span class="sv2-t">' + esc(d.title) + '</span>' +
+        '<span class="sv2-d">' + esc(d.text) + '</span><span class="sv2-f"><b>' + esc(d.from) + '</b>' + (d.where ? '<i>' + esc(d.where) + '</i>' : '') + '<em>Цены →</em></span></button>';
+    }).join('');
+    dirEl.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-dir]'); if (!t) return;
+      var id = t.getAttribute('data-dir');
+      var has = function (b) { return b.groups.some(function (g) { return g.id === id; }); };
+      if (!has(branch())) { var nb = S.branches.filter(has)[0]; if (nb) cur = nb.id; }
+      tab = id; setBranch(cur, { scroll: true });
+    });
+  }
+
   // ---------- шапка, меню, кнопка записи ----------
   var hdr = $('#hdr'), fab = $('.fab'), heroEl = $('.hero');
   var burger = $('.burger'), mnav = $('#mnav');
