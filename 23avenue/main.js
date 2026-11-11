@@ -127,7 +127,7 @@
   var r = S.rating;
   if (r) { var ra = $('[data-rating]'); ra.href = r.url; ra.innerHTML = '<b>' + esc(r.value) + '</b><i aria-hidden="true">★★★★★</i><span>' + esc(r.count) + ' на ' + esc(r.source) + '</span>'; }
   $('[data-reviews]').innerHTML = (S.reviews || []).map(function (v) {
-    return '<article class="rcard rv"><header><span class="av">' + esc(v.name.charAt(0)) + '</span><div><b>' + esc(v.name) + '</b><small>Отзыв на ' + esc(r ? r.source : '') + '</small></div></header><p>' + esc(v.text) + '</p></article>';
+    return '<article class="rcard rv"><header><span class="av">' + esc(v.name.charAt(0)) + '</span><div><b>' + esc(v.name) + '</b><small>' + esc(v.date ? v.date + ' · ' : '') + esc(r ? r.source : '') + '</small></div></header><p>' + esc(v.text) + '</p></article>';
   }).join('');
 
   // ---------- контакты ----------
