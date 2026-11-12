@@ -217,3 +217,9 @@ a { color: inherit; }
 .eyebrow { font-family: var(--f-c); font-weight: 300; font-size: clamp(15px, 1.4vw, 18px); letter-spacing: .38em; color: var(--ink); margin-bottom: 16px; }
 .hero .eyebrow { font-size: clamp(13px, 1.2vw, 15px); }
 .seg button { font-weight: 300; font-size: 14px; letter-spacing: .18em; }
+
+/* 12.11c: шрифт как верхний «AVENUE 23» в брендбуке — Montserrat ExtraLight, широкий и тонкий */
+.eyebrow { font-weight: 200; font-size: clamp(17px, 1.6vw, 21px); letter-spacing: .3em; color: var(--ink); }
+.hero .eyebrow { font-size: clamp(14px, 1.3vw, 17px); }
+.seg button { font-weight: 300; font-size: 14.5px; letter-spacing: .16em; }
+.cats button { font-weight: 300; }
