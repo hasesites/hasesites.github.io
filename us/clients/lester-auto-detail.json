@@ -1,0 +1,57 @@
+{
+  "name": "Lester Auto Detail",
+  "short": "Lester",
+  "city": "Tulsa",
+  "state": "OK",
+  "address": "1543 E 11th St",
+  "phone": "(918) 599-8011",
+  "hours": ["Mon–Fri · 8:30 AM – 6 PM", "Sat–Sun · Closed"],
+  "hoursSchema": "Mo-Fr 08:30-18:00",
+  "social": { "facebook": "https://www.facebook.com/lesterdetailman/" },
+  "theme": { "accent": "#d6ac6a", "paint": "#5a0f16", "bg": "#0c0b0a" },
+  "hero": {
+    "eyebrow": "Auto detailing · East 11th St, Tulsa",
+    "title": ["Tulsa's detail shop", "on Route 66."],
+    "sub": "Full details, paint correction, headlight restoration and classic car care — right on historic Route 66 in midtown Tulsa.",
+    "image": "studio-sedan"
+  },
+  "rating": { "value": "4.9", "count": "66 reviews", "source": "Google & Facebook" },
+  "marquee": ["Full vehicle detailing", "Express detailing", "Paint correction", "Headlight restoration", "Classic cars", "Route 66 · Tulsa"],
+  "servicesIntro": "From a quick same-day refresh to bringing back a classic's paint, every job starts with a walk-around so you know exactly what you're getting.",
+  "services": [
+    { "name": "Express Detail", "desc": "Hand wash, wheels, glass and a quick interior refresh. The easy way to stay ahead of Oklahoma dust and pollen.", "img": "mitt", "tag": "Same day" },
+    { "name": "Full Vehicle Detail", "desc": "Inside and out, top to bottom: carpets and seats extracted, plastics and leather cleaned, paint washed, decontaminated and protected.", "img": "dash", "tag": "Inside & out" },
+    { "name": "Paint Correction", "desc": "Machine polishing to remove swirls, haze and light scratches, so the paint reflects like glass again.", "img": "polisher", "tag": "Exterior" },
+    { "name": "Headlight Restoration", "desc": "Cloudy, yellowed lenses sanded, polished and sealed. Better looks and better light on the road at night.", "img": "headlight-911", "tag": "Exterior" },
+    { "name": "Classic Car Detailing", "desc": "Single-stage paint, chrome and vintage interiors need a gentler hand and the right products. Show-ready, without the risk.", "img": "red-paint", "tag": "Classics" }
+  ],
+  "feature": {
+    "kicker": "Classic & collector cars",
+    "title": ["Old paint", "deserves patience."],
+    "text": "Older single-stage and lacquer finishes behave differently from modern clear coat. We test first, go slow, and use the least aggressive step that gets the result — so the shine comes back and the paint stays.",
+    "points": ["Single-stage & original paint", "Chrome and brightwork", "Vintage vinyl & leather"],
+    "image": "red-paint"
+  },
+  "pricing": {
+    "title": ["Clear packages.", "Fair quotes."],
+    "packages": [
+      { "name": "Express", "time": "≈ 2 hours", "price": [89, 109, 129], "items": ["Hand wash & dry", "Wheels & tires", "Interior vacuum & wipe-down", "Glass inside and out"] },
+      { "name": "Full Detail", "time": "≈ 1 day", "featured": true, "price": [249, 289, 329], "items": ["Everything in Express", "Seats & carpets extracted", "Leather & plastics cleaned", "Clay & iron decontamination", "Paint sealant"] },
+      { "name": "Correction", "time": "1–2 days", "price": [499, 599, 699], "items": ["Full exterior decontamination", "Machine polish for swirls & haze", "Headlights polished", "Long-lasting protection", "Photos before & after"] }
+    ]
+  },
+  "reviews": {
+    "title": "What Tulsa says",
+    "sample": false,
+    "note": "Quotes from public Facebook reviews of Lester Auto Detail.",
+    "items": [
+      { "text": "Lester's is without a doubt the best place to get your car detailed in Tulsa.", "name": "Annette", "meta": "Facebook review" },
+      { "text": "They are the best in Tulsa & surrounding counties", "name": "Mike", "meta": "Facebook review" },
+      { "text": "Absolute best detail in the city.", "name": "Derek", "meta": "Facebook review" }
+    ]
+  },
+  "contact": {
+    "text": "Tell us about the car and what it needs. We'll get back to you with a time and a straight quote.",
+    "services": ["Express detail", "Full detail", "Paint correction", "Headlights", "Classic car"]
+  }
+}
