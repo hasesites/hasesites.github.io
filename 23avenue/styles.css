@@ -223,3 +223,11 @@ a { color: inherit; }
 .hero .eyebrow { font-size: clamp(14px, 1.3vw, 17px); }
 .seg button { font-weight: 300; font-size: 14.5px; letter-spacing: .16em; }
 .cats button { font-weight: 300; }
+
+/* 12.11d: точный шрифт из брендбука — Unbounded (по словам салона, из CapCut) */
+:root { --f-c: 'Unbounded', 'Inter', system-ui, sans-serif; }
+.eyebrow { font-weight: 200; font-size: clamp(15px, 1.4vw, 19px); letter-spacing: .22em; }
+.hero .eyebrow { font-size: clamp(12px, 1.1vw, 15px); }
+.seg button { font-weight: 300; font-size: 13px; letter-spacing: .1em; }
+.cats button { font-weight: 300; font-size: 12.5px; letter-spacing: .06em; }
+@media (max-width: 640px) { .cats button { font-size: 10.5px; letter-spacing: .03em; } .seg button { font-size: 12px; padding: 11px 16px; } }
