@@ -253,3 +253,5 @@ a { color: inherit; }
 .pd:has(.pd-duo) .pd-body { display: flex; flex-direction: column; justify-content: center; padding: 32px; }
 @media (max-width: 560px) { .pd:has(.pd-duo) { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .pd .pd-duo img { aspect-ratio: 3 / 4; } }
+/* 12.11h: «холоднее» — розовый уведён в холодный, к сиреневому */
+:root { --accent: #B25CB0; --pink: #F3D6EE; --pink-2: #E2B4DD; --soft: #FAEEF8; }
