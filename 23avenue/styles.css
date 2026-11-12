@@ -205,3 +205,10 @@ a { color: inherit; }
 .js .rv { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .js .rv.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .js .rv { opacity: 1; transform: none; } }
+
+/* 12.11: шрифт из брендбука (тонкий широкий гротеск) для подписей, категорий и выбора салона, капсом */
+:root { --f-c: 'Montserrat', 'Inter', system-ui, sans-serif; }
+.eyebrow { font-family: var(--f-c); font-weight: 400; letter-spacing: .32em; }
+.cats button { font-family: var(--f-c); font-weight: 400; font-size: 13.5px; letter-spacing: .1em; text-transform: uppercase; line-height: 1.35; }
+.seg button { font-family: var(--f-c); font-weight: 400; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
+@media (max-width: 640px) { .cats button { font-size: 12px; letter-spacing: .07em; padding: 10px 8px; } }
