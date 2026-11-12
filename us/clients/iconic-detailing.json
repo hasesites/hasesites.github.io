@@ -5,19 +5,38 @@
   "state": "ID",
   "address": "209 W 38th St",
   "phone": "(208) 602-2517",
-  "hours": ["Open 7 days a week"],
-  "theme": { "accent": "#a9d8ff", "paint": "#29486b", "bg": "#08090b" },
+  "hours": [
+    "Open 7 days a week"
+  ],
+  "theme": {
+    "accent": "#5aa9ff",
+    "bg": "#0d0e0f"
+  },
   "hero": {
     "eyebrow": "Auto detailing · Boise, Idaho",
-    "title": ["Make it", "iconic."],
+    "title": [
+      "Make it",
+      "iconic."
+    ],
     "sub": "Paint correction, ceramic coatings and full interior details for Treasure Valley drivers — seven days a week.",
-    "image": "studio-bmw"
+    "image": "pressure-wash",
+    "position": "50% 45%"
   },
-  "rating": { "value": "4.8", "count": "225 reviews", "source": "Birdeye" },
-  "marquee": ["Paint correction", "Ceramic coating", "Interior detailing", "Hand wash", "Headlight restoration", "Boise · Garden City"],
+  "rating": {
+    "value": "4.8",
+    "count": "225 reviews",
+    "source": "Birdeye"
+  },
   "feature": {
-    "title": ["Built for", "Idaho winters."],
+    "title": [
+      "Built for",
+      "Idaho winters."
+    ],
     "text": "Mag chloride, road grime and hard water are rough on paint. A properly prepped ceramic coating makes all of it rinse off easier and keeps the finish deep and glossy through the season.",
-    "points": ["Paint, wheels & glass", "Prep and correction included", "Winter-ready aftercare"]
+    "points": [
+      "Paint, wheels & glass",
+      "Prep and correction included",
+      "Winter-ready aftercare"
+    ]
   }
 }

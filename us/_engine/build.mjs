@@ -40,7 +40,7 @@ function build(slug) {
     return `<img src="${E}img/${name}-900.webp" srcset="${E}img/${name}-900.webp 900w, ${E}img/${name}-1800.webp 1800w" sizes="${sizes}" width="900" height="${h}" ${attrs}>`;
   };
   const words = (s) => esc(s).split(' ').map((w) => `<span class="w"><span>${w}</span></span>`).join(' ');
-  const title2 = (arr, tag = 'h2', cls = '') => `<${tag} class="split ${cls}"><span class="l">${words(fill(arr[0]))}</span><span class="l it">${words(fill(arr[1] || ''))}</span></${tag}>`;
+  const title2 = (arr, tag = 'h2', cls = '') => `<${tag} class="split ${cls}"><span class="l">${words(fill(arr[0]))}</span><span class="l lt">${words(fill(arr[1] || ''))}</span></${tag}>`;
 
   const phoneHref = c.phone ? 'tel:+1' + c.phone.replace(/\D/g, '').replace(/^1/, '') : '';
   const location = [c.address, `${c.city}, ${c.state}`].filter(Boolean);
@@ -56,7 +56,7 @@ function build(slug) {
     priceRange: '$$',
   };
 
-  const ratingHtml = c.rating ? `<div class="rating"><span class="stars" aria-hidden="true">★★★★★</span><b>${esc(c.rating.value)}</b><span>${esc(c.rating.count)} · ${esc(c.rating.source)}</span></div>` : '';
+  const ratingHtml = c.rating ? `<div class="rating"><b>${esc(c.rating.value)}</b><span class="stars" aria-hidden="true">★★★★★</span><span>${esc(c.rating.count)} · ${esc(c.rating.source)}</span></div>` : '';
 
   const html = `<!doctype html>
 <html lang="en">
@@ -70,83 +70,60 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
 <meta property="og:type" content="website">
 <meta property="og:title" content="${esc(seoTitle)}">
 <meta property="og:description" content="${esc(seoDesc)}">
-<meta property="og:image" content="${pageUrl}${E}img/${c.hero.image}-1800.webp">
+<meta property="og:image" content="${SITE_URL}_engine/img/${c.hero.image}-1800.webp">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='${t.bg}'/><text x='32' y='43' font-family='Georgia,serif' font-size='34' font-style='italic' text-anchor='middle' fill='${t.accent}'>${esc(c.short[0])}</text></svg>`)}">
-<link rel="preload" href="${E}fonts/intertight.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="${E}fonts/iserif-italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="modulepreload" href="${E}vendor/three.module.min.js">
+<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='${t.bg}'/><text x='32' y='44' font-family='Arial,sans-serif' font-weight='800' font-size='32' text-anchor='middle' fill='#f1efea'>${esc(c.short[0])}</text></svg>`)}">
+<link rel="preload" href="${E}fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="${E}img/${c.hero.image}-1800.webp" imagesrcset="${E}img/${c.hero.image}-900.webp 900w, ${E}img/${c.hero.image}-1800.webp 1800w" imagesizes="100vw">
 <link rel="stylesheet" href="${E}app.css?v=${VERSION}">
-<style>:root{--bg:${t.bg};--accent:${t.accent};--paint:${t.paint}}</style>
-<script type="importmap">{"imports":{"three":"${E}vendor/three.module.min.js","three/addons/":"${E}vendor/jsm/"}}</script>
+<style>:root{--accent:${t.accent};--bg:${t.bg}}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
-<body class="is-loading">
+<body>
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="loader" aria-hidden="true">
-  <div class="loader__name">${esc(c.name)}</div>
-  <div class="loader__num"><span data-count>0</span>%</div>
-  <div class="loader__bar"><i></i></div>
-</div>
-
 <header class="nav" data-nav>
-  <a class="nav__brand" href="#top" aria-label="${esc(c.name)} — home">${esc(c.short)}<em>.</em></a>
+  <a class="nav__brand" href="#top" aria-label="${esc(c.name)} — home">${esc(c.short)}</a>
   <nav class="nav__links" aria-label="Main">
-    <a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#work">Work</a><a href="#faq">FAQ</a>
+    <a href="#services">Services</a><a href="#process">Process</a><a href="#pricing">Pricing</a><a href="#work">Work</a><a href="#faq">FAQ</a>
   </nav>
   <div class="nav__cta">
     ${phoneHref ? `<a class="nav__phone" href="${phoneHref}">${esc(c.phone)}</a>` : ''}
-    <a class="btn btn--small" href="#quote" data-magnetic><span>Get a quote</span></a>
+    <a class="btn btn--small" href="#quote"><span>Get a quote</span></a>
   </div>
   <button class="nav__burger" aria-label="Open menu" aria-expanded="false" data-burger><i></i><i></i></button>
 </header>
 <div class="menu" data-menu>
-  <a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#work">Work</a><a href="#faq">FAQ</a><a href="#quote">Get a quote</a>
+  <nav><a href="#services">Services</a><a href="#process">Process</a><a href="#pricing">Pricing</a><a href="#work">Work</a><a href="#faq">FAQ</a><a href="#quote">Get a quote</a></nav>
   ${phoneHref ? `<a class="menu__phone" href="${phoneHref}">${esc(c.phone)}</a>` : ''}
 </div>
 
 <main id="main">
-<!-- ACT I: 3D stage -->
-<section class="stage" id="top" data-stage>
-  <div class="stage__sticky">
-    <canvas class="stage__canvas" data-canvas aria-hidden="true"></canvas>
-    <div class="stage__fallback" aria-hidden="true">${img(c.hero.image, '', '100vw', '', true)}</div>
-    <div class="stage__shade"></div>
-
-    <div class="hero" data-hero>
-      <p class="eyebrow"><span class="dot"></span>${esc(fill(c.hero.eyebrow))}</p>
-      ${title2(c.hero.title, 'h1', 'hero__title')}
+<section class="hero" id="top" data-hero>
+  <div class="hero__inner wrap">
+    <p class="label">${esc(fill(c.hero.eyebrow))}</p>
+    ${title2(c.hero.title, 'h1', 'hero__title')}
+    <div class="hero__row">
       <p class="hero__sub">${esc(fill(c.hero.sub))}</p>
       <div class="hero__actions">
-        <a class="btn" href="#quote" data-magnetic><span>Book a detail</span></a>
-        ${phoneHref ? `<a class="btn btn--ghost" href="${phoneHref}" data-magnetic><span>Call ${esc(c.phone)}</span></a>` : `<a class="btn btn--ghost" href="#pricing" data-magnetic><span>See packages</span></a>`}
+        <a class="btn" href="#quote"><span>Book a detail</span></a>
+        ${phoneHref ? `<a class="btn btn--ghost" href="${phoneHref}"><span>Call ${esc(c.phone)}</span></a>` : `<a class="btn btn--ghost" href="#pricing"><span>See packages</span></a>`}
       </div>
-      ${ratingHtml}
     </div>
-    <div class="hero__meta">
-      <span>${esc(c.city)}, ${esc(c.state)}</span>
-      <span class="scrollcue"><i></i>Scroll</span>
-    </div>
-
-    <div class="acts" data-acts>
-      <p class="acts__kicker">${esc(c.story.kicker)}</p>
-      ${c.story.acts.map((a, i) => `<article class="act" data-act="${i}"><span class="act__n">${esc(a.n)}</span><h3 class="act__t">${esc(a.t)}</h3><p class="act__d">${esc(a.d)}</p></article>`).join('')}
-      <div class="acts__rail"><i data-rail></i></div>
+    <div class="hero__foot">
+      ${ratingHtml || '<span></span>'}
+      <span class="hero__loc">${esc(c.address ? c.address + ' · ' : '')}${esc(c.city)}, ${esc(c.state)}</span>
     </div>
   </div>
+  <div class="hero__media" data-hero-media style="--pos:${esc(c.hero.position || '50% 50%')}">${img(c.hero.image, '', '100vw', '', true)}</div>
+
 </section>
 
-<div class="marquee" aria-hidden="true" data-marquee>
-  <div class="marquee__track">${[...c.marquee, ...c.marquee].map((m) => `<span>${esc(m)}</span><em>✦</em>`).join('')}</div>
-</div>
-
-<!-- Services -->
 <section class="services" id="services">
   <div class="wrap">
     <div class="sec-head">
       <p class="label">Services</p>
-      ${title2(['What we do,', 'and how we do it.'])}
+      ${title2(['What we do.', 'And how.'])}
       <p class="sec-head__text reveal">${esc(c.servicesIntro)}</p>
     </div>
     <ol class="svc" data-svc>
@@ -155,27 +132,42 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
         <h3 class="svc__name">${esc(s.name)}</h3>
         <p class="svc__desc">${esc(s.desc)}</p>
         <span class="svc__tag">${esc(s.tag || '')}</span>
-        <div class="svc__media">${img(s.img, s.name, '(max-width: 760px) 92vw, 420px')}</div>
+        <div class="svc__media">${img(s.img, s.name, '(max-width: 760px) 92vw, 180px')}</div>
       </li>`).join('')}
     </ol>
   </div>
-  <div class="svc-float" data-float aria-hidden="true">${c.services.map((s) => `<div class="svc-float__img" data-for="${esc(s.img)}">${img(s.img, '', '420px')}</div>`).join('')}</div>
 </section>
 
-<!-- Feature: ceramic -->
-<section class="feature" data-feature>
-  <div class="feature__sticky">
-    <div class="feature__media" data-feature-media>${img(c.feature.image, 'Water beading on a coated paint surface', '100vw')}</div>
-    <div class="feature__copy">
-      <p class="label">${esc(c.feature.kicker)}</p>
-      ${title2(c.feature.title, 'h2', 'feature__title')}
-      <p class="feature__text">${esc(c.feature.text)}</p>
-      <ul class="feature__points">${c.feature.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
+<section class="process" id="process" data-process style="--steps:${c.story.steps.length}">
+  <div class="process__sticky">
+    <div class="process__copy">
+      <p class="label">${esc(c.story.kicker)}</p>
+      ${title2(c.story.title)}
+      <div class="process__steps">
+        ${c.story.steps.map((st, i) => `<article class="step${i === 0 ? ' is-on' : ''}" data-step="${i}"><div class="step__img">${img(st.img, st.t, '92vw')}</div><span class="step__n">${esc(st.n)} <i>/ ${String(c.story.steps.length).padStart(2, '0')}</i></span><h3>${esc(st.t)}</h3><p>${esc(st.d)}</p></article>`).join('')}
+      </div>
+      <div class="process__bar"><i data-process-bar></i></div>
+    </div>
+    <div class="process__media">
+      ${c.story.steps.map((st, i) => `<figure class="pm${i === 0 ? ' is-on' : ''}" data-pm="${i}">${img(st.img, st.t, '(max-width: 760px) 100vw, 56vw')}</figure>`).join('')}
     </div>
   </div>
 </section>
 
-<!-- Pricing -->
+<section class="feature" data-feature>
+  <div class="feature__sticky">
+    <div class="feature__media" data-feature-media>${img(c.feature.image, '', '100vw')}</div>
+    <div class="feature__copy wrap">
+      <p class="label">${esc(c.feature.kicker)}</p>
+      ${title2(c.feature.title, 'h2', 'feature__title')}
+      <div class="feature__side">
+        <p class="feature__text">${esc(c.feature.text)}</p>
+        <ul class="feature__points">${c.feature.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="pricing" id="pricing">
   <div class="wrap">
     <div class="sec-head sec-head--row">
@@ -185,10 +177,9 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
       </div>
     </div>
     <div class="pkgs">
-      ${c.pricing.packages.map((p) => `<article class="pkg${p.featured ? ' pkg--hot' : ''}" data-tilt>
-        <div class="pkg__glow"></div>
+      ${c.pricing.packages.map((p) => `<article class="pkg${p.featured ? ' pkg--hot' : ''}">
         <header><h3>${esc(p.name)}</h3>${p.featured ? '<span class="pkg__badge">Most booked</span>' : ''}</header>
-        <p class="pkg__price"><small>from</small> $<span data-prices="${p.price.join(',')}">${p.price[0].toLocaleString('en-US')}</span></p>
+        <p class="pkg__price"><small>From</small><span class="pkg__cur">$</span><span data-prices="${p.price.join(',')}">${p.price[0].toLocaleString('en-US')}</span></p>
         <p class="pkg__time">${esc(p.time)}</p>
         <ul>${p.items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
         <a class="btn ${p.featured ? '' : 'btn--ghost'} btn--block" href="#quote" data-pkg="${esc(p.name)}"><span>Choose ${esc(p.name)}</span></a>
@@ -198,24 +189,20 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
   </div>
 </section>
 
-<!-- Gallery -->
 <section class="work" id="work" data-work>
   <div class="work__sticky">
-    <div class="work__head"><p class="label">Recent work</p>${title2(['Details', 'up close.'])}</div>
+    <div class="work__head wrap"><div><p class="label">Recent work</p>${title2(['Details.', 'Up close.'])}</div><span class="work__count"><b data-work-n>01</b> / ${String(c.gallery.length).padStart(2, '0')}</span></div>
     <div class="work__track" data-track>
-      ${c.gallery.map((g, i) => `<figure class="shot shot--${i % 3}" data-shot><div class="shot__in">${img(g.img, g.cap, '(max-width: 760px) 78vw, 34vw')}</div><figcaption><span>${String(i + 1).padStart(2, '0')}</span>${esc(g.cap)}</figcaption></figure>`).join('')}
+      ${c.gallery.map((g, i) => `<figure class="shot" data-shot><div class="shot__in">${img(g.img, g.cap, '(max-width: 760px) 78vw, 32vw')}</div><figcaption><span>${String(i + 1).padStart(2, '0')}</span>${esc(g.cap)}</figcaption></figure>`).join('')}
     </div>
-    <div class="work__progress"><i data-work-bar></i></div>
   </div>
 </section>
 
-<!-- Why -->
 <section class="why">
   <div class="wrap why__grid">
     <div class="why__head">
       <p class="label">Why ${esc(c.short)}</p>
       ${title2(c.why.title)}
-      ${c.why.lead ? `<p class="why__lead reveal">${esc(fill(c.why.lead))}</p>` : ''}
     </div>
     <ol class="why__list">
       ${c.why.items.map((w, i) => `<li class="reveal"><span>${String(i + 1).padStart(2, '0')}</span><h3>${esc(w.t)}</h3><p>${esc(w.d)}</p></li>`).join('')}
@@ -223,12 +210,14 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
   </div>
 </section>
 
-<!-- Reviews -->
 <section class="reviews">
   <div class="wrap">
-    <p class="label">${esc(c.reviews.title)}</p>
-    <blockquote class="bigquote" data-lit><p>${esc(c.reviews.items[0].text).split(' ').map((w) => `<span>${w}</span>`).join(' ')}</p>
-      <footer>${esc(c.reviews.items[0].name)}${c.reviews.items[0].meta ? ` · ${esc(c.reviews.items[0].meta)}` : ''}</footer></blockquote>
+    <div class="reviews__top">
+      <p class="label">${esc(c.reviews.title)}</p>
+      ${c.rating ? `<p class="reviews__score"><b>${esc(c.rating.value)}</b><span>${esc(c.rating.count)}<br>${esc(c.rating.source)}</span></p>` : ''}
+    </div>
+    <blockquote class="bigquote reveal"><p>“${esc(c.reviews.items[0].text)}”</p>
+      <footer><b>${esc(c.reviews.items[0].name)}</b>${c.reviews.items[0].meta ? `<span>${esc(c.reviews.items[0].meta)}</span>` : ''}</footer></blockquote>
     <div class="quotes">
       ${c.reviews.items.slice(1).map((r) => `<figure class="quote reveal"><blockquote>“${esc(r.text)}”</blockquote><figcaption><b>${esc(r.name)}</b>${r.meta ? `<span>${esc(r.meta)}</span>` : ''}</figcaption></figure>`).join('')}
     </div>
@@ -236,7 +225,6 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
   </div>
 </section>
 
-<!-- FAQ -->
 <section class="faq" id="faq">
   <div class="wrap faq__grid">
     <div><p class="label">FAQ</p>${title2(['Good', 'questions.'])}</div>
@@ -246,7 +234,6 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
   </div>
 </section>
 
-<!-- Contact -->
 <section class="contact" id="quote">
   <div class="wrap contact__grid">
     <div class="contact__info">
@@ -262,7 +249,7 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
     </div>
     <form class="form reveal" data-form novalidate>
       <fieldset><legend>What do you need?</legend>
-        <div class="chips">${c.contact.services.map((s, i) => `<label class="chip"><input type="checkbox" name="service" value="${esc(s)}"${i === 0 ? '' : ''}><span>${esc(s)}</span></label>`).join('')}</div>
+        <div class="chips">${c.contact.services.map((s) => `<label class="chip"><input type="checkbox" name="service" value="${esc(s)}"><span>${esc(s)}</span></label>`).join('')}</div>
       </fieldset>
       <div class="fields">
         <label class="field"><input name="name" required autocomplete="name" placeholder=" "><span>Your name</span></label>
@@ -270,7 +257,7 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
         <label class="field field--wide"><input name="car" placeholder=" "><span>Year, make & model</span></label>
         <label class="field field--wide"><textarea name="msg" rows="3" placeholder=" "></textarea><span>Anything we should know?</span></label>
       </div>
-      <button class="btn btn--block" type="submit" data-magnetic><span>Request my quote</span></button>
+      <button class="btn btn--block" type="submit"><span>Request my quote</span></button>
       <p class="form__ok" role="status" hidden>Thanks! This is a preview site, so nothing was sent — on the live site this request goes straight to ${esc(c.short)}'s phone and inbox.</p>
     </form>
   </div>
@@ -279,26 +266,25 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
 
 <footer class="foot">
   <div class="wrap">
-    <div class="foot__big" aria-hidden="true" data-foot>${esc(c.short).split('').map((ch) => `<span>${ch === ' ' ? '&nbsp;' : ch}</span>`).join('')}</div>
+    <div class="foot__big" aria-hidden="true" data-foot style="--len:${c.short.length}">${esc(c.short)}</div>
     <div class="foot__row">
       <span>© ${new Date().getFullYear()} ${esc(c.name)} · ${esc(c.city)}, ${esc(c.state)}</span>
-      ${c.social.facebook ? `<a href="${esc(c.social.facebook)}" target="_blank" rel="noopener">Facebook</a>` : ''}
-      ${c.social.instagram ? `<a href="${esc(c.social.instagram)}" target="_blank" rel="noopener">Instagram</a>` : ''}
-      <a href="#top">Back to top ↑</a>
+      <span class="foot__links">
+        ${c.social.facebook ? `<a href="${esc(c.social.facebook)}" target="_blank" rel="noopener">Facebook</a>` : ''}
+        ${c.social.instagram ? `<a href="${esc(c.social.instagram)}" target="_blank" rel="noopener">Instagram</a>` : ''}
+        <a href="#top">Back to top ↑</a>
+      </span>
     </div>
-    <p class="credits">Photography: Unsplash. 3D model: “Car Concept”, Khronos Group glTF Sample Assets (CC BY 4.0), based on a CC0 model by Unity Fan.</p>
+    <p class="credits">Photography: Unsplash.</p>
   </div>
 </footer>
 
 ${c.preview ? `<aside class="ribbon" data-ribbon><span>Concept preview for <b>${esc(c.name)}</b></span><button aria-label="Hide" data-ribbon-close>×</button></aside>` : ''}
-<div class="cursor" aria-hidden="true"><i></i><span></span></div>
-<div class="grain" aria-hidden="true"></div>
 
-<script>window.SITE=${JSON.stringify({ paint: t.paint, accent: t.accent, bg: t.bg, base: E })}</script>
 <script src="${E}vendor/gsap.min.js" defer></script>
 <script src="${E}vendor/ScrollTrigger.min.js" defer></script>
 <script src="${E}vendor/lenis.min.js" defer></script>
-<script type="module" src="${E}app.js?v=${VERSION}"></script>
+<script src="${E}app.js?v=${VERSION}" defer></script>
 </body>
 </html>
 `;

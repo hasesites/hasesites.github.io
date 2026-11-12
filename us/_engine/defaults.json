@@ -10,70 +10,223 @@
   "hours": [],
   "social": {},
   "theme": {
-    "accent": "#d9c29a",
-    "paint": "#14233d",
-    "bg": "#0b0b0c"
+    "accent": "#ff6a2b",
+    "bg": "#0d0e0f"
   },
   "hero": {
     "eyebrow": "Detail studio · {city}, {state}",
-    "title": ["Bring back", "the showroom shine."],
+    "title": [
+      "Bring back",
+      "the showroom shine."
+    ],
     "sub": "Hand washes, paint correction, ceramic coatings and interiors done properly — one car at a time, by appointment.",
-    "image": "studio-sedan"
+    "image": "headlight-911"
   },
   "rating": null,
   "story": {
-    "kicker": "What a real detail looks like",
-    "acts": [
-      { "n": "00", "t": "Before", "d": "Road film, water spots, swirl marks. Most paint isn't damaged — it's just tired." },
-      { "n": "01", "t": "Decontaminate", "d": "Foam pre-soak, two-bucket hand wash, iron remover and clay. The paint gets truly clean before anything touches it." },
-      { "n": "02", "t": "Correct", "d": "Machine polishing levels out swirls, haze and light scratches so the clear coat reflects like glass again." },
-      { "n": "03", "t": "Protect", "d": "A ceramic coating or sealant locks the gloss in. Water beads, dirt lets go, and every wash after this one is easier." }
+    "kicker": "How we work",
+    "title": [
+      "Four steps.",
+      "No shortcuts."
+    ],
+    "steps": [
+      {
+        "n": "01",
+        "t": "Wash & decon",
+        "d": "Foam pre-soak, two-bucket hand wash, iron remover and clay. The paint gets truly clean before anything touches it.",
+        "img": "pressure-wash"
+      },
+      {
+        "n": "02",
+        "t": "Correct",
+        "d": "Machine polishing levels out swirls, haze and light scratches so the clear coat reflects like glass again.",
+        "img": "polisher"
+      },
+      {
+        "n": "03",
+        "t": "Protect",
+        "d": "A ceramic coating or sealant locks the gloss in. Water beads, dirt lets go, and every wash after this one is easier.",
+        "img": "beading"
+      },
+      {
+        "n": "04",
+        "t": "Hand back",
+        "d": "A final wipe-down under inspection lights, then we walk you around the car before you drive away.",
+        "img": "green-front"
+      }
     ]
   },
-  "marquee": ["Paint correction", "Ceramic coating", "Interior detailing", "Hand wash", "Headlight restoration", "Wheels & calipers"],
   "servicesIntro": "Every service starts with a walk-around under good light, so you know exactly what we're fixing and what it'll take.",
   "services": [
-    { "name": "Signature Hand Wash", "desc": "Foam pre-soak, two-bucket wash, wheels and tires, streak-free glass. The safe way to keep a car looking new.", "img": "hand-wash", "tag": "Maintenance" },
-    { "name": "Interior Detail", "desc": "Steam, extraction and leather care. Vents, seams, door jambs — the places a quick vacuum never reaches.", "img": "dash", "tag": "Interior" },
-    { "name": "Paint Correction", "desc": "One- or multi-step machine polishing to remove swirls, haze and light scratches. Measured, not guessed.", "img": "polisher", "tag": "Exterior" },
-    { "name": "Ceramic Coating", "desc": "A hard, glossy layer of protection for paint, wheels and glass. Easier washes, deeper color, less worry.", "img": "beading", "tag": "Protection" },
-    { "name": "Wheels & Calipers", "desc": "Wheels off the list of things you avoid looking at. Iron decon, barrel cleaning and a coating that keeps brake dust from sticking.", "img": "foam-wheel", "tag": "Exterior" },
-    { "name": "Headlight Restoration", "desc": "Sanding, polishing and UV protection for cloudy, yellowed lenses. Better looks and better light at night.", "img": "headlight-911", "tag": "Exterior" }
+    {
+      "name": "Signature Hand Wash",
+      "desc": "Foam pre-soak, two-bucket wash, wheels and tires, streak-free glass. The safe way to keep a car looking new.",
+      "img": "hand-wash",
+      "tag": "Maintenance"
+    },
+    {
+      "name": "Interior Detail",
+      "desc": "Steam, extraction and leather care. Vents, seams, door jambs — the places a quick vacuum never reaches.",
+      "img": "dash",
+      "tag": "Interior"
+    },
+    {
+      "name": "Paint Correction",
+      "desc": "One- or multi-step machine polishing to remove swirls, haze and light scratches. Measured, not guessed.",
+      "img": "polisher",
+      "tag": "Exterior"
+    },
+    {
+      "name": "Ceramic Coating",
+      "desc": "A hard, glossy layer of protection for paint, wheels and glass. Easier washes, deeper color, less worry.",
+      "img": "beading",
+      "tag": "Protection"
+    },
+    {
+      "name": "Wheels & Calipers",
+      "desc": "Wheels off the list of things you avoid looking at. Iron decon, barrel cleaning and a coating that keeps brake dust from sticking.",
+      "img": "foam-wheel",
+      "tag": "Exterior"
+    },
+    {
+      "name": "Headlight Restoration",
+      "desc": "Sanding, polishing and UV protection for cloudy, yellowed lenses. Better looks and better light at night.",
+      "img": "headlight-911",
+      "tag": "Exterior"
+    }
   ],
   "feature": {
     "kicker": "Ceramic protection",
-    "title": ["Water should", "run, not sit."],
+    "title": [
+      "Water should",
+      "run, not sit."
+    ],
     "text": "A properly prepped and coated finish sheds water, resists road grime and keeps that deep, wet look between washes. We'll tell you honestly whether coating makes sense for your car and how you drive it.",
-    "points": ["Paint, wheels & glass", "Prep and correction included", "Simple aftercare guide"],
-    "image": "beading"
+    "points": [
+      "Paint, wheels & glass",
+      "Prep and correction included",
+      "Simple aftercare guide"
+    ],
+    "image": "droplets"
   },
   "pricing": {
-    "title": ["Simple packages.", "Honest quotes."],
+    "title": [
+      "Simple packages.",
+      "Honest quotes."
+    ],
     "note": "Sample pricing for this preview. Final quotes depend on vehicle size and condition.",
-    "sizes": ["Sedan", "SUV", "Truck / Van"],
+    "sizes": [
+      "Sedan",
+      "SUV",
+      "Truck / Van"
+    ],
     "packages": [
-      { "name": "Refresh", "time": "≈ 3 hours", "price": [149, 179, 199], "items": ["Foam pre-soak & hand wash", "Wheels, tires & wheel wells", "Interior vacuum & wipe-down", "Streak-free glass inside and out"] },
-      { "name": "Signature", "time": "≈ 1 day", "featured": true, "price": [349, 399, 449], "items": ["Everything in Refresh", "Iron decontamination & clay", "One-step machine polish", "Paint sealant", "Interior shampoo & leather care"] },
-      { "name": "Ceramic", "time": "2–3 days", "price": [1290, 1490, 1690], "items": ["Full decontamination", "Paint correction to suit the car", "Ceramic coating on paint", "Wheels & glass coated", "Aftercare kit & first wash"] }
+      {
+        "name": "Refresh",
+        "time": "≈ 3 hours",
+        "price": [
+          149,
+          179,
+          199
+        ],
+        "items": [
+          "Foam pre-soak & hand wash",
+          "Wheels, tires & wheel wells",
+          "Interior vacuum & wipe-down",
+          "Streak-free glass inside and out"
+        ]
+      },
+      {
+        "name": "Signature",
+        "time": "≈ 1 day",
+        "featured": true,
+        "price": [
+          349,
+          399,
+          449
+        ],
+        "items": [
+          "Everything in Refresh",
+          "Iron decontamination & clay",
+          "One-step machine polish",
+          "Paint sealant",
+          "Interior shampoo & leather care"
+        ]
+      },
+      {
+        "name": "Ceramic",
+        "time": "2–3 days",
+        "price": [
+          1290,
+          1490,
+          1690
+        ],
+        "items": [
+          "Full decontamination",
+          "Paint correction to suit the car",
+          "Ceramic coating on paint",
+          "Wheels & glass coated",
+          "Aftercare kit & first wash"
+        ]
+      }
     ]
   },
   "gallery": [
-    { "img": "pressure-wash", "cap": "Pre-wash" },
-    { "img": "polisher-portrait", "cap": "Correction" },
-    { "img": "headlight-black", "cap": "Finish" },
-    { "img": "leather", "cap": "Interior" },
-    { "img": "green-front", "cap": "Gloss" },
-    { "img": "foam-wheel", "cap": "Wheels" },
-    { "img": "studio-bmw", "cap": "Delivery" },
-    { "img": "droplets", "cap": "Protection" }
+    {
+      "img": "pressure-wash",
+      "cap": "Pre-wash"
+    },
+    {
+      "img": "polisher-portrait",
+      "cap": "Correction"
+    },
+    {
+      "img": "headlight-black",
+      "cap": "Finish"
+    },
+    {
+      "img": "interior-window",
+      "cap": "Interior"
+    },
+    {
+      "img": "green-front",
+      "cap": "Gloss"
+    },
+    {
+      "img": "foam-wheel",
+      "cap": "Wheels"
+    },
+    {
+      "img": "studio-bmw",
+      "cap": "Delivery"
+    },
+    {
+      "img": "droplets",
+      "cap": "Protection"
+    }
   ],
   "why": {
-    "title": ["Small shop.", "Obsessive standards."],
+    "title": [
+      "Small shop.",
+      "Obsessive standards."
+    ],
     "items": [
-      { "t": "Inspection first", "d": "We walk the car with you under proper light before quoting, so there are no surprises at pickup." },
-      { "t": "Products matched to your paint", "d": "Soft paint, hard paint, matte, wrapped — the process changes with the surface." },
-      { "t": "Photos of the work", "d": "Before-and-after shots of your car, so you can see what you paid for." },
-      { "t": "Straight answers", "d": "If a cheaper service will get you 90% of the way there, we'll say so." }
+      {
+        "t": "Inspection first",
+        "d": "We walk the car with you under proper light before quoting, so there are no surprises at pickup."
+      },
+      {
+        "t": "Products matched to your paint",
+        "d": "Soft paint, hard paint, matte, wrapped — the process changes with the surface."
+      },
+      {
+        "t": "Photos of the work",
+        "d": "Before-and-after shots of your car, so you can see what you paid for."
+      },
+      {
+        "t": "Straight answers",
+        "d": "If a cheaper service will get you 90% of the way there, we'll say so."
+      }
     ]
   },
   "reviews": {
@@ -81,22 +234,58 @@
     "sample": true,
     "note": "Sample reviews for this preview — your real Google reviews go here.",
     "items": [
-      { "text": "Picked up my truck and honestly didn't recognize it. The interior smelled like nothing — in the best way.", "name": "Sample review", "meta": "Interior detail" },
-      { "text": "They spent ten minutes showing me the swirls under a light before touching anything. Paint looks deeper than when I bought it.", "name": "Sample review", "meta": "Paint correction" },
-      { "text": "Booked, dropped off, done the same day. Fair price and no upsell at the counter.", "name": "Sample review", "meta": "Signature package" }
+      {
+        "text": "Picked up my truck and honestly didn't recognize it. The interior smelled like nothing — in the best way.",
+        "name": "Sample review",
+        "meta": "Interior detail"
+      },
+      {
+        "text": "They spent ten minutes showing me the swirls under a light before touching anything. Paint looks deeper than when I bought it.",
+        "name": "Sample review",
+        "meta": "Paint correction"
+      },
+      {
+        "text": "Booked, dropped off, done the same day. Fair price and no upsell at the counter.",
+        "name": "Sample review",
+        "meta": "Signature package"
+      }
     ]
   },
   "faq": [
-    { "q": "How long does a full detail take?", "a": "A maintenance wash takes a few hours. Correction and coating work usually takes one to three days, depending on the car and the condition of the paint." },
-    { "q": "Ceramic coating or wax — what's the difference?", "a": "Wax sits on top of the paint and wears off in weeks. A ceramic coating bonds to the clear coat and lasts much longer, with stronger water beading and easier washing. We'll recommend what fits how you use the car." },
-    { "q": "Do I need an appointment?", "a": "Yes — we book one car at a time so nothing gets rushed. Send a request below or call, and we'll find a slot." },
-    { "q": "Do you work on trucks, SUVs and classics?", "a": "Yes. Larger vehicles and older single-stage paint just need a slightly different plan and price, which we'll confirm after a look." },
-    { "q": "How should I wash the car afterward?", "a": "Gently: a pH-neutral soap, clean mitts and no automatic brushes. You'll get a short aftercare guide with every protection package." }
+    {
+      "q": "How long does a full detail take?",
+      "a": "A maintenance wash takes a few hours. Correction and coating work usually takes one to three days, depending on the car and the condition of the paint."
+    },
+    {
+      "q": "Ceramic coating or wax — what's the difference?",
+      "a": "Wax sits on top of the paint and wears off in weeks. A ceramic coating bonds to the clear coat and lasts much longer, with stronger water beading and easier washing. We'll recommend what fits how you use the car."
+    },
+    {
+      "q": "Do I need an appointment?",
+      "a": "Yes — we book one car at a time so nothing gets rushed. Send a request below or call, and we'll find a slot."
+    },
+    {
+      "q": "Do you work on trucks, SUVs and classics?",
+      "a": "Yes. Larger vehicles and older single-stage paint just need a slightly different plan and price, which we'll confirm after a look."
+    },
+    {
+      "q": "How should I wash the car afterward?",
+      "a": "Gently: a pH-neutral soap, clean mitts and no automatic brushes. You'll get a short aftercare guide with every protection package."
+    }
   ],
   "contact": {
-    "title": ["Let's get your car", "looking right."],
+    "title": [
+      "Let's get your car",
+      "looking right."
+    ],
     "text": "Tell us about the car and what's bugging you. We'll reply with a time and a clear quote.",
-    "services": ["Wash", "Interior", "Paint correction", "Ceramic coating", "Not sure yet"]
+    "services": [
+      "Wash",
+      "Interior",
+      "Paint correction",
+      "Ceramic coating",
+      "Not sure yet"
+    ]
   },
   "seo": {
     "title": "{name} — Auto Detailing & Ceramic Coating in {city}, {state}",

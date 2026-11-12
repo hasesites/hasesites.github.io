@@ -12,12 +12,12 @@ const range = (p, a, b) => smooth(clamp((p - a) / (b - a)));
 
 // Camera path, keyed to the stage scroll progress (0..1).
 const KEYS = [
-  { p: 0.00, pos: [5.4, 1.55, 5.9], tgt: [0, 0.48, 0.15], fov: 30 },
-  { p: 0.16, pos: [6.9, 1.05, 0.9], tgt: [0, 0.5, 0.25], fov: 28 },
-  { p: 0.36, pos: [2.15, 0.62, 4.6], tgt: [0.15, 0.45, 1.7], fov: 32 },
-  { p: 0.56, pos: [1.6, 2.55, 3.4], tgt: [0, 0.7, 0.9], fov: 30 },
-  { p: 0.78, pos: [-4.9, 1.35, -4.6], tgt: [0, 0.5, 0.2], fov: 30 },
-  { p: 1.00, pos: [-0.01, 10.5, 0.3], tgt: [0, 0, 0.25], fov: 26 },
+  { p: 0.00, pos: [7.6, 1.95, 8.2], tgt: [0, 0.5, 0.1], fov: 27 },
+  { p: 0.16, pos: [10.8, 1.35, 0.7], tgt: [0, 0.55, 0.15], fov: 25 },
+  { p: 0.36, pos: [3.6, 0.8, 6.4], tgt: [0.1, 0.5, 1.3], fov: 29 },
+  { p: 0.56, pos: [2.6, 3.6, 4.8], tgt: [0, 0.7, 0.8], fov: 29 },
+  { p: 0.78, pos: [-7.0, 1.75, -6.6], tgt: [0, 0.5, 0.1], fov: 27 },
+  { p: 1.00, pos: [-0.01, 14, 0.3], tgt: [0, 0, 0.25], fov: 25 },
 ];
 
 function sampleKeys(p) {
@@ -92,9 +92,11 @@ export async function createStage({ canvas, base, paint = '#1c2a44', accent = '#
     vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); }',
     fragmentShader: `varying vec2 vUv; uniform vec3 uCol; uniform vec3 uGlow;
       void main(){ float d = distance(vUv, vec2(.5));
-        float a = smoothstep(.10, .48, d);
-        vec3 c = mix(uCol, uGlow*.06 + uCol, smoothstep(.35,.0,d));
-        gl_FragColor = vec4(c, mix(.38, 1., a)); }`,
+        float a = smoothstep(.05, .23, d);
+        vec3 c = mix(uCol, uGlow*.018 + uCol, smoothstep(.2,.0,d));
+        gl_FragColor = vec4(c, mix(.45, 1., a));
+        #include <colorspace_fragment>
+      }`,
   });
   const fade = new THREE.Mesh(new THREE.CircleGeometry(18, 64), fadeMat);
   fade.rotation.x = -Math.PI / 2;
@@ -110,7 +112,7 @@ export async function createStage({ canvas, base, paint = '#1c2a44', accent = '#
 
   const paintColor = new THREE.Color(paint);
   const paintMat = new THREE.MeshPhysicalMaterial({
-    color: paintColor.clone(), metalness: 0.55, roughness: 0.32,
+    color: paintColor.clone(), metalness: 0.7, roughness: 0.2,
     clearcoat: 1, clearcoatRoughness: 0.03, envMapIntensity: 1.25,
   });
   const trimMat = new THREE.MeshPhysicalMaterial({
@@ -169,7 +171,7 @@ export async function createStage({ canvas, base, paint = '#1c2a44', accent = '#
   // Horizontal framing: in the hero the car sits right of centre so the headline has room.
   function frameView(p) {
     const wide = W / H > 1.1;
-    const s = wide ? -0.17 * (1 - range(p, 0.04, 0.16)) + (-0.12) * (range(p, 0.2, 0.3) - range(p, 0.86, 0.95)) : 0;
+    const s = wide ? -0.15 * (1 - range(p, 0.04, 0.16)) + 0.13 * (range(p, 0.12, 0.22) - range(p, 0.88, 0.97)) : 0;
     const v = wide ? 0 : 0.12 * (1 - range(p, 0.04, 0.16));
     if (Math.abs(s - shift) > 1e-4 || v) { shift = s; camera.setViewOffset(W, H, s * W, v * H, W, H); }
   }
@@ -185,11 +187,11 @@ export async function createStage({ canvas, base, paint = '#1c2a44', accent = '#
     const gloss = p < 0.2
       ? 1 - range(p, 0.06, 0.2)
       : 0.15 * range(p, 0.28, 0.42) + 0.5 * range(p, 0.46, 0.62) + 0.35 * range(p, 0.66, 0.8);
-    paintMat.roughness = lerp(0.78, 0.28, gloss);
+    paintMat.roughness = lerp(0.8, 0.16, gloss);
     paintMat.clearcoat = lerp(0.0, 1.0, gloss);
     paintMat.clearcoatRoughness = lerp(0.6, 0.025, gloss);
     paintMat.color.copy(dull).lerp(paintColor, gloss);
-    paintMat.envMapIntensity = lerp(0.45, 1.35, gloss);
+    paintMat.envMapIntensity = lerp(0.4, 1.6, gloss);
 
     // Car turntable in the hero, settles once the story starts.
     const idle = 1 - range(p, 0.02, 0.14);
