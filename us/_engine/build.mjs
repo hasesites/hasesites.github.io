@@ -115,7 +115,7 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
       <span class="hero__loc">${esc(c.address ? c.address + ' · ' : '')}${esc(c.city)}, ${esc(c.state)}</span>
     </div>
   </div>
-  <div class="hero__media" data-hero-media style="--pos:${esc(c.hero.position || '50% 50%')}">${img(c.hero.image, '', '100vw', '', true)}</div>
+  <div class="hero__media" data-hero-media style="--pos:${esc(c.hero.position || '50% 50%')}">${img(c.hero.image, '', '100vw', '', true)}<div class="lit" aria-hidden="true">${img(c.hero.image, '', '100vw', '', true)}</div></div>
 
 </section>
 
@@ -141,7 +141,7 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
 <section class="process" id="process">
   <div class="wrap">
     <div class="process__head"><div><p class="label">${esc(c.story.kicker)}</p>${title2(c.story.title)}</div>${c.story.note ? `<p class="note reveal">${esc(c.story.note)}</p>` : ''}</div>
-    <ol class="steps">${c.story.steps.map((st) => `<li class="reveal"><span class="n">${esc(st.n)}</span><h3>${esc(st.t)}</h3><p>${esc(st.d)}</p></li>`).join('')}</ol>
+    <div class="steps__rail" aria-hidden="true"><i data-rail></i></div><ol class="steps" data-steps>${c.story.steps.map((st) => `<li class="reveal"><span class="n">${esc(st.n)}</span><h3>${esc(st.t)}</h3><p>${esc(st.d)}</p></li>`).join('')}</ol>
   </div>
 </section>
 
@@ -171,7 +171,7 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
 <section class="work" id="work">
   <div class="wrap">
     <div class="work__head"><p class="label">Recent work</p>${title2(['Details.', 'Up close.'])}</div>
-    <div class="work__grid">${c.gallery.slice(0, 6).map((g, i) => `<figure class="shot reveal">${img(g.img, g.cap, i === 0 ? '(max-width: 560px) 100vw, 64vw' : '(max-width: 560px) 50vw, 32vw')}<figcaption>${esc(g.cap)}</figcaption></figure>`).join('')}</div>
+    <div class="work__grid">${c.gallery.slice(0, 6).map((g, i) => `<figure class="shot" data-shot>${img(g.img, g.cap, i === 0 ? '(max-width: 560px) 100vw, 64vw' : '(max-width: 560px) 50vw, 32vw')}<div class="lit" aria-hidden="true">${img(g.img, '', i === 0 ? '(max-width: 560px) 100vw, 64vw' : '(max-width: 560px) 50vw, 32vw')}</div><figcaption>${esc(g.cap)}</figcaption></figure>`).join('')}</div>
   </div>
 </section>
 

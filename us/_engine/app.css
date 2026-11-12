@@ -354,3 +354,28 @@ section { position: relative; }
   .work__grid { grid-template-columns: 1fr 1fr; gap: 8px; }
   .shot:nth-child(1) { grid-column: span 2; grid-row: auto; aspect-ratio: 4 / 3; }
 }
+
+/* ── Inspection light: the signature interaction (hero + gallery) ── */
+.hero__media > img { filter: saturate(.7) contrast(1.05) brightness(.3); }
+.lit { position: absolute; inset: 0; pointer-events: none; --lx: -30%; --ly: 45%; --lr: 26vw;
+  -webkit-mask-image: radial-gradient(circle var(--lr) at var(--lx) var(--ly), #000 0%, rgba(0,0,0,.55) 45%, transparent 100%);
+          mask-image: radial-gradient(circle var(--lr) at var(--lx) var(--ly), #000 0%, rgba(0,0,0,.55) 45%, transparent 100%); }
+.lit img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); filter: saturate(1.05) contrast(1.1) brightness(1.45); }
+.hero .lit::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle calc(var(--lr) * .9) at var(--lx) var(--ly), rgba(255,250,240,.10), transparent 70%); }
+.hero__media::before { content: ''; position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: .7; }
+.shot > img { filter: saturate(.75) contrast(1.04) brightness(.78); transition: filter .4s var(--out); }
+.shot .lit { --lr: 220px; opacity: 0; transition: opacity .3s var(--out); }
+.shot:hover .lit { opacity: 1; }
+.shot .lit img { filter: saturate(1.05) contrast(1.06) brightness(1.12); }
+.shot figcaption { z-index: 2; }
+@media (hover: none) { .shot > img { filter: saturate(.85) contrast(1.04); } }
+
+/* ── Process rail: draws across the four steps on scroll ── */
+.process .wrap { position: relative; }
+.steps__rail { height: 2px; background: var(--line); position: relative; margin-bottom: -2px; }
+.steps__rail i { position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(0); }
+.steps { border-top: 0; }
+.steps .n { transition: color .3s; }
+.steps li { transition: opacity .4s var(--out); }
+.js-motion .steps li:not(.is-lit) { opacity: .38; }
+@media (max-width: 560px) { .steps__rail { display: none; } .js-motion .steps li:not(.is-lit) { opacity: 1; } }

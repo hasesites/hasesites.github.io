@@ -117,8 +117,11 @@
     $('#products').hidden = false;
     $('[data-products]').innerHTML = S.products.map(function (g) {
       var key = String(g.photo).replace(/^img\//, '').replace(/\.webp$/, '');
-      return '<article class="pd rv"><figure><img src="' + IMG(key) + '" alt="' + esc(g.alt || g.title) + '" loading="lazy"></figure><div class="pd-body"><h3>' + esc(g.title) + '</h3><ul>' +
-        g.items.map(function (it) { return '<li><b>' + esc(it.name) + '</b><span>' + esc(it.text) + (it.vol ? ', ' + esc(it.vol) : '') + '</span></li>'; }).join('') + '</ul></div></article>';
+      var fig = g.photos && g.photos.length > 1
+        ? '<figure class="pd-duo">' + g.photos.map(function (p) { return '<img src="' + IMG(String(p).replace(/^img\//, '').replace(/\.webp$/, '')) + '" alt="' + esc(g.alt || g.title) + '" loading="lazy">'; }).join('') + '</figure>'
+        : '<figure><img src="' + IMG(key) + '" alt="' + esc(g.alt || g.title) + '" loading="lazy"></figure>';
+      return '<article class="pd rv">' + fig + '<div class="pd-body"><h3>' + esc(g.title) + '</h3><ul>' +
+        g.items.map(function (it) { return '<li><b>' + esc(it.name) + '</b>' + (it.text || it.vol ? '<span>' + esc(it.text) + (it.vol ? ', ' + esc(it.vol) : '') + '</span>' : '') + '</li>'; }).join('') + '</ul></div></article>';
     }).join('') ;
     $('[data-products]').insertAdjacentHTML('afterend', '<p class="pd-note">Наличие и цену подскажет администратор.</p>');
   }

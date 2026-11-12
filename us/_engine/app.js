@@ -83,15 +83,41 @@
 
     if (reduced) return;
 
-    // ── Hero: one confident entrance, then a light parallax tied to scroll
-    const heroImg = $('[data-hero-media] img');
+    document.documentElement.classList.add('js-motion');
+    // ── Hero: the car is revealed by a sweeping inspection light, then the light follows the cursor
+    const heroMedia = $('[data-hero-media]'), lit = $('.lit', heroMedia), heroImg = $('img', heroMedia);
     const heroWords = $$('.hero__title .w > span');
+    const L = { x: -30, y: 45, r: 26 };
+    const paint = () => { lit.style.setProperty('--lx', L.x + '%'); lit.style.setProperty('--ly', L.y + '%'); lit.style.setProperty('--lr', L.r + 'vw'); };
+    paint();
     gsap.timeline()
       .fromTo(heroWords, { yPercent: 105 }, { yPercent: 0, duration: 0.7, stagger: 0.05, ease: 'power4.out' }, 0.05)
       .fromTo(['.hero .label', '.hero__sub', '.hero__actions', '.hero__foot'], { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.05 }, 0.3)
-      .fromTo('[data-hero-media]', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.8, ease: 'power3.inOut' }, 0.2)
-      .fromTo(heroImg, { scale: 1.15 }, { scale: 1, duration: 1.0, ease: 'power3.out' }, 0.2);
-    gsap.to(heroImg, { yPercent: 8, scale: 1.06, ease: 'none', scrollTrigger: { trigger: '[data-hero-media]', start: 'top 60%', end: 'bottom top', scrub: true } });
+      .fromTo(heroMedia, { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.9, ease: 'power3.inOut' }, 0.15)
+      .fromTo(heroImg, { scale: 1.08 }, { scale: 1, duration: 1.2, ease: 'power3.out' }, 0.15)
+      .to(L, { x: 120, duration: 1.6, ease: 'power2.inOut', onUpdate: paint }, 0.55)
+      .to(L, { x: 55, y: 50, r: finePointer ? 24 : 40, duration: 0.9, ease: 'power3.out', onUpdate: paint });
+    if (finePointer) {
+      const lx = gsap.quickTo(L, 'x', { duration: 0.45, ease: 'power3', onUpdate: paint }), ly = gsap.quickTo(L, 'y', { duration: 0.45, ease: 'power3', onUpdate: paint });
+      heroMedia.addEventListener('pointermove', (e) => { const r = heroMedia.getBoundingClientRect(); lx(((e.clientX - r.left) / r.width) * 100); ly(((e.clientY - r.top) / r.height) * 100); });
+    } else {
+      gsap.to(L, { x: 20, ease: 'none', onUpdate: paint, scrollTrigger: { trigger: heroMedia, start: 'top 60%', end: 'bottom top', scrub: true } });
+    }
+
+    // ── Gallery: frames wipe in, and the same inspection light appears under the cursor
+    gsap.set('[data-shot]', { clipPath: 'inset(0% 100% 0% 0%)' });
+    ScrollTrigger.batch('[data-shot]', { start: 'top 88%', once: true, onEnter: (els) => gsap.to(els, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.75, ease: 'power3.inOut', stagger: 0.08 }) });
+    if (finePointer) $$('[data-shot]').forEach((s) => s.addEventListener('pointermove', (e) => { const r = s.getBoundingClientRect(), l = $('.lit', s); l.style.setProperty('--lx', ((e.clientX - r.left) / r.width) * 100 + '%'); l.style.setProperty('--ly', ((e.clientY - r.top) / r.height) * 100 + '%'); }));
+
+    // ── Process: an accent rail draws across, lighting each step as it passes
+    const stepEls = $$('[data-steps] li'), rail = $('[data-rail]');
+    if (rail && stepEls.length) ScrollTrigger.create({ trigger: '[data-steps]', start: 'top 80%', end: 'bottom 45%', scrub: 0.3, onUpdate: (st) => {
+      rail.style.transform = `scaleX(${st.progress})`;
+      stepEls.forEach((li, i) => li.classList.toggle('is-lit', st.progress >= i / stepEls.length + 0.02 || desktop.matches === false));
+    } });
+
+    // ── Pricing rises over the dark page like a panel sliding in
+    gsap.fromTo('.pricing', { clipPath: 'inset(0% 3% 0% 3% round 40px 40px 0px 0px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px 0px 0px 0px)', ease: 'none', scrollTrigger: { trigger: '.pricing', start: 'top bottom', end: 'top 30%', scrub: true } });
 
     // ── Headings and blocks
     $$('.split').forEach((h) => {
