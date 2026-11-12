@@ -24,8 +24,8 @@
       "on Route 66."
     ],
     "sub": "Full details, paint correction, headlight restoration and classic car care — right on historic Route 66 in midtown Tulsa.",
-    "image": "studio-sedan",
-    "position": "50% 70%"
+    "image": "classic-garage",
+    "position": "50% 58%"
   },
   "rating": {
     "value": "4.9",
@@ -65,20 +65,6 @@
       "tag": "Classics"
     }
   ],
-  "feature": {
-    "kicker": "Classic & collector cars",
-    "title": [
-      "Old paint",
-      "deserves patience."
-    ],
-    "text": "Older single-stage and lacquer finishes behave differently from modern clear coat. We test first, go slow, and use the least aggressive step that gets the result — so the shine comes back and the paint stays.",
-    "points": [
-      "Single-stage & original paint",
-      "Chrome and brightwork",
-      "Vintage vinyl & leather"
-    ],
-    "image": "red-paint"
-  },
   "pricing": {
     "title": [
       "Clear packages.",

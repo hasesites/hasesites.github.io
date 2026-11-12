@@ -20,7 +20,8 @@
       "the showroom shine."
     ],
     "sub": "Hand washes, paint correction, ceramic coatings and interiors done properly — one car at a time, by appointment.",
-    "image": "headlight-911"
+    "image": "studio-sedan",
+    "position": "50% 60%"
   },
   "rating": null,
   "story": {
@@ -54,7 +55,8 @@
         "d": "A final wipe-down under inspection lights, then we walk you around the car before you drive away.",
         "img": "green-front"
       }
-    ]
+    ],
+    "note": "Every car goes through the same four steps, whatever the package."
   },
   "servicesIntro": "Every service starts with a walk-around under good light, so you know exactly what we're fixing and what it'll take.",
   "services": [
@@ -95,20 +97,6 @@
       "tag": "Exterior"
     }
   ],
-  "feature": {
-    "kicker": "Ceramic protection",
-    "title": [
-      "Water should",
-      "run, not sit."
-    ],
-    "text": "A properly prepped and coated finish sheds water, resists road grime and keeps that deep, wet look between washes. We'll tell you honestly whether coating makes sense for your car and how you drive it.",
-    "points": [
-      "Paint, wheels & glass",
-      "Prep and correction included",
-      "Simple aftercare guide"
-    ],
-    "image": "droplets"
-  },
   "pricing": {
     "title": [
       "Simple packages.",
@@ -181,54 +169,22 @@
       "cap": "Correction"
     },
     {
-      "img": "headlight-black",
-      "cap": "Finish"
+      "img": "green-front",
+      "cap": "Gloss"
     },
     {
       "img": "interior-window",
       "cap": "Interior"
     },
     {
-      "img": "green-front",
-      "cap": "Gloss"
-    },
-    {
       "img": "foam-wheel",
       "cap": "Wheels"
     },
     {
-      "img": "studio-bmw",
-      "cap": "Delivery"
-    },
-    {
-      "img": "droplets",
-      "cap": "Protection"
+      "img": "headlight-black",
+      "cap": "Finish"
     }
   ],
-  "why": {
-    "title": [
-      "Small shop.",
-      "Obsessive standards."
-    ],
-    "items": [
-      {
-        "t": "Inspection first",
-        "d": "We walk the car with you under proper light before quoting, so there are no surprises at pickup."
-      },
-      {
-        "t": "Products matched to your paint",
-        "d": "Soft paint, hard paint, matte, wrapped — the process changes with the surface."
-      },
-      {
-        "t": "Photos of the work",
-        "d": "Before-and-after shots of your car, so you can see what you paid for."
-      },
-      {
-        "t": "Straight answers",
-        "d": "If a cheaper service will get you 90% of the way there, we'll say so."
-      }
-    ]
-  },
   "reviews": {
     "title": "What clients say",
     "sample": true,
@@ -263,10 +219,6 @@
     {
       "q": "Do I need an appointment?",
       "a": "Yes — we book one car at a time so nothing gets rushed. Send a request below or call, and we'll find a slot."
-    },
-    {
-      "q": "Do you work on trucks, SUVs and classics?",
-      "a": "Yes. Larger vehicles and older single-stage paint just need a slightly different plan and price, which we'll confirm after a look."
     },
     {
       "q": "How should I wash the car afterward?",

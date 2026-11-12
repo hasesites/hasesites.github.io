@@ -138,35 +138,14 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
   </div>
 </section>
 
-<section class="process" id="process" data-process style="--steps:${c.story.steps.length}">
-  <div class="process__sticky">
-    <div class="process__copy">
-      <p class="label">${esc(c.story.kicker)}</p>
-      ${title2(c.story.title)}
-      <div class="process__steps">
-        ${c.story.steps.map((st, i) => `<article class="step${i === 0 ? ' is-on' : ''}" data-step="${i}"><div class="step__img">${img(st.img, st.t, '92vw')}</div><span class="step__n">${esc(st.n)} <i>/ ${String(c.story.steps.length).padStart(2, '0')}</i></span><h3>${esc(st.t)}</h3><p>${esc(st.d)}</p></article>`).join('')}
-      </div>
-      <div class="process__bar"><i data-process-bar></i></div>
-    </div>
-    <div class="process__media">
-      ${c.story.steps.map((st, i) => `<figure class="pm${i === 0 ? ' is-on' : ''}" data-pm="${i}">${img(st.img, st.t, '(max-width: 760px) 100vw, 56vw')}</figure>`).join('')}
-    </div>
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="process__head"><div><p class="label">${esc(c.story.kicker)}</p>${title2(c.story.title)}</div>${c.story.note ? `<p class="note reveal">${esc(c.story.note)}</p>` : ''}</div>
+    <ol class="steps">${c.story.steps.map((st) => `<li class="reveal"><span class="n">${esc(st.n)}</span><h3>${esc(st.t)}</h3><p>${esc(st.d)}</p></li>`).join('')}</ol>
   </div>
 </section>
 
-<section class="feature" data-feature>
-  <div class="feature__sticky">
-    <div class="feature__media" data-feature-media>${img(c.feature.image, '', '100vw')}</div>
-    <div class="feature__copy wrap">
-      <p class="label">${esc(c.feature.kicker)}</p>
-      ${title2(c.feature.title, 'h2', 'feature__title')}
-      <div class="feature__side">
-        <p class="feature__text">${esc(c.feature.text)}</p>
-        <ul class="feature__points">${c.feature.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <section class="pricing" id="pricing">
   <div class="wrap">
@@ -189,26 +168,14 @@ ${c.preview ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
   </div>
 </section>
 
-<section class="work" id="work" data-work>
-  <div class="work__sticky">
-    <div class="work__head wrap"><div><p class="label">Recent work</p>${title2(['Details.', 'Up close.'])}</div><span class="work__count"><b data-work-n>01</b> / ${String(c.gallery.length).padStart(2, '0')}</span></div>
-    <div class="work__track" data-track>
-      ${c.gallery.map((g, i) => `<figure class="shot" data-shot><div class="shot__in">${img(g.img, g.cap, '(max-width: 760px) 78vw, 32vw')}</div><figcaption><span>${String(i + 1).padStart(2, '0')}</span>${esc(g.cap)}</figcaption></figure>`).join('')}
-    </div>
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="work__head"><p class="label">Recent work</p>${title2(['Details.', 'Up close.'])}</div>
+    <div class="work__grid">${c.gallery.slice(0, 6).map((g, i) => `<figure class="shot reveal">${img(g.img, g.cap, i === 0 ? '(max-width: 560px) 100vw, 64vw' : '(max-width: 560px) 50vw, 32vw')}<figcaption>${esc(g.cap)}</figcaption></figure>`).join('')}</div>
   </div>
 </section>
 
-<section class="why">
-  <div class="wrap why__grid">
-    <div class="why__head">
-      <p class="label">Why ${esc(c.short)}</p>
-      ${title2(c.why.title)}
-    </div>
-    <ol class="why__list">
-      ${c.why.items.map((w, i) => `<li class="reveal"><span>${String(i + 1).padStart(2, '0')}</span><h3>${esc(w.t)}</h3><p>${esc(w.d)}</p></li>`).join('')}
-    </ol>
-  </div>
-</section>
+
 
 <section class="reviews">
   <div class="wrap">

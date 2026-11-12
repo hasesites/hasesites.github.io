@@ -81,30 +81,6 @@
       });
     });
 
-    // ── Process: pinned on desktop; each step swaps photo with a quick wipe
-    const proc = $('[data-process]');
-    if (proc) {
-      const steps = $$('[data-step]', proc), pics = $$('[data-pm]', proc), bar = $('[data-process-bar]');
-      let cur = 0;
-      const show = (i) => {
-        if (i === cur) return;
-        const dir = i > cur ? 1 : -1, prev = cur; cur = i;
-        steps.forEach((s, k) => s.classList.toggle('is-on', k === i));
-        pics.forEach((p, k) => { p.style.zIndex = k === i ? 2 : k === prev ? 1 : 0; p.classList.toggle('is-on', k === i || k === prev); });
-        if (reduced) { pics.forEach((p, k) => p.classList.toggle('is-on', k === i)); return; }
-        gsap.fromTo(steps[i], { y: 22 * dir, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45 });
-        gsap.fromTo(pics[i], { clipPath: dir > 0 ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.6, ease: 'power3.inOut', overwrite: true, onComplete: () => { if (cur === i) pics.forEach((p, k) => { if (k !== i) p.classList.remove('is-on'); }); } });
-        gsap.fromTo($('img', pics[i]), { scale: 1.12 }, { scale: 1, duration: 0.9, overwrite: true });
-      };
-      ScrollTrigger.matchMedia({ '(min-width: 761px)': () => {
-        const st = ScrollTrigger.create({ trigger: proc, start: 'top top', end: 'bottom bottom', onUpdate: (s) => {
-          bar.style.transform = `scaleX(${s.progress})`;
-          show(Math.min(steps.length - 1, Math.floor(s.progress * steps.length * 0.999)));
-        } });
-        return () => st.kill();
-      } });
-    }
-
     if (reduced) return;
 
     // ── Hero: one confident entrance, then a light parallax tied to scroll
@@ -129,25 +105,6 @@
     ScrollTrigger.batch('.svc__row', { start: 'top 94%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, stagger: 0.05 }) });
     gsap.set('.pkg', { opacity: 0, y: 30 });
     ScrollTrigger.batch('.pkg', { start: 'top 92%', once: true, onEnter: (els) => gsap.to(els, { y: 0, opacity: 1, stagger: 0.07 }) });
-
-    // ── Feature: the frame opens to full bleed as you scroll through it
-    const fm = $('[data-feature-media]');
-    if (fm) {
-      const mobile = !desktop.matches;
-      const tl = gsap.timeline({ scrollTrigger: { trigger: '[data-feature]', start: 'top top', end: 'bottom bottom', scrub: true } });
-      tl.fromTo(fm, { clipPath: mobile ? 'inset(24% 8% 30% 8%)' : 'inset(18% 24% 18% 24%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', duration: 0.7 })
-        .fromTo($('img', fm), { scale: 1.2 }, { scale: 1, ease: 'none', duration: 0.7 }, 0)
-        .to('.feature__side', { opacity: 1, duration: 0.15 }, 0.62)
-        .to({}, { duration: 0.23 });
-    }
-
-    // ── Work: horizontal on desktop, native swipe on mobile
-    ScrollTrigger.matchMedia({ '(min-width: 761px)': () => {
-      const tr = $('[data-track]'), n = $('[data-work-n]'), shots = $$('[data-shot]');
-      const dist = () => Math.max(0, tr.scrollWidth - innerWidth);
-      const tw = gsap.to(tr, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '[data-work]', pin: '.work__sticky', start: 'top top', end: () => '+=' + dist(), scrub: true, invalidateOnRefresh: true, onUpdate: (s) => { n.textContent = String(Math.min(shots.length, 1 + Math.round(s.progress * (shots.length - 1)))).padStart(2, '0'); } } });
-      return () => { tw.scrollTrigger && tw.scrollTrigger.kill(); tw.kill(); gsap.set(tr, { x: 0 }); };
-    } });
 
     // ── Footer wordmark
     gsap.from('[data-foot]', { yPercent: 40, opacity: 0, duration: 0.8, ease: 'power4.out', scrollTrigger: { trigger: '[data-foot]', start: 'top 98%', once: true } });

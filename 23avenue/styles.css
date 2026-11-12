@@ -231,3 +231,16 @@ a { color: inherit; }
 .seg button { font-weight: 300; font-size: 13px; letter-spacing: .1em; }
 .cats button { font-weight: 300; font-size: 12.5px; letter-spacing: .06em; }
 @media (max-width: 640px) { .cats button { font-size: 10.5px; letter-spacing: .03em; } .seg button { font-size: 12px; padding: 11px 16px; } }
+
+/* 12.11e: насыщеннее, как в фирменных фото (розовый + золото); названия и прайс — Unbounded капсом */
+:root { --soft: #FCEEF5; --pink: #F8D5E6; --pink-2: #EDB3CF; --accent: #CC5B98; --gold: #C59A3E; }
+.hero h1 em { color: var(--accent); }
+.tabs button { font: 300 12px/1 var(--f-c); letter-spacing: .06em; text-transform: uppercase; }
+.tabs button[aria-selected="true"] { background: var(--pink); border-color: var(--pink-2); color: var(--ink); }
+.ptable td:first-child, .plist .nm { font: 400 13px/1.45 var(--f-c); letter-spacing: .03em; text-transform: uppercase; }
+.ptable th b, .ptable td[data-lv]::before { font-family: var(--f-c); font-weight: 400; letter-spacing: .08em; text-transform: uppercase; }
+.pd-body b { font: 400 13.5px/1.35 var(--f-c); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 2px; }
+.lv b { background: var(--pink); border: 1px solid var(--gold); font-family: var(--f-c); font-weight: 400; text-transform: uppercase; }
+.seg-pill { background: var(--ink); }
+.btn-dark:hover { background: var(--accent); border-color: var(--accent); }
+@media (max-width: 760px) { .ptable td:first-child { font-size: 12.5px; } }
