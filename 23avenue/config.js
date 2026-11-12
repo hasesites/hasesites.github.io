@@ -251,9 +251,14 @@ window.SITE = {
       { name: 'Calm Body Cream', vol: '250 мл', text: 'Крем для тела', price: null },
       { name: 'Calm Shower Gel', vol: '300 мл', text: 'Гель для душа: очищает, не пересушивая кожу, бережёт её pH', price: null },
     ] },
+    { title: 'Украшения', photo: 'img/ring-feather.webp', alt: 'Кольцо с камнем-сердцем на руке', items: [
+      { name: 'Кольцо с сердцем', vol: '', text: 'Камень-сердце в центре и дорожка багетов', price: null },
+      { name: 'Новая коллекция', vol: '', text: 'Скоро покажем все украшения — посмотреть можно в салоне', price: null },
+    ] },
   ],
 
   gallery: [
+    { img: 'ring-hand', alt: 'Кольцо с сердцем — украшения в салоне' },
     { img: 'red', alt: 'Маникюр с бордовым гель-лаком' },
     { img: 'nails', alt: 'Нюдовый френч' },
     { img: 'browwork', alt: 'Мастер бровей за работой' },

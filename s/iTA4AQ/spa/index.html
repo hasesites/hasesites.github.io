@@ -115,7 +115,7 @@ a { color: inherit; }
 .pg ol li { counter-increment: s; display: flex; gap: 12px; padding: 7px 0; font-size: 14px; border-top: 1px dashed rgba(255, 255, 255, .14); }
 .pg ol li::before { content: counter(s, decimal-leading-zero); color: var(--amber-2); font-size: 11.5px; padding-top: 2px; }
 .pg-f { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, .2); }
-.pg-f b { font: 500 34px/1 var(--f-d); color: var(--amber-2); }
+.pg-f b { font: 500 34px/1 var(--f-d); color: var(--amber-2); white-space: nowrap; }
 .pg-f small { color: rgba(255, 255, 255, .65); font-size: 13px; }
 .pg-f a { margin-left: auto; color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--amber); padding-bottom: 2px; }
 
@@ -124,6 +124,10 @@ a { color: inherit; }
 .tabs::-webkit-scrollbar { display: none; }
 .tabs button { flex: none; padding: 12px 22px; border-radius: 99px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font: 500 15px/1 var(--f-b); cursor: pointer; transition: background .3s, color .3s, border-color .3s; }
 .tabs button:hover { border-color: var(--amber); }
+.pg-tabs { margin: -14px 0 26px; }
+.pg-tabs button { background: transparent; color: #fff; border-color: rgba(255,255,255,.22); }
+.tabs.pg-tabs button[aria-selected="true"] { background: var(--amber); border-color: var(--amber); color: #1b1410; }
+.pg-tabs button small { opacity: .6; font-size: 12px; margin-left: 4px; }
 .tabs button[aria-selected="true"] { background: var(--wood); border-color: var(--wood); color: #fff; }
 .plist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
 .plist li { display: flex; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--line); animation: rise .6s var(--ease) both; }
@@ -177,6 +181,23 @@ a { color: inherit; }
 .js .rv { opacity: 0; transform: translateY(30px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
 .js .rv.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .rise, .js .rv { opacity: 1; transform: none; } }
+
+/* ── motion layer (12.11) ── */
+.steam { position: absolute; inset: -10%; pointer-events: none; z-index: 1; mix-blend-mode: screen; }
+.steam i { position: absolute; width: 60vw; height: 60vw; max-width: 900px; max-height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 236, 214, .16), rgba(255, 236, 214, 0) 62%); filter: blur(20px); animation: drift 22s ease-in-out infinite alternate; }
+.steam i:nth-child(1) { left: -8%; bottom: -20%; }
+.steam i:nth-child(2) { left: 30%; bottom: -35%; animation-duration: 28s; animation-delay: -6s; }
+.steam i:nth-child(3) { right: -12%; top: -10%; width: 45vw; height: 45vw; animation-duration: 34s; animation-delay: -12s; opacity: .7; }
+@keyframes drift { 0% { transform: translate3d(0, 0, 0) scale(1); } 100% { transform: translate3d(6%, -10%, 0) scale(1.15); } }
+.hero-in { z-index: 2; }
+.gs .hero .rise { animation: none; opacity: 1; transform: none; }
+.hero h1 .w { display: inline-block; }
+.pg { position: relative; overflow: hidden; transform-style: preserve-3d; will-change: transform; }
+.pg::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .4s; background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), rgba(226, 183, 126, .22), transparent 60%); }
+.pg:hover::before { opacity: 1; }
+.pg > * { position: relative; }
+.gal figure img { height: 116%; margin-top: -8%; }
+@media (prefers-reduced-motion: reduce) { .steam { display: none; } }
 </style>
 </head>
 <body>
@@ -193,6 +214,7 @@ a { color: inherit; }
 <main>
   <section class="hero" id="top">
     <div class="hero-bg"><img src="img/lounge.webp" alt="" fetchpriority="high"></div>
+    <div class="steam" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="wrap hero-in">
       <p class="eyebrow rise">Спа-салон · Калуга</p>
       <h1 class="rise" style="animation-delay:.1s">Время, которое вы <em>дарите себе</em></h1>
@@ -201,7 +223,7 @@ a { color: inherit; }
         <a class="btn btn-amber" href="#programs"><span>Выбрать программу</span></a>
         <a class="btn btn-ghost" data-book target="_blank" rel="noopener"><span>Записаться онлайн</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10h10M11 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
-      <div class="hero-meta rise" style="animation-delay:.55s"><span><b>7</b> спа-программ в хаммаме</span><span><b>20+</b> видов массажа</span><span>улица Гагарина, 13</span></div>
+      <div class="hero-meta rise" style="animation-delay:.55s"><span><b>40+</b> спа-программ</span><span><b>20+</b> видов массажа</span><span>улица Гагарина, 13</span></div>
     </div>
   </section>
 
@@ -233,12 +255,13 @@ a { color: inherit; }
   <section class="sec progs" id="programs">
     <div class="wrap pg-head">
       <div>
-        <p class="eyebrow rv">Спа-программы в хаммаме</p>
-        <h2 class="h2 rv">Ритуалы <em>на одну персону</em></h2>
-        <p class="sub rv">Каждая программа — это несколько процедур подряд: пар, уход за телом, массаж и отдых. Выберите настроение.</p>
+        <p class="eyebrow rv">Спа-программы</p>
+        <h2 class="h2 rv">Ритуалы <em>для себя, для двоих и для компании</em></h2>
+        <p class="sub rv">Хаммам, кедровая бочка или финская сауна, затем уход, массаж и отдых. Выберите раздел и настроение.</p>
       </div>
       <div class="pg-ctrl"><button class="circ" type="button" data-pg="-1" aria-label="Назад"><svg viewBox="0 0 20 20"><path d="M12 5l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button><button class="circ" type="button" data-pg="1" aria-label="Вперёд"><svg viewBox="0 0 20 20"><path d="M8 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></div>
     </div>
+    <div class="wrap"><div class="tabs pg-tabs" role="tablist" data-pgtabs></div></div>
     <div class="pg-track" data-programs></div>
   </section>
 
@@ -297,6 +320,8 @@ a { color: inherit; }
 <footer class="ftr"><div class="wrap"><a class="logo" href="#top"><b>СОЛА’НА</b><small>спа салон</small></a><span data-faddr></span><span>Сайт сделан в HASE Studio</span></div></footer>
 <a class="fab" data-book target="_blank" rel="noopener">Записаться онлайн</a>
 
+<script src="../../../us/_engine/vendor/gsap.min.js"></script>
+<script src="../../../us/_engine/vendor/ScrollTrigger.min.js"></script>
 <script src="data.js"></script>
 <script>
 (function () {
@@ -320,18 +345,26 @@ a { color: inherit; }
   var half = words.map(function (w) { return '<span>' + w + '</span>'; }).join('');
   $('[data-mq]').innerHTML = half + half + half + half;
 
-  // программы
-  $('[data-programs]').innerHTML = D.programs.map(function (p, k) {
-    return '<article class="pg"><span class="pg-n">' + (k < 9 ? '0' : '') + (k + 1) + (p.time ? ' · ' + esc(p.time) : '') + '</span><h3>' + esc(p.name) + '</h3><p>' + esc(p.text) + '</p>' +
-      '<ol>' + p.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>' +
-      '<div class="pg-f"><b>' + rub(p.price) + '</b><a href="' + D.booking + '" target="_blank" rel="noopener">Записаться</a></div></article>';
-  }).join('');
-  var track = $('[data-programs]');
+  // программы по разделам
+  var groups = (D.programGroups || [{ id: 'hammam', title: 'Хаммам', items: 'programs' }]).map(function (g) { return { id: g.id, title: g.title, sub: g.sub, items: g.items === 'programs' ? D.programs : g.items }; });
+  var pgTab = groups[0].id, pgTabs = $('[data-pgtabs]'), track = $('[data-programs]');
+  function renderPrograms() {
+    pgTabs.innerHTML = groups.map(function (g) { return '<button type="button" role="tab" data-pt="' + g.id + '" aria-selected="' + (g.id === pgTab) + '">' + esc(g.title) + ' <small>' + g.items.length + '</small></button>'; }).join('');
+    var g = groups.filter(function (x) { return x.id === pgTab; })[0];
+    track.innerHTML = g.items.map(function (p, k) {
+      return '<article class="pg"><span class="pg-n">' + (k < 9 ? '0' : '') + (k + 1) + (p.time ? ' · ' + esc(p.time) : '') + '</span><h3>' + esc(p.name) + '</h3><p>' + esc(p.text) + '</p>' +
+        (p.steps && p.steps.length ? '<ol>' + p.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>' : '<div style="flex:1"></div>') +
+        '<div class="pg-f"><b>' + rub(p.price) + '</b>' + (g.sub ? '<small>' + esc(g.sub) + '</small>' : '') + '<a href="' + D.booking + '" target="_blank" rel="noopener">Записаться</a></div></article>';
+    }).join('');
+    track.scrollLeft = 0;
+  }
+  pgTabs.addEventListener('click', function (e) { var t = e.target.closest('[data-pt]'); if (t) { pgTab = t.getAttribute('data-pt'); renderPrograms(); } });
+  renderPrograms();
   $$('[data-pg]').forEach(function (b) { b.addEventListener('click', function () { track.scrollBy({ left: 378 * Number(b.getAttribute('data-pg')), behavior: reduce ? 'auto' : 'smooth' }); }); });
 
   // прайс
   var progGroup = D.price.filter(function (g) { return g.id === 'programs'; })[0];
-  if (progGroup) progGroup.items = D.programs.map(function (p) { return { name: 'Спа-программа «' + p.name + '»', note: p.steps.join(' · '), price: p.price }; });
+  if (progGroup) progGroup.items = [].concat.apply([], groups.map(function (g) { return g.items.map(function (p) { return { name: '«' + p.name + '» · ' + g.title.toLowerCase(), note: (p.steps || []).join(' · ') + (g.sub ? (p.steps && p.steps.length ? ' · ' : '') + g.sub : ''), price: p.price }; }); }));
   var tab = D.price[0].id, tabs = $('[data-tabs]'), list = $('[data-plist]');
   function render() {
     tabs.innerHTML = D.price.map(function (g) { return '<button type="button" role="tab" data-t="' + g.id + '" aria-selected="' + (g.id === tab) + '">' + esc(g.title) + '</button>'; }).join('');
@@ -345,6 +378,79 @@ a { color: inherit; }
 
   // галерея
   $('[data-gal]').innerHTML = D.gallery.map(function (g) { return '<figure class="' + (g.wide ? 'w' : 't') + ' rv"><img src="' + IMG(g.img) + '" alt="' + esc(g.alt) + '" loading="lazy"><figcaption>' + esc(g.alt) + '</figcaption></figure>'; }).join('');
+
+
+  // ── motion (GSAP): кинематографичный вход, глубина, раскрытие фото, переходы секций
+  (function motion() {
+    var g = window.gsap, ST = window.ScrollTrigger;
+    if (!g || !ST || reduce) return;
+    g.registerPlugin(ST);
+    document.documentElement.classList.add('gs');
+    var fine = matchMedia('(hover: hover) and (pointer: fine)').matches, mob = innerWidth < 761;
+
+    // 1. Первый экран: фото раскрывается из арки, заголовок проявляется сквозь «пар»
+    var h1 = $('.hero h1');
+    var words = [];
+    [].slice.call(h1.childNodes).forEach(function (n) {
+      var wrap = function (txt, em) { return txt.split(/(\s+)/).map(function (t) { return /^\s+$/.test(t) || !t ? t : '<span class="w">' + (em ? '<em>' + t + '</em>' : t) + '</span>'; }).join(''); };
+      if (n.nodeType === 3) { var d = document.createElement('span'); d.innerHTML = wrap(n.textContent, false); n.replaceWith.apply(n, [].slice.call(d.childNodes)); }
+      else if (n.tagName === 'EM') { var e = document.createElement('span'); e.innerHTML = wrap(n.textContent, true); n.replaceWith.apply(n, [].slice.call(e.childNodes)); }
+    });
+    words = $$('.w', h1);
+    var bg = $('.hero-bg'), bgImg = $('.hero-bg img');
+    bgImg.style.animation = 'none';
+    var tl = g.timeline({ defaults: { ease: 'power3.out' } });
+    tl.fromTo(bg, { clipPath: mob ? 'inset(22% 18% 0% 18% round 400px 400px 0px 0px)' : 'inset(14% 34% 0% 34% round 600px 600px 0px 0px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px 0px 0px 0px)', duration: 1.5, ease: 'power3.inOut' })
+      .fromTo(bgImg, { scale: 1.3 }, { scale: 1.06, duration: 1.9, ease: 'power2.out' }, 0)
+      .fromTo('.steam', { opacity: 0 }, { opacity: 1, duration: 1.6 }, .6)
+      .fromTo(words, { opacity: 0, y: 34, filter: 'blur(14px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.1, stagger: .07 }, .75)
+      .fromTo(['.hero .eyebrow', '.hero .lead', '.hero .cta', '.hero-meta'], { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: .8, stagger: .08 }, 1.05)
+      .fromTo('.hdr', { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: .7 }, 1.1);
+
+    // 2. Глубина: слои первого экрана расходятся при движении курсора и прокрутке
+    if (fine) {
+      var ix = g.quickTo(bgImg, 'x', { duration: 1.2, ease: 'power3' }), iy = g.quickTo(bgImg, 'y', { duration: 1.2, ease: 'power3' });
+      var sx = g.quickTo('.steam', 'x', { duration: 1.6, ease: 'power3' }), sy = g.quickTo('.steam', 'y', { duration: 1.6, ease: 'power3' });
+      var tx = g.quickTo('.hero-in', 'x', { duration: 1, ease: 'power3' });
+      $('.hero').addEventListener('pointermove', function (e) { var x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5; ix(x * -26); iy(y * -18); sx(x * 60); sy(y * 40); tx(x * 10); });
+    }
+    g.to(bgImg, { yPercent: 14, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+    g.to('.hero-in', { opacity: 0, yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.hero', start: '30% top', end: 'bottom top', scrub: true } });
+
+    // 3. Раскрытие фотографий: арки пространства и галерея проявляются снизу, внутри — параллакс
+    $$('.space-ph figure').forEach(function (f, k) {
+      var im = $('img', f);
+      g.fromTo(f, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'power4.inOut', delay: k * .12, scrollTrigger: { trigger: '.space-ph', start: 'top 80%', once: true } });
+      g.fromTo(im, { scale: 1.35 }, { scale: 1, duration: 1.8, ease: 'power3.out', delay: k * .12, scrollTrigger: { trigger: '.space-ph', start: 'top 80%', once: true } });
+    });
+    $$('.space-ph').forEach(function (el) { el.classList.add('in'); });
+    ST.batch('.gal figure', { start: 'top 88%', once: true, onEnter: function (els) {
+      g.fromTo(els, { clipPath: 'inset(100% 0% 0% 0% round 22px)' }, { clipPath: 'inset(0% 0% 0% 0% round 22px)', duration: 1.1, ease: 'power4.inOut', stagger: .1 });
+    } });
+    $$('.gal figure').forEach(function (f) { f.classList.add('in'); g.fromTo($('img', f), { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: f, start: 'top bottom', end: 'bottom top', scrub: true } }); });
+    g.fromTo('.cert-ph img', { scale: 1.2 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.cert', start: 'top bottom', end: 'center center', scrub: true } });
+
+    // 4. Переходы секций: тёмные разделы «поднимаются» скруглённым занавесом
+    $$('.progs, .book').forEach(function (sec) {
+      g.fromTo(sec, { clipPath: mob ? 'inset(0% 3% 0% 3% round 36px 36px 0px 0px)' : 'inset(0% 4% 0% 4% round 80px 80px 0px 0px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px 0px 0px 0px)', ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'top 25%', scrub: true } });
+    });
+
+    // 5. Карточки программ: тёплый свет под курсором, наклон, волна при смене раздела
+    function bindCards() {
+      $$('.pg').forEach(function (c) {
+        if (c._b) return; c._b = 1;
+        if (!fine) return;
+        var rx = g.quickTo(c, 'rotationX', { duration: .5, ease: 'power3' }), ry = g.quickTo(c, 'rotationY', { duration: .5, ease: 'power3' });
+        c.addEventListener('pointermove', function (e) { var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height; c.style.setProperty('--mx', x * 100 + '%'); c.style.setProperty('--my', y * 100 + '%'); rx((.5 - y) * 6); ry((x - .5) * 8); });
+        c.addEventListener('pointerleave', function () { rx(0); ry(0); });
+      });
+    }
+    $('[data-programs]').style.perspective = '1200px';
+    bindCards();
+    var animCards = function () { bindCards(); g.fromTo('.pg', { opacity: 0, x: 70, rotationY: -8 }, { opacity: 1, x: 0, rotationY: 0, duration: .8, stagger: .06, ease: 'power3.out', clearProps: 'transform' }); };
+    $('[data-pgtabs]').addEventListener('click', function (e) { if (e.target.closest('[data-pt]')) setTimeout(animCards, 0); });
+    ST.create({ trigger: '[data-programs]', start: 'top 85%', once: true, onEnter: animCards });
+  })();
 
   // шапка, меню, кнопка
   var hdr = $('#hdr'), fab = $('.fab'), burger = $('.burger'), mnav = $('.mnav');
