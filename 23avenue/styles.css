@@ -255,3 +255,7 @@ a { color: inherit; }
 @media (max-width: 560px) { .pd .pd-duo img { aspect-ratio: 3 / 4; } }
 /* 12.11h: «холоднее» — розовый уведён в холодный, к сиреневому */
 :root { --accent: #B25CB0; --pink: #F3D6EE; --pink-2: #E2B4DD; --soft: #FAEEF8; }
+
+/* 13.11: правки салона — белая обводка у значков уровня мастеров вместо горчичной; названия косметики розово-фиолетовым, как «23» */
+.lv b { border-color: #fff; }
+.pd-body b { color: var(--accent); }
