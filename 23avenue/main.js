@@ -103,6 +103,15 @@
     tab = id; setBranch(cur, true);
   });
 
+  // ---------- команда ----------
+  var teamEl = $('[data-team]');
+  if (S.team && S.team.length) {
+    teamEl.innerHTML = S.team.map(function (m) {
+      return '<article class="tm rv"><figure><img src="' + IMG(m.photo) + '" alt="' + esc(m.name + ', ' + m.role.toLowerCase()) + '" loading="lazy"></figure>' +
+        '<h3>' + esc(m.name) + '</h3><p>' + esc(m.role) + '</p>' + (m.branch ? '<small>Салон на ' + esc(m.branch) + '</small>' : '') + '</article>';
+    }).join('');
+  } else { teamEl.remove(); var lt = $('.lv-title'); if (lt) lt.remove(); }
+
   // ---------- уровни ----------
   $('[data-levels]').innerHTML = S.levels.map(function (l) {
     var short = l.text.split('. ')[0].replace(/\.$/, '') + '.';
