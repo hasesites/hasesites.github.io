@@ -193,7 +193,7 @@ window.SITE = {
     { name: 'Марина Антонян', role: 'Старший мастер', photo: 'team-marina-v2' },
     { name: 'Евгения', role: 'Топ-мастер ногтевого сервиса', branch: 'Суворова', photo: 'team-evgenia' },
     { name: 'Оксана', role: 'Старший мастер ногтевого сервиса', photo: 'team-oksana' },
-    { name: 'Сюзана', role: 'Мастер-бровист', branch: 'Суворова', photo: 'team-suzana-v2' },
+    { name: 'Сюзана', role: 'Мастер-бровист', branch: 'Суворова', photo: 'team-suzana-v3' },
     { name: 'Юлия Левченко', role: 'Мастер бровей, визажист, стилист по укладке', photo: 'team-yulia' },
     { name: 'София', role: 'Косметолог', photo: 'team-sofia' },
   ],
